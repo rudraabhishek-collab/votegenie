@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Election Guide — Interactive Voter Assistant</title>
+<meta name="description" content="Your interactive guide to voting. Check eligibility, register, and learn the process step by step."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM DESIGN SYSTEM — Startup Landing Page
+═══════════════════════════════════════════════════════════ */
+:root{
+  /* Brand Colors */
+  --accent:#6366f1;--accent2:#8b5cf6;--accent3:#ec4899;
+  --accent-light:#eef2ff;--accent-dark:#4338ca;
+  --accent-glow:rgba(99,102,241,.25);
+  --green:#10b981;--red:#ef4444;--amber:#f59e0b;
+  
+  /* Surfaces */
+  --bg:#fafbff;
+  --surface:#ffffff;
+  --surface-2:#f8fafc;
+  --surface-glass:rgba(255,255,255,.88);
+  --border:rgba(99,102,241,.08);
+  --border-strong:rgba(99,102,241,.15);
+  
+  /* Text */
+  --text:#0f172a;
+  --text-muted:#64748b;
+  --text-light:#94a3b8;
+  
+  /* Geometry */
+  --radius:20px;--radius-sm:12px;--radius-lg:28px;--radius-xl:40px;
+  
+  /* Shadows — Premium layered */
+  --shadow:0 1px 2px rgba(0,0,0,.02),0 4px 12px rgba(99,102,241,.04),0 8px 24px rgba(99,102,241,.03);
+  --shadow-md:0 2px 4px rgba(0,0,0,.03),0 8px 24px rgba(99,102,241,.08),0 16px 48px rgba(99,102,241,.06);
+  --shadow-lg:0 4px 8px rgba(0,0,0,.04),0 16px 48px rgba(99,102,241,.12),0 32px 80px rgba(99,102,241,.08);
+  --shadow-xl:0 8px 16px rgba(0,0,0,.05),0 24px 64px rgba(99,102,241,.15),0 48px 120px rgba(99,102,241,.1);
+  
+  /* Timing */
+  --t:.28s cubic-bezier(.4,0,.2,1);
+  --t-slow:.45s cubic-bezier(.34,1.56,.64,1);
+  
+  /* Layout */
+  --max-w:1100px;--nav-h:72px;
+}
+
+[data-theme=dark]{
+  --bg:#0a0d1f;
+  --surface:#111827;
+  --surface-2:#1a2236;
+  --surface-glass:rgba(17,24,39,.92);
+  --border:rgba(139,92,246,.12);
+  --border-strong:rgba(139,92,246,.2);
+  --text:#f1f5f9;
+  --text-muted:#94a3b8;
+  --text-light:#64748b;
+  --accent-light:#1e1b4b;
+  --accent-glow:rgba(139,92,246,.35);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 12px rgba(139,92,246,.15),0 8px 24px rgba(139,92,246,.12);
+  --shadow-md:0 2px 4px rgba(0,0,0,.4),0 8px 24px rgba(139,92,246,.2),0 16px 48px rgba(139,92,246,.15);
+  --shadow-lg:0 4px 8px rgba(0,0,0,.5),0 16px 48px rgba(139,92,246,.25),0 32px 80px rgba(139,92,246,.18);
+  --shadow-xl:0 8px 16px rgba(0,0,0,.6),0 24px 64px rgba(139,92,246,.3),0 48px 120px rgba(139,92,246,.2);
+}
+
+/* ═══ RESET & BASE ═════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.7;
+  transition:background var(--t),color var(--t);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  position:relative;overflow-x:hidden
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,.08),transparent),
+    radial-gradient(ellipse 60% 80% at 100% 100%,rgba(139,92,246,.06),transparent);
+  opacity:1;transition:opacity var(--t)
+}
+[data-theme=dark] body::before{
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(139,92,246,.15),transparent),
+    radial-gradient(ellipse 60% 80% at 100% 100%,rgba(236,72,153,.08),transparent)
+}
+a{color:var(--accent);text-decoration:none;transition:color var(--t)}
+a:hover{color:var(--accent-dark);text-decoration:none}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+ul{list-style:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:4px;border-radius:6px}
+
+/* ═══ ANIMATED ORBS ════════════════════════════════════════ */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;pointer-events:none;z-index:0}
+.orb-1{width:600px;height:600px;background:linear-gradient(135deg,#6366f1,#8b5cf6);top:-200px;right:-200px;animation:float 20s infinite ease-in-out}
+.orb-2{width:500px;height:500px;background:linear-gradient(135deg,#ec4899,#f59e0b);bottom:-150px;left:-150px;animation:float 25s infinite ease-in-out reverse}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.05)}}
+[data-theme=dark] .orb{opacity:.25}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════════ -->
+<header>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-brand">
+    <div class="brand-icon" aria-hidden="true">🗳️</div>
+    Election<span class="brand-dot">Guide</span>
+  </div>
+  <ul class="nav-links" role="list">
+    <li><a href="#overview" class="nav-link">Overview</a></li>
+    <li><a href="#timeline" class="nav-link">Key Dates</a></li>
+    <li><a href="#eligibility" class="nav-link">Eligibility</a></li>
+    <li><a href="#guide" class="nav-link">Voting Guide</a></li>
+    <li><a href="#faq" class="nav-link">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="search-wrap">
+      <input type="search" id="globalSearch" placeholder="Ask anything…" aria-label="Search or ask a question" autocomplete="off"/>
+      <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
+    </div>
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
+</nav>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="#overview" class="mobile-link">📋 Overview</a>
+  <a href="#timeline" class="mobile-link">📅 Key Dates</a>
+  <a href="#eligibility" class="mobile-link">✅ Eligibility</a>
+  <a href="#guide" class="mobile-link">🗳️ Voting Guide</a>
+  <a href="#faq" class="mobile-link">❓ FAQ</a>
+</nav>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════ -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="hero-badge-dot" aria-hidden="true"></span>First-Time Voter Assistant</div>
+    <h1 id="hero-heading" class="fade-up">Your vote matters.<br><em>Let's make it count.</em></h1>
+    <p class="fade-up-2">A step-by-step interactive guide that checks your eligibility, walks you through registration, and prepares you for election day.</p>
+    <div class="hero-cta fade-up-3">
+      <button class="btn btn-primary" id="heroStartBtn" onclick="openAssistant()">🚀 Start Assistant</button>
+      <a href="#overview" class="btn btn-outline">📋 How It Works</a>
+    </div>
+    <div class="hero-stats fade-up-3">
+      <div class="hero-stat"><div class="hero-stat-num">5 min</div><div class="hero-stat-label">to complete</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">3 steps</div><div class="hero-stat-label">to register</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">non-partisan</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROGRESS TRACKER ══════════════════════════════════════ -->
+<div class="progress-section" aria-label="Your voter journey">
+  <div class="progress-inner">
+    <p class="progress-label">Your Voter Journey</p>
+    <div class="progress-steps" id="progressSteps" role="list"></div>
+  </div>
+</div>
+
+<!-- ═══ MAIN ══════════════════════════════════════════════════ -->
+<main class="main" id="main-content">
+
+<!-- OVERVIEW -->
+<section class="section" id="overview" aria-labelledby="overview-h">
+  <div class="section-header">
+    <span class="section-tag">How It Works</span>
+    <h2 id="overview-h">The election process, step by step</h2>
+    <p>Elections follow a clear process. Here's the big picture so nothing surprises you.</p>
+  </div>
+  <div class="card-grid" id="overviewCards"></div>
+</section>
+
+<!-- INTERACTIVE TIMELINE -->
+<section class="section" id="timeline" aria-labelledby="timeline-h">
+  <div class="section-header">
+    <span class="section-tag">Key Dates</span>
+    <h2 id="timeline-h">Important deadlines to know</h2>
+    <p>Click any stage to expand details. Missing a deadline can mean missing your vote.</p>
+  </div>
+  <div class="timeline-scroll-wrap">
+    <div class="h-timeline" id="hTimeline" role="list"></div>
+  </div>
+  <div class="timeline-detail-panel" id="timelineDetail" aria-live="polite"></div>
+  <div class="callout"><span class="callout-icon">💡</span><span>Dates shown are sample data. Always verify with your official local election authority.</span></div>
+</section>
+
+<!-- ELIGIBILITY CHECKER -->
+<section class="section" id="eligibility" aria-labelledby="elig-h">
+  <div class="section-header">
+    <span class="section-tag">Eligibility</span>
+    <h2 id="elig-h">Check your eligibility</h2>
+    <p>Fill in the form below to instantly find out if you can vote.</p>
+  </div>
+  <div class="elig-card" id="eligCard">
+    <div class="elig-form-wrap" id="eligFormWrap">
+      <div class="elig-form-grid">
+        <div class="form-field">
+          <label for="eligAge">Your Age</label>
+          <input type="number" id="eligAge" min="1" max="120" placeholder="e.g. 20" aria-required="true"/>
+          <span class="field-err" id="ageErr"></span>
+        </div>
+        <div class="form-field">
+          <label for="eligCitizen">Citizenship Status</label>
+          <select id="eligCitizen" aria-required="true">
+            <option value="">— Select —</option>
+            <option value="citizen">Citizen by birth or naturalization</option>
+            <option value="pr">Permanent Resident</option>
+            <option value="visa">Visa holder / Non-resident</option>
+            <option value="other">Other</option>
+          </select>
+          <span class="field-err" id="citizenErr"></span>
+        </div>
+        <div class="form-field">
+          <label for="eligState">State / Region</label>
+          <select id="eligState" aria-required="true">
+            <option value="">— Select State —</option>
+          </select>
+          <span class="field-err" id="stateErr"></span>
+        </div>
+        <div class="form-field">
+          <label for="eligConviction">Any felony conviction?</label>
+          <select id="eligConviction">
+            <option value="no">No</option>
+            <option value="yes_serving">Yes — currently serving sentence</option>
+            <option value="yes_completed">Yes — sentence completed</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-accent btn-full" id="eligSubmit" type="button">Check My Eligibility →</button>
+    </div>
+    <div class="elig-result" id="eligResult" aria-live="assertive"></div>
+  </div>
+</section>
+
+<!-- STEP-BY-STEP VOTING GUIDE -->
+<section class="section" id="guide" aria-labelledby="guide-h">
+  <div class="section-header">
+    <span class="section-tag">Voting Guide</span>
+    <h2 id="guide-h">Step-by-step voting guide</h2>
+    <p>Click each step to expand full details. Track your progress as you go.</p>
+  </div>
+  <div class="guide-progress-bar-wrap" aria-label="Guide completion">
+    <div class="guide-progress-track"><div class="guide-progress-fill" id="guideProgressFill"></div></div>
+    <span class="guide-progress-label" id="guideProgressLabel">0 of 3 steps completed</span>
+  </div>
+  <div class="guide-steps" id="guideSteps"></div>
+</section>
+
+<!-- DOCUMENTS -->
+<section class="section" id="documents" aria-labelledby="docs-h">
+  <div class="section-header">
+    <span class="section-tag">Documents</span>
+    <h2 id="docs-h">What you'll need</h2>
+    <p>Requirements vary by region. Confirm with your local authority.</p>
+  </div>
+  <div style="overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)">
+    <table class="docs-table" id="docsTable" aria-label="Required documents">
+      <thead><tr><th>Document</th><th>Purpose</th><th>Status</th></tr></thead>
+      <tbody id="docsBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" aria-labelledby="faq-h">
+  <div class="section-header">
+    <span class="section-tag">FAQ</span>
+    <h2 id="faq-h">Common questions answered</h2>
+    <p>Still have questions? Here are the ones we hear most often.</p>
+  </div>
+  <div class="faq-list" id="faqList"></div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">🗳️ ElectionGuide</div>
+  <p>A civic education resource for first-time voters.</p>
+  <p style="margin-top:.4rem">All information is for educational purposes only. Always verify with your official local election authority.</p>
+  <p style="margin-top:1rem"><a href="#overview">Back to top ↑</a></p>
+</footer>
+
+<!-- ═══ ASSISTANT WIZARD MODAL ════════════════════════════════ -->
+<div class="modal-overlay" id="assistantOverlay" role="dialog" aria-modal="true" aria-labelledby="assistantTitle">
+  <div class="modal-box" id="assistantBox">
+    <button class="modal-close" id="assistantClose" aria-label="Close assistant">✕</button>
+    <div class="assistant-header">
+      <div class="assistant-avatar">🤖</div>
+      <div>
+        <h2 id="assistantTitle">Voter Assistant</h2>
+        <p id="assistantSubtitle">Let's find out what you need to do</p>
+      </div>
+    </div>
+    <div class="wizard-progress" id="wizardProgress" aria-hidden="true"></div>
+    <div class="wizard-body" id="wizardBody"></div>
+  </div>
+</div>
+
+<!-- ═══ FLOATING CHAT BUTTON ══════════════════════════════════ -->
+<button class="fab" id="fabBtn" aria-label="Open voter assistant" title="Open Voter Assistant">
+  <span class="fab-icon">🗳️</span>
+  <span class="fab-label">Ask Assistant</span>
+  <span class="fab-ping" aria-hidden="true"></span>
+</button>
+
+<style>
+/* ═══ NAV ═══════════════════════════════════════════════════ */
+.nav{
+  position:sticky;top:0;z-index:200;height:var(--nav-h);
+  background:var(--surface-glass);
+  backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;box-shadow:0 1px 0 var(--border),var(--shadow);
+  transition:background var(--t),border-color var(--t)
+}
+.nav-brand{
+  font-weight:900;font-size:1.15rem;color:var(--text);
+  display:flex;align-items:center;gap:.6rem;letter-spacing:-.03em;
+  text-decoration:none
+}
+.brand-dot{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.brand-icon{
+  width:34px;height:34px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;box-shadow:0 4px 12px var(--accent-glow);
+  flex-shrink:0
+}
+.nav-links{display:flex;gap:.1rem;align-items:center}
+.nav-links a{
+  font-size:.82rem;font-weight:600;color:var(--text-muted);
+  padding:.45rem .85rem;border-radius:var(--radius-sm);
+  transition:all var(--t);letter-spacing:-.01em;position:relative
+}
+.nav-links a:hover{color:var(--text);background:var(--surface-2);text-decoration:none}
+.nav-links a.active{
+  color:var(--accent);background:var(--accent-light);font-weight:700;text-decoration:none
+}
+.nav-right{display:flex;align-items:center;gap:.6rem}
+.theme-btn{
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:50%;width:40px;height:40px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all var(--t)
+}
+.theme-btn:hover{background:var(--accent-light);border-color:var(--accent-glow);transform:rotate(20deg) scale(1.05)}
+.hamburger{display:none;background:none;border:none;font-size:1.4rem;color:var(--text);padding:.25rem}
+.mobile-menu{
+  display:none;position:fixed;inset:0;z-index:199;
+  background:var(--surface-glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  padding:calc(var(--nav-h) + 1.5rem) 1.5rem 2rem;flex-direction:column;gap:.5rem
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-size:1rem;font-weight:700;color:var(--text);
+  padding:.9rem 1.2rem;border-radius:var(--radius-sm);
+  border:1px solid var(--border);transition:all var(--t);
+  background:var(--surface)
+}
+.mobile-menu a:hover{background:var(--accent-light);color:var(--accent);border-color:var(--border-strong);text-decoration:none}
+
+/* ═══ SEARCH ════════════════════════════════════════════════ */
+.search-wrap{position:relative}
+.search-wrap input{
+  background:var(--surface-2);border:1.5px solid var(--border);
+  border-radius:999px;padding:.42rem 1rem .42rem 2.1rem;
+  font-size:.82rem;color:var(--text);font-family:inherit;width:190px;
+  transition:all var(--t);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left .7rem center
+}
+.search-wrap input:focus{
+  outline:none;border-color:var(--accent);width:230px;
+  box-shadow:0 0 0 4px var(--accent-glow);background-color:var(--surface)
+}
+.search-results{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);
+  max-height:280px;overflow-y:auto;z-index:300;display:none;
+  backdrop-filter:blur(16px)
+}
+.search-results.open{display:block;animation:fadeUp .2s ease both}
+.search-result-item{
+  padding:.7rem 1rem;font-size:.85rem;cursor:pointer;
+  border-bottom:1px solid var(--border);transition:background var(--t);
+  display:flex;align-items:center;gap:.5rem
+}
+.search-result-item::before{content:"→";color:var(--text-light);font-size:.75rem}
+.search-result-item:last-child{border-bottom:none}
+.search-result-item:hover{background:var(--accent-light);color:var(--accent)}
+.search-result-item mark{background:transparent;color:var(--accent);font-weight:800}
+.search-empty{padding:.85rem 1rem;font-size:.85rem;color:var(--text-muted);text-align:center}
+</style>
+
+<style>
+/* ═══ HERO ══════════════════════════════════════════════════ */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0f0c29 0%,#302b63 40%,#24243e 100%);
+  color:#fff;text-align:center;padding:7rem 1.5rem 6rem
+}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% -10%,rgba(99,102,241,.5),transparent 60%),
+    radial-gradient(ellipse 60% 60% at 0% 100%,rgba(139,92,246,.3),transparent 60%),
+    radial-gradient(ellipse 50% 50% at 100% 0%,rgba(236,72,153,.2),transparent 60%)
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  opacity:.04;
+  background-image:
+    linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);
+  background-size:60px 60px
+}
+.hero-orb-1{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.4),transparent 70%);top:-200px;left:50%;transform:translateX(-50%);pointer-events:none;animation:float 15s infinite ease-in-out}
+.hero-orb-2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.3),transparent 70%);bottom:-100px;right:10%;pointer-events:none;animation:float 20s infinite ease-in-out reverse}
+.hero-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;font-size:.75rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.4rem 1.1rem;margin-bottom:1.75rem;
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 0 1px rgba(255,255,255,.05) inset
+}
+.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.hero h1{
+  font-size:clamp(2.4rem,6vw,4rem);font-weight:900;
+  line-height:1.1;margin-bottom:1.25rem;letter-spacing:-.04em
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#a5b4fc,#f9a8d4,#fbbf24);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.hero p{font-size:1.15rem;opacity:.75;max-width:520px;margin:0 auto 2.5rem;line-height:1.75;font-weight:400}
+.hero-cta{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap}
+.hero-stats{
+  display:flex;justify-content:center;gap:0;
+  margin-top:4rem;padding-top:2.5rem;
+  border-top:1px solid rgba(255,255,255,.1)
+}
+.hero-stat{
+  text-align:center;flex:1;max-width:160px;
+  padding:0 1.5rem;position:relative
+}
+.hero-stat+.hero-stat::before{
+  content:"";position:absolute;left:0;top:20%;bottom:20%;
+  width:1px;background:rgba(255,255,255,.1)
+}
+.hero-stat-num{
+  font-size:1.8rem;font-weight:900;letter-spacing:-.04em;
+  background:linear-gradient(135deg,#fff,rgba(255,255,255,.7));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.hero-stat-label{font-size:.72rem;opacity:.55;font-weight:600;margin-top:.2rem;text-transform:uppercase;letter-spacing:.08em}
+
+/* ═══ BUTTONS ═══════════════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.8rem 1.75rem;border-radius:var(--radius-sm);
+  font-size:.92rem;font-weight:700;border:none;
+  transition:all var(--t);letter-spacing:-.01em;cursor:pointer;
+  position:relative;overflow:hidden
+}
+.btn::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,0));
+  opacity:0;transition:opacity var(--t)
+}
+.btn:hover::after{opacity:1}
+.btn-primary{
+  background:#fff;color:var(--accent);
+  box-shadow:0 4px 24px rgba(0,0,0,.2),0 1px 0 rgba(255,255,255,.3) inset
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.25);text-decoration:none}
+.btn-outline{
+  background:rgba(255,255,255,.08);color:#fff;
+  border:1px solid rgba(255,255,255,.2);
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 0 1px rgba(255,255,255,.05) inset
+}
+.btn-outline:hover{background:rgba(255,255,255,.15);transform:translateY(-2px);text-decoration:none}
+.btn-accent{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  box-shadow:0 4px 20px var(--accent-glow),0 1px 0 rgba(255,255,255,.2) inset
+}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);text-decoration:none}
+.btn-full{width:100%;justify-content:center;margin-top:.5rem}
+.btn-ghost{
+  background:none;border:1.5px solid var(--border);
+  color:var(--text-muted);padding:.55rem 1.1rem;font-size:.85rem;
+  border-radius:var(--radius-sm)
+}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+
+/* ═══ PROGRESS TRACKER ══════════════════════════════════════ */
+.progress-section{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:1.75rem 2rem
+}
+.progress-inner{max-width:var(--max-w);margin:0 auto}
+.progress-label{
+  font-size:.7rem;font-weight:800;color:var(--text-light);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem
+}
+.progress-steps{display:flex;align-items:center;overflow-x:auto;padding-bottom:.25rem}
+.progress-step{
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  flex:1;min-width:80px;cursor:pointer;transition:all var(--t)
+}
+.progress-step:hover .step-dot{transform:scale(1.1)}
+.step-connector{
+  flex:1;height:2px;background:var(--border);min-width:20px;
+  margin-bottom:1.6rem;border-radius:2px;transition:background .5s
+}
+.step-connector.done{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.step-dot{
+  width:36px;height:36px;border-radius:50%;
+  border:2px solid var(--border);background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:800;color:var(--text-light);
+  transition:all var(--t)
+}
+.step-dot.done{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-color:transparent;color:#fff;
+  box-shadow:0 4px 12px var(--accent-glow)
+}
+.step-dot.active{
+  border-color:var(--accent);color:var(--accent);
+  box-shadow:0 0 0 6px var(--accent-glow);
+  background:var(--accent-light)
+}
+.step-label{font-size:.67rem;font-weight:600;color:var(--text-light);text-align:center;line-height:1.3;white-space:pre-line}
+.step-label.active{color:var(--accent);font-weight:800}
+
+/* ═══ LAYOUT ════════════════════════════════════════════════ */
+.main{max-width:var(--max-w);margin:0 auto;padding:4rem 2rem 6rem}
+.section{margin-bottom:5rem;scroll-margin-top:calc(var(--nav-h) + 2rem)}
+.section-header{margin-bottom:2rem}
+.section-tag{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--accent-light);color:var(--accent);
+  font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:.3rem .9rem;border-radius:999px;margin-bottom:.75rem;
+  border:1px solid var(--border-strong)
+}
+.section-header h2{
+  font-size:clamp(1.6rem,3vw,2rem);font-weight:900;
+  line-height:1.2;letter-spacing:-.04em
+}
+.section-header p{color:var(--text-muted);margin-top:.6rem;font-size:.97rem;line-height:1.7}
+</style>
+
+<style>
+/* ═══ CARDS ═════════════════════════════════════════════════ */
+.card-grid{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.75rem;
+  box-shadow:var(--shadow);
+  transition:all var(--t);
+  position:relative;overflow:hidden;
+  cursor:default
+}
+.card::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(139,92,246,.04));
+  opacity:0;transition:opacity var(--t)
+}
+.card::after{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)
+}
+.card:hover{
+  box-shadow:var(--shadow-lg);transform:translateY(-4px);
+  border-color:var(--border-strong)
+}
+.card:hover::before{opacity:1}
+.card:hover::after{transform:scaleX(1)}
+.card-icon{
+  font-size:1.4rem;margin-bottom:1rem;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:52px;height:52px;
+  background:linear-gradient(135deg,var(--accent-light),rgba(139,92,246,.08));
+  border-radius:14px;border:1px solid var(--border-strong)
+}
+.card h3{font-size:1rem;font-weight:800;margin-bottom:.45rem;letter-spacing:-.025em}
+.card p{font-size:.875rem;color:var(--text-muted);line-height:1.7}
+
+/* ═══ HORIZONTAL TIMELINE ═══════════════════════════════════ */
+.timeline-scroll-wrap{
+  overflow-x:auto;padding-bottom:.75rem;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent
+}
+.timeline-scroll-wrap::-webkit-scrollbar{height:4px}
+.timeline-scroll-wrap::-webkit-scrollbar-track{background:transparent}
+.timeline-scroll-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.h-timeline{
+  display:flex;gap:0;min-width:max-content;
+  padding:2rem 1rem 1.25rem;position:relative
+}
+.h-timeline::before{
+  content:"";position:absolute;top:2.6rem;left:80px;right:80px;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
+  border-radius:2px;z-index:0;opacity:.4
+}
+.h-tl-item{
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  min-width:150px;flex:1;cursor:pointer;position:relative;z-index:1;
+  transition:transform var(--t);padding:0 .5rem
+}
+.h-tl-item:hover{transform:translateY(-4px)}
+.h-tl-dot{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--surface);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;transition:all var(--t);
+  box-shadow:var(--shadow)
+}
+.h-tl-item.highlight .h-tl-dot{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-color:transparent;color:#fff;
+  box-shadow:0 0 0 6px var(--accent-glow),var(--shadow-md)
+}
+.h-tl-item.active .h-tl-dot{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-color:transparent;color:#fff;
+  box-shadow:0 0 0 8px var(--accent-glow),var(--shadow-lg);
+  transform:scale(1.15)
+}
+.h-tl-date{font-size:.67rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;text-align:center}
+.h-tl-title{font-size:.8rem;font-weight:700;text-align:center;line-height:1.35;max-width:130px;color:var(--text)}
+.timeline-detail-panel{
+  background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:var(--radius-lg);padding:1.75rem 2rem;
+  box-shadow:var(--shadow-lg);margin-top:1.5rem;
+  display:none;animation:fadeUp .3s ease both;
+  position:relative;overflow:hidden
+}
+.timeline-detail-panel::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))
+}
+.timeline-detail-panel.show{display:block}
+.tdp-date{font-size:.7rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+.tdp-title{font-size:1.2rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.6rem}
+.tdp-desc{font-size:.92rem;color:var(--text-muted);line-height:1.75}
+.tdp-tip{
+  margin-top:1rem;
+  background:linear-gradient(135deg,var(--accent-light),rgba(139,92,246,.06));
+  border:1px solid var(--border-strong);
+  border-radius:var(--radius-sm);padding:.85rem 1.1rem;
+  font-size:.87rem;color:var(--accent);font-weight:500
+}
+
+/* ═══ ELIGIBILITY CARD ══════════════════════════════════════ */
+.elig-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+  overflow:hidden;position:relative
+}
+.elig-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))
+}
+.elig-form-wrap{padding:2.25rem}
+.elig-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem}
+.form-field{display:flex;flex-direction:column;gap:.4rem}
+.form-field label{
+  font-size:.72rem;font-weight:800;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:.08em
+}
+.form-field input,.form-field select{
+  background:var(--surface-2);border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);padding:.7rem 1rem;
+  font-size:.9rem;color:var(--text);font-family:inherit;
+  transition:all var(--t);appearance:none
+}
+.form-field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;
+  padding-right:2.5rem
+}
+.form-field input:focus,.form-field select:focus{
+  border-color:var(--accent);outline:none;
+  box-shadow:0 0 0 4px var(--accent-glow);background:var(--surface)
+}
+.form-field input.error,.form-field select.error{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.15)}
+.field-err{font-size:.75rem;color:var(--red);font-weight:600;min-height:1rem}
+.elig-result{padding:0;max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1),padding .3s}
+.elig-result.show{padding:2rem 2.25rem;max-height:500px}
+.elig-result-inner{display:flex;gap:1.5rem;align-items:flex-start}
+.elig-icon{font-size:2.75rem;flex-shrink:0;line-height:1}
+.elig-title{font-size:1.25rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.5rem}
+.elig-body{font-size:.92rem;line-height:1.75;color:var(--text-muted)}
+.elig-actions{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.1rem}
+.result-eligible{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-top:1px solid #bbf7d0}
+.result-ineligible{background:linear-gradient(135deg,#fff1f2,#fee2e2);border-top:1px solid #fecaca}
+.result-maybe{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-top:1px solid #fde68a}
+[data-theme=dark] .result-eligible{background:linear-gradient(135deg,#052e16,#064e3b)}
+[data-theme=dark] .result-ineligible{background:linear-gradient(135deg,#450a0a,#7f1d1d)}
+[data-theme=dark] .result-maybe{background:linear-gradient(135deg,#451a03,#78350f)}
+.state-info-box{
+  margin-top:1.1rem;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:1.1rem 1.25rem;font-size:.88rem;line-height:1.75
+}
+.state-info-box h4{font-size:.87rem;font-weight:800;margin-bottom:.5rem;letter-spacing:-.02em}
+</style>
+
+<style>
+/* ═══ VOTING GUIDE STEPS ════════════════════════════════════ */
+.guide-progress-bar-wrap{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem}
+.guide-progress-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.guide-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));border-radius:3px;width:0%;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.guide-progress-label{font-size:.8rem;font-weight:700;color:var(--text-muted);white-space:nowrap}
+.guide-steps{display:flex;flex-direction:column;gap:.85rem}
+.guide-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:all var(--t)}
+.guide-step.completed{border-color:rgba(16,185,129,.3);box-shadow:0 0 0 1px rgba(16,185,129,.1),var(--shadow)}
+.guide-step-header{display:flex;align-items:center;gap:1.1rem;padding:1.35rem 1.6rem;cursor:pointer;transition:background var(--t)}
+.guide-step-header:hover{background:var(--surface-2)}
+.guide-step-num{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:900;flex-shrink:0;box-shadow:0 4px 12px var(--accent-glow);transition:all var(--t)}
+.guide-step.completed .guide-step-num{background:linear-gradient(135deg,var(--green),#34d399)}
+.guide-step-meta{flex:1}
+.guide-step-title{font-size:1.02rem;font-weight:800;letter-spacing:-.025em}
+.guide-step-subtitle{font-size:.82rem;color:var(--text-muted);margin-top:.15rem}
+.guide-step-chevron{font-size:.9rem;color:var(--text-light);transition:transform var(--t);flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.guide-step.open .guide-step-chevron{transform:rotate(180deg);background:var(--accent-light);border-color:var(--border-strong);color:var(--accent)}
+.guide-step-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.guide-step.open .guide-step-body{max-height:700px}
+.guide-step-content{padding:0 1.6rem 1.6rem;border-top:1px solid var(--border)}
+.guide-step-content p{font-size:.92rem;color:var(--text-muted);line-height:1.8;margin-top:1.1rem}
+.guide-step-items{display:flex;flex-direction:column;gap:.75rem;margin-top:1.1rem}
+.guide-item{display:flex;gap:.85rem;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.85rem 1rem;transition:border-color var(--t)}
+.guide-item:hover{border-color:var(--border-strong)}
+.guide-item-icon{flex-shrink:0;width:32px;height:32px;background:linear-gradient(135deg,var(--accent-light),rgba(139,92,246,.08));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;border:1px solid var(--border-strong)}
+.guide-item-text{line-height:1.6}
+.guide-item-text strong{display:block;font-weight:800;font-size:.88rem;margin-bottom:.15rem;letter-spacing:-.01em}
+.guide-item-text span{color:var(--text-muted);font-size:.84rem}
+.guide-step-actions{display:flex;gap:.65rem;margin-top:1.35rem;flex-wrap:wrap}
+.complete-badge{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#14532d;font-size:.78rem;font-weight:800;padding:.3rem .85rem;border-radius:999px;margin-top:.75rem;border:1px solid #86efac}
+[data-theme=dark] .complete-badge{background:linear-gradient(135deg,#052e16,#064e3b);color:#86efac;border-color:#166534}
+
+/* ═══ DOCS TABLE ════════════════════════════════════════════ */
+.docs-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.docs-table th{text-align:left;padding:.85rem 1.1rem;background:var(--surface-2);color:var(--text-muted);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border)}
+.docs-table td{padding:.9rem 1.1rem;border-bottom:1px solid var(--border);vertical-align:top}
+.docs-table tr:last-child td{border-bottom:none}
+.docs-table tr:hover td{background:var(--surface-2)}
+.badge{display:inline-block;padding:.22rem .7rem;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:.04em}
+.badge-req{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;border:1px solid #fcd34d}
+.badge-opt{background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#166534;border:1px solid #86efac}
+[data-theme=dark] .badge-req{background:linear-gradient(135deg,#451a03,#78350f);color:#fcd34d;border-color:#92400e}
+[data-theme=dark] .badge-opt{background:linear-gradient(135deg,#052e16,#064e3b);color:#86efac;border-color:#166534}
+
+/* ═══ FAQ ═══════════════════════════════════════════════════ */
+.faq-list{display:flex;flex-direction:column;gap:.6rem}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:all var(--t)}
+.faq-item:has(.faq-q[aria-expanded=true]){border-color:var(--border-strong);box-shadow:var(--shadow-md)}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:1.2rem 1.5rem;font-size:.95rem;font-weight:700;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background var(--t);letter-spacing:-.02em}
+.faq-q:hover{background:var(--surface-2)}
+.faq-q[aria-expanded=true]{color:var(--accent);background:var(--accent-light)}
+.faq-icon{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--surface-2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;transition:all var(--t)}
+.faq-q[aria-expanded=true] .faq-icon{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding var(--t);font-size:.92rem;color:var(--text-muted);line-height:1.8}
+.faq-a.open{max-height:400px;padding:0 1.5rem 1.35rem}
+
+/* ═══ CALLOUT ═══════════════════════════════════════════════ */
+.callout{display:flex;gap:.9rem;align-items:flex-start;background:linear-gradient(135deg,var(--accent-light),rgba(139,92,246,.06));border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:1.1rem 1.35rem;font-size:.9rem;line-height:1.7;margin-top:1.35rem}
+.callout-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}
+
+/* ═══ FOOTER ════════════════════════════════════════════════ */
+.footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:3rem 2rem;font-size:.84rem;color:var(--text-muted);position:relative;overflow:hidden}
+.footer::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,var(--accent-glow),transparent);pointer-events:none}
+.footer-brand{font-size:1.1rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.6rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block}
+.footer a{color:var(--text-muted);transition:color var(--t)}
+.footer a:hover{color:var(--accent)}
+</style>
+
+<style>
+/* ═══ ASSISTANT MODAL ═══════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(10,13,31,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);width:100%;max-width:540px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(24px) scale(.96);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1)}
+.modal-box::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+.modal-close{position:absolute;top:1.1rem;right:1.1rem;background:var(--surface-2);border:1px solid var(--border);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--text-muted);transition:all var(--t);z-index:10}
+.modal-close:hover{background:var(--accent-light);color:var(--accent);border-color:var(--border-strong);transform:rotate(90deg)}
+.assistant-header{display:flex;align-items:center;gap:1.1rem;padding:2rem 2rem 0}
+.assistant-avatar{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 8px 24px var(--accent-glow);flex-shrink:0}
+.assistant-header h2{font-size:1.2rem;font-weight:900;letter-spacing:-.03em}
+.assistant-header p{font-size:.83rem;color:var(--text-muted);margin-top:.15rem}
+.wizard-progress{display:flex;gap:.4rem;padding:1.35rem 2rem .5rem;align-items:center}
+.wiz-dot{height:5px;border-radius:3px;background:var(--border);transition:all .35s;flex:1}
+.wiz-dot.done{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.wiz-dot.active{background:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.wizard-body{padding:1rem 2rem 2rem}
+.wiz-step{animation:fadeUp .3s ease both}
+.wiz-question{font-size:1.08rem;font-weight:800;letter-spacing:-.025em;margin-bottom:1.25rem;line-height:1.45}
+.wiz-options{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.25rem}
+.wiz-option{background:var(--surface-2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.85rem 1.2rem;font-size:.9rem;font-weight:600;color:var(--text);text-align:left;transition:all var(--t);display:flex;align-items:center;gap:.85rem}
+.wiz-option:hover{background:var(--accent-light);border-color:var(--border-strong);color:var(--accent);transform:translateX(4px)}
+.wiz-option.selected{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#fff;box-shadow:0 4px 16px var(--accent-glow)}
+.wiz-option-icon{font-size:1.15rem;flex-shrink:0}
+.wiz-input-wrap{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.25rem}
+.wiz-input-wrap label{font-size:.75rem;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em}
+.wiz-input-wrap input,.wiz-input-wrap select{background:var(--surface-2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.75rem 1rem;font-size:.95rem;color:var(--text);font-family:inherit;transition:all var(--t)}
+.wiz-input-wrap input:focus,.wiz-input-wrap select:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 4px var(--accent-glow)}
+.wiz-nav{display:flex;gap:.65rem;justify-content:flex-end;margin-top:.5rem}
+.wiz-result{text-align:center;padding:.5rem 0}
+.wiz-result-icon{font-size:4rem;margin-bottom:.85rem;display:block}
+.wiz-result-title{font-size:1.4rem;font-weight:900;letter-spacing:-.04em;margin-bottom:.6rem}
+.wiz-result-body{font-size:.92rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.35rem}
+.wiz-result-actions{display:flex;flex-direction:column;gap:.65rem}
+.wiz-next-steps{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.1rem 1.25rem;text-align:left;margin-top:1.1rem}
+.wiz-next-steps h4{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:.75rem}
+.wiz-next-item{display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.65rem;font-size:.88rem}
+.wiz-next-item:last-child{margin-bottom:0}
+.wiz-next-item-icon{flex-shrink:0;width:28px;height:28px;background:var(--accent-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.82rem}
+
+/* ═══ FAB ═══════════════════════════════════════════════════ */
+.fab{position:fixed;bottom:2rem;right:2rem;z-index:400;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:999px;padding:.85rem 1.4rem .85rem 1.1rem;display:flex;align-items:center;gap:.55rem;font-size:.88rem;font-weight:700;box-shadow:0 8px 32px var(--accent-glow),0 2px 0 rgba(255,255,255,.15) inset;transition:all var(--t);letter-spacing:-.01em}
+.fab:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 16px 48px var(--accent-glow)}
+.fab-icon{font-size:1.15rem}
+.fab-ping{position:absolute;top:-4px;right:-4px;width:13px;height:13px;border-radius:50%;background:#4ade80;border:2px solid var(--bg);animation:ping 2.5s infinite}
+@keyframes ping{0%,100%{transform:scale(1);opacity:1}60%{transform:scale(1.5);opacity:.5}}
+
+/* ═══ ANIMATIONS ════════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-20px) scale(1.04)}}
+.fade-up{animation:fadeUp .65s cubic-bezier(.34,1.56,.64,1) both}
+.fade-up-2{animation:fadeUp .65s .13s cubic-bezier(.34,1.56,.64,1) both}
+.fade-up-3{animation:fadeUp .65s .26s cubic-bezier(.34,1.56,.64,1) both}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════ */
+@media(max-width:768px){.nav{padding:0 1.25rem}.nav-links,.search-wrap{display:none}.hamburger{display:flex}.main{padding:3rem 1.25rem 5rem}}
+@media(max-width:640px){.hero{padding:4.5rem 1.25rem 4rem}.hero-stats{gap:0}.hero-stat-num{font-size:1.4rem}.card-grid{grid-template-columns:1fr}.elig-form-grid{grid-template-columns:1fr}.docs-table{font-size:.82rem}.docs-table th,.docs-table td{padding:.65rem .8rem}.fab-label{display:none}.fab{padding:.9rem}.wizard-body,.assistant-header,.wizard-progress{padding-left:1.35rem;padding-right:1.35rem}.modal-box{border-radius:var(--radius-lg)}}
+</style>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   DATA — edit this block to customize for any country/region
+═══════════════════════════════════════════════════════════ */
+const DATA = {
+
+  journeySteps:[
+    {label:"Check\nEligibility"},{label:"Gather\nDocuments"},
+    {label:"Register\nto Vote"},{label:"Find Polling\nPlace"},{label:"Cast\nYour Vote"}
+  ],
+
+  overview:[
+    {icon:"📣",title:"Election Announced",body:"The government sets an official election date. Campaigns begin and candidates register."},
+    {icon:"📋",title:"Voter Registration",body:"Citizens confirm or update their registration within the official window."},
+    {icon:"🗓️",title:"Campaigning Period",body:"Candidates share platforms. Attend events, read manifestos, and ask questions."},
+    {icon:"🗳️",title:"Voting Day",body:"Registered voters visit their assigned polling station and cast a secret ballot."},
+    {icon:"🔢",title:"Vote Counting",body:"Ballots are counted by officials under independent observation."},
+    {icon:"📢",title:"Results Declared",body:"Official results are announced. Winners take office after a formal transition."},
+  ],
+
+  timeline:[
+    {date:"Sep 1, 2026",title:"Registration Opens",desc:"The registration portal opens. Check your existing registration or create a new one.",tip:"Tip: Register early — it takes less than 10 minutes online.",icon:"📋",highlight:false},
+    {date:"Oct 15, 2026",title:"Registration Deadline",desc:"Last day to register or update your address. After this date, changes may not be accepted.",tip:"⚠️ This is the most critical deadline. Don't miss it.",icon:"⏰",highlight:true},
+    {date:"Oct 20, 2026",title:"Voter Cards Dispatched",desc:"Official voter ID cards are mailed to registered voters. Allow 5–7 business days.",tip:"Tip: If your card doesn't arrive by Nov 1, contact your election authority.",icon:"📬",highlight:false},
+    {date:"Nov 1, 2026",title:"Early Voting Begins",desc:"Some regions allow early in-person voting. Check if your area participates.",tip:"Tip: Early voting avoids election-day queues.",icon:"🗳️",highlight:false},
+    {date:"Nov 10, 2026",title:"Election Day",desc:"Polling stations open 7 AM – 8 PM. Bring your voter ID and required documents.",tip:"🗳️ The big day! Arrive mid-morning to avoid peak queues.",icon:"🏛️",highlight:true},
+    {date:"Nov 11, 2026",title:"Results Announced",desc:"Preliminary results are typically available within 24 hours of polls closing.",tip:"Results are verified at multiple levels before being declared official.",icon:"📢",highlight:false},
+  ],
+
+  states:[
+    {value:"AL",label:"Alabama",regDeadline:"15 days before election",earlyVoting:false,sameDay:false,idRequired:true},
+    {value:"AK",label:"Alaska",regDeadline:"30 days before election",earlyVoting:true,sameDay:false,idRequired:false},
+    {value:"AZ",label:"Arizona",regDeadline:"29 days before election",earlyVoting:true,sameDay:false,idRequired:true},
+    {value:"CA",label:"California",regDeadline:"15 days before election",earlyVoting:true,sameDay:true,idRequired:false},
+    {value:"CO",label:"Colorado",regDeadline:"Election day",earlyVoting:true,sameDay:true,idRequired:false},
+    {value:"FL",label:"Florida",regDeadline:"29 days before election",earlyVoting:true,sameDay:false,idRequired:true},
+    {value:"GA",label:"Georgia",regDeadline:"28 days before election",earlyVoting:true,sameDay:false,idRequired:true},
+    {value:"IL",label:"Illinois",regDeadline:"Election day",earlyVoting:true,sameDay:true,idRequired:false},
+    {value:"NY",label:"New York",regDeadline:"25 days before election",earlyVoting:true,sameDay:false,idRequired:false},
+    {value:"TX",label:"Texas",regDeadline:"30 days before election",earlyVoting:true,sameDay:false,idRequired:true},
+    {value:"WA",label:"Washington",regDeadline:"8 days before election",earlyVoting:true,sameDay:true,idRequired:false},
+    {value:"OTHER",label:"Other / Outside US",regDeadline:"Varies",earlyVoting:false,sameDay:false,idRequired:true},
+  ],
+
+  documents:[
+    {name:"National ID Card or Passport",purpose:"Proves identity and citizenship",status:"required"},
+    {name:"Proof of Address (utility bill, bank statement)",purpose:"Confirms current residential address",status:"required"},
+    {name:"Birth Certificate",purpose:"May be needed if ID doesn't show date of birth",status:"optional"},
+    {name:"Voter Registration Card",purpose:"Issued after registration — bring on voting day",status:"required"},
+    {name:"Recent Photograph",purpose:"Some regions require a passport-style photo",status:"optional"},
+  ],
+
+  guideSteps:[
+    {
+      title:"Register to Vote",subtitle:"Confirm you're on the voter roll",icon:"📝",
+      body:"Registration is the first and most important step. Without it, you cannot vote. Most regions allow online registration in under 10 minutes.",
+      items:[
+        {icon:"🌐",title:"Check if you're already registered",desc:"Visit your election authority's website and search by name or ID."},
+        {icon:"📄",title:"Gather your documents",desc:"You'll need a valid ID and proof of address before you start."},
+        {icon:"💻",title:"Register online or in person",desc:"Online is fastest. In-person registration is available at government offices."},
+        {icon:"✉️",title:"Confirm your registration",desc:"You'll receive a confirmation by email, SMS, or mail within 2 weeks."},
+      ],
+      cta:"Go to Registration Info"
+    },
+    {
+      title:"Verify Your Documents",subtitle:"Make sure you have everything ready",icon:"📋",
+      body:"Arriving at the polling station without the right documents can prevent you from voting. Prepare everything at least a week before election day.",
+      items:[
+        {icon:"🪪",title:"Valid photo ID",desc:"National ID card, passport, or driver's license — must not be expired."},
+        {icon:"📬",title:"Voter registration card",desc:"Mailed to you after registration. Keep it safe."},
+        {icon:"🏠",title:"Proof of address",desc:"A recent utility bill or bank statement showing your current address."},
+        {icon:"📸",title:"Passport photo (if required)",desc:"Some regions require a recent photo for first-time voters."},
+      ],
+      cta:"See Full Documents List"
+    },
+    {
+      title:"Cast Your Vote",subtitle:"What to expect on election day",icon:"🗳️",
+      body:"Voting is straightforward once you know what to expect. Here's a step-by-step walk-through of what happens when you arrive at the polling station.",
+      items:[
+        {icon:"📍",title:"Find your polling station",desc:"Check your voter card or the election authority's website for your assigned location."},
+        {icon:"🪪",title:"Check in with officials",desc:"Show your ID and voter card. An official will mark you as present and hand you a ballot."},
+        {icon:"🔒",title:"Enter the voting booth",desc:"Booths are private. No phones or cameras allowed. Your vote is completely secret."},
+        {icon:"✅",title:"Mark and submit your ballot",desc:"Mark an X next to your choice. Fold the ballot and place it in the sealed box."},
+      ],
+      cta:"See Voting Day Details"
+    },
+  ],
+
+  faq:[
+    {q:"What if I make a mistake on my ballot?",a:"Don't panic. Raise your hand and ask an election official for a replacement ballot. They will spoil the incorrect one and give you a new one."},
+    {q:"Can I take a photo of my ballot?",a:"No. Photography inside the voting booth is not allowed in most countries. Your vote is secret — keep it that way."},
+    {q:"What if my name isn't on the voter roll?",a:"Speak to the presiding officer at the polling station. They may verify your registration or direct you to the correct station. Bring all your ID documents."},
+    {q:"Can someone help me vote if I have a disability?",a:"Yes. Polling stations are required to be accessible. You can request assistance from an official or bring a trusted person. Inform the presiding officer when you arrive."},
+    {q:"What if I can't make it on election day?",a:"Many regions offer absentee, postal, or early voting. Check with your election authority well in advance — deadlines are often earlier than election day."},
+    {q:"Is my vote really secret?",a:"Yes. Ballots are anonymous by design. No one — not officials, the government, or your employer — can find out how you voted."},
+    {q:"What if I moved recently?",a:"You may need to update your registration before the deadline. Visit your election authority's website to update your details."},
+    {q:"How do I know the results are accurate?",a:"Counting is done by trained officials and observed by independent monitors and party representatives. Results are verified at multiple levels."},
+  ],
+
+  /* Wizard steps */
+  wizardSteps:[
+    {
+      type:"options",
+      question:"👋 Welcome! Let's start with your citizenship status.",
+      options:[
+        {icon:"🇺🇸",label:"I'm a citizen (by birth or naturalization)",value:"citizen"},
+        {icon:"🟡",label:"I'm a permanent resident",value:"pr"},
+        {icon:"✈️",label:"I'm on a visa / non-resident",value:"visa"},
+      ],
+      key:"citizenship"
+    },
+    {
+      type:"input",
+      question:"How old are you?",
+      inputType:"number",
+      placeholder:"Enter your age",
+      label:"Your age",
+      key:"age"
+    },
+    {
+      type:"select",
+      question:"Which state are you in?",
+      label:"Select your state",
+      key:"state"
+    },
+    {
+      type:"options",
+      question:"Have you ever been convicted of a felony?",
+      options:[
+        {icon:"✅",label:"No",value:"no"},
+        {icon:"⚖️",label:"Yes — currently serving sentence",value:"serving"},
+        {icon:"🔓",label:"Yes — sentence completed",value:"completed"},
+      ],
+      key:"conviction"
+    },
+  ],
+
+  /* Search index */
+  searchIndex:[
+    {title:"Check eligibility",section:"#eligibility",keywords:"eligible vote citizen age"},
+    {title:"Registration deadline",section:"#timeline",keywords:"register deadline date"},
+    {title:"What documents do I need?",section:"#documents",keywords:"documents id passport proof"},
+    {title:"How to vote on election day",section:"#guide",keywords:"vote ballot polling station"},
+    {title:"Early voting options",section:"#timeline",keywords:"early vote absentee postal"},
+    {title:"FAQ — ballot mistakes",section:"#faq",keywords:"mistake ballot spoil"},
+    {title:"FAQ — disability assistance",section:"#faq",keywords:"disability help accessible"},
+    {title:"Key election dates",section:"#timeline",keywords:"dates deadlines calendar"},
+    {title:"Step-by-step voting guide",section:"#guide",keywords:"steps guide register verify vote"},
+    {title:"Overview of election process",section:"#overview",keywords:"overview process how election works"},
+  ],
+};
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   APP STATE & UTILS
+═══════════════════════════════════════════════════════════ */
+const LS = {
+  get:(k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){return d;} },
+  set:(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+
+let currentStep = LS.get('eg-journey-step', 0);
+let guideCompleted = LS.get('eg-guide-completed', []);
+let wizardAnswers = {};
+let wizardStep = 0;
+let activeTimelineIdx = null;
+
+/* ═══ THEME ═════════════════════════════════════════════════ */
+const themeBtn = document.getElementById('themeToggle');
+const savedTheme = LS.get('eg-theme','light');
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+themeBtn.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  LS.set('eg-theme', next);
+  themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+
+/* ═══ MOBILE MENU ═══════════════════════════════════════════ */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', open);
+  hamburger.textContent = open ? '✕' : '☰';
+});
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', false);
+  hamburger.textContent = '☰';
+}));
+
+/* ═══ ACTIVE NAV ════════════════════════════════════════════ */
+const navLinks = document.querySelectorAll('.nav-link');
+new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' }).observe;
+document.querySelectorAll('.section').forEach(s =>
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' }).observe(s)
+);
+
+/* ═══ PROGRESS TRACKER ══════════════════════════════════════ */
+function renderProgress() {
+  const c = document.getElementById('progressSteps');
+  c.innerHTML = '';
+  DATA.journeySteps.forEach((step, i) => {
+    if (i > 0) {
+      const conn = document.createElement('div');
+      conn.className = 'step-connector' + (i <= currentStep ? ' done' : '');
+      c.appendChild(conn);
+    }
+    const el = document.createElement('div');
+    el.className = 'progress-step';
+    el.setAttribute('role','listitem');
+    el.setAttribute('tabindex','0');
+    el.setAttribute('aria-label', `Step ${i+1}: ${step.label.replace('\n',' ')}`);
+    const dot = document.createElement('div');
+    dot.className = 'step-dot' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
+    dot.textContent = i < currentStep ? '✓' : i + 1;
+    const lbl = document.createElement('div');
+    lbl.className = 'step-label' + (i === currentStep ? ' active' : '');
+    lbl.textContent = step.label;
+    el.appendChild(dot); el.appendChild(lbl);
+    el.addEventListener('click', () => { currentStep = i; LS.set('eg-journey-step', i); renderProgress(); });
+    el.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { currentStep=i; LS.set('eg-journey-step',i); renderProgress(); }});
+    c.appendChild(el);
+  });
+}
+renderProgress();
+
+/* ═══ OVERVIEW CARDS ════════════════════════════════════════ */
+const og = document.getElementById('overviewCards');
+DATA.overview.forEach(item => {
+  og.innerHTML += `<article class="card reveal">
+    <div class="card-icon" aria-hidden="true">${item.icon}</div>
+    <h3>${item.title}</h3><p>${item.body}</p>
+  </article>`;
+});
+
+/* ═══ HORIZONTAL TIMELINE ═══════════════════════════════════ */
+const htl = document.getElementById('hTimeline');
+DATA.timeline.forEach((item, i) => {
+  const el = document.createElement('div');
+  el.className = 'h-tl-item' + (item.highlight ? ' highlight' : '');
+  el.setAttribute('role','listitem');
+  el.setAttribute('tabindex','0');
+  el.setAttribute('aria-label', `${item.date}: ${item.title}`);
+  el.innerHTML = `<div class="h-tl-dot">${item.icon}</div>
+    <div class="h-tl-date">${item.date}</div>
+    <div class="h-tl-title">${item.title}</div>`;
+  el.addEventListener('click', () => toggleTimelineDetail(i, el));
+  el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') toggleTimelineDetail(i, el); });
+  htl.appendChild(el);
+});
+
+function toggleTimelineDetail(idx, el) {
+  const panel = document.getElementById('timelineDetail');
+  const item = DATA.timeline[idx];
+  document.querySelectorAll('.h-tl-item').forEach(e => e.classList.remove('active'));
+  if (activeTimelineIdx === idx) {
+    panel.classList.remove('show');
+    activeTimelineIdx = null;
+    return;
+  }
+  activeTimelineIdx = idx;
+  el.classList.add('active');
+  panel.innerHTML = `<div class="tdp-date">${item.date}</div>
+    <div class="tdp-title">${item.title}</div>
+    <div class="tdp-desc">${item.desc}</div>
+    <div class="tdp-tip">${item.tip}</div>`;
+  panel.classList.add('show');
+  panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+</script>
+
+<script>
+/* ═══ POPULATE STATE DROPDOWNS ══════════════════════════════ */
+function populateStateSelect(selectId) {
+  const sel = document.getElementById(selectId);
+  if (!sel) return;
+  DATA.states.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.value; opt.textContent = s.label;
+    sel.appendChild(opt);
+  });
+}
+populateStateSelect('eligState');
+
+/* ═══ ELIGIBILITY CHECKER ═══════════════════════════════════ */
+document.getElementById('eligSubmit').addEventListener('click', runEligibilityCheck);
+
+function runEligibilityCheck() {
+  const age = parseInt(document.getElementById('eligAge').value);
+  const citizen = document.getElementById('eligCitizen').value;
+  const state = document.getElementById('eligState').value;
+  const conviction = document.getElementById('eligConviction').value;
+  let valid = true;
+
+  // Validate
+  document.getElementById('ageErr').textContent = '';
+  document.getElementById('citizenErr').textContent = '';
+  document.getElementById('stateErr').textContent = '';
+  document.getElementById('eligAge').classList.remove('error');
+  document.getElementById('eligCitizen').classList.remove('error');
+  document.getElementById('eligState').classList.remove('error');
+
+  if (!age || age < 1 || age > 120) {
+    document.getElementById('ageErr').textContent = 'Please enter a valid age.';
+    document.getElementById('eligAge').classList.add('error');
+    valid = false;
+  }
+  if (!citizen) {
+    document.getElementById('citizenErr').textContent = 'Please select your citizenship status.';
+    document.getElementById('eligCitizen').classList.add('error');
+    valid = false;
+  }
+  if (!state) {
+    document.getElementById('stateErr').textContent = 'Please select your state.';
+    document.getElementById('eligState').classList.add('error');
+    valid = false;
+  }
+  if (!valid) return;
+
+  // Save to localStorage
+  LS.set('eg-elig-data', { age, citizen, state, conviction });
+
+  const stateData = DATA.states.find(s => s.value === state);
+  let result = determineEligibility(age, citizen, conviction, stateData);
+  showEligibilityResult(result, stateData);
+}
+
+function determineEligibility(age, citizen, conviction, stateData) {
+  if (citizen === 'visa') return { type:'ineligible', title:'Not Eligible ❌', icon:'❌',
+    body:'Visa holders and non-residents are not eligible to vote in national elections. Only citizens can vote.' };
+  if (citizen === 'pr') return { type:'maybe', title:'Possibly Eligible ⚠️', icon:'⚠️',
+    body:'Permanent residents are generally not eligible for national elections, but may be eligible for some local elections. Contact your local election authority to confirm.' };
+  if (age < 18) return { type:'ineligible', title:'Not Yet Eligible ❌', icon:'⏳',
+    body:`You must be at least 18 years old to vote. You're ${18 - age} year${18-age===1?'':'s'} away from your first election. Keep this guide — it'll be ready when you are!` };
+  if (conviction === 'serving') return { type:'maybe', title:'Eligibility Uncertain ⚠️', icon:'⚖️',
+    body:'Voting rights for incarcerated individuals vary by state. In some states rights are restored after release. Contact your local election authority or a legal aid organization.' };
+  return { type:'eligible', title:'You\'re Eligible! ✅', icon:'🎉',
+    body:`Great news! Based on your answers, you appear to be eligible to vote${stateData ? ` in ${stateData.label}` : ''}. Your next step is to make sure you're registered before the deadline.` };
+}
+
+function showEligibilityResult(result, stateData) {
+  const panel = document.getElementById('eligResult');
+  let stateHtml = '';
+  if (stateData && result.type === 'eligible') {
+    stateHtml = `<div class="state-info-box">
+      <h4>📍 ${stateData.label} — Voting Info</h4>
+      <p>🗓️ <strong>Registration deadline:</strong> ${stateData.regDeadline}</p>
+      <p>🗳️ <strong>Early voting:</strong> ${stateData.earlyVoting ? '✅ Available' : '❌ Not available'}</p>
+      <p>📅 <strong>Same-day registration:</strong> ${stateData.sameDay ? '✅ Available' : '❌ Not available'}</p>
+      <p>🪪 <strong>Photo ID required:</strong> ${stateData.idRequired ? '✅ Yes' : '❌ No'}</p>
+    </div>`;
+  }
+  panel.innerHTML = `<div class="elig-result-inner">
+    <div class="elig-icon">${result.icon}</div>
+    <div>
+      <div class="elig-title">${result.title}</div>
+      <div class="elig-body">${result.body}</div>
+      ${stateHtml}
+      <div class="elig-actions">
+        ${result.type==='eligible' ? `<a href="#guide" class="btn btn-accent" style="font-size:.85rem;padding:.55rem 1.1rem">📝 Start Registration Guide →</a>` : ''}
+        <button class="btn btn-ghost" onclick="resetEligibility()">Try Again</button>
+      </div>
+    </div>
+  </div>`;
+  panel.className = `elig-result show result-${result.type}`;
+  if (result.type === 'eligible' && currentStep < 1) {
+    currentStep = 1; LS.set('eg-journey-step', 1); renderProgress();
+  }
+  panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function resetEligibility() {
+  const panel = document.getElementById('eligResult');
+  panel.className = 'elig-result';
+  panel.innerHTML = '';
+  document.getElementById('eligAge').value = '';
+  document.getElementById('eligCitizen').value = '';
+  document.getElementById('eligState').value = '';
+  document.getElementById('eligConviction').value = 'no';
+}
+
+// Restore saved eligibility data
+const savedElig = LS.get('eg-elig-data', null);
+if (savedElig) {
+  if (savedElig.age) document.getElementById('eligAge').value = savedElig.age;
+  if (savedElig.citizen) document.getElementById('eligCitizen').value = savedElig.citizen;
+  if (savedElig.state) document.getElementById('eligState').value = savedElig.state;
+  if (savedElig.conviction) document.getElementById('eligConviction').value = savedElig.conviction;
+}
+</script>
+
+<script>
+/* ═══ STEP-BY-STEP VOTING GUIDE ═════════════════════════════ */
+function renderGuide() {
+  const container = document.getElementById('guideSteps');
+  container.innerHTML = '';
+  const completed = guideCompleted.length;
+  const total = DATA.guideSteps.length;
+  const pct = Math.round((completed / total) * 100);
+  document.getElementById('guideProgressFill').style.width = pct + '%';
+  document.getElementById('guideProgressLabel').textContent = `${completed} of ${total} steps completed`;
+
+  DATA.guideSteps.forEach((step, i) => {
+    const isDone = guideCompleted.includes(i);
+    const div = document.createElement('div');
+    div.className = 'guide-step reveal' + (isDone ? ' completed' : '');
+    div.innerHTML = `
+      <div class="guide-step-header" role="button" tabindex="0" aria-expanded="false" aria-controls="gs-body-${i}">
+        <div class="guide-step-num">${isDone ? '✓' : step.icon}</div>
+        <div class="guide-step-meta">
+          <div class="guide-step-title">${step.title}</div>
+          <div class="guide-step-subtitle">${isDone ? '✅ Completed' : step.subtitle}</div>
+        </div>
+        <div class="guide-step-chevron">▾</div>
+      </div>
+      <div class="guide-step-body" id="gs-body-${i}">
+        <div class="guide-step-content">
+          <p>${step.body}</p>
+          <div class="guide-step-items">
+            ${step.items.map(it => `
+              <div class="guide-item">
+                <div class="guide-item-icon">${it.icon}</div>
+                <div class="guide-item-text"><strong>${it.title}</strong><span>${it.desc}</span></div>
+              </div>`).join('')}
+          </div>
+          <div class="guide-step-actions">
+            ${!isDone ? `<button class="btn btn-accent" style="font-size:.85rem;padding:.55rem 1.1rem" onclick="markStepDone(${i})">✅ Mark as Done</button>` : `<span class="complete-badge">✅ Completed</span>`}
+            <button class="btn btn-ghost" onclick="scrollToSection('${i===0?'#eligibility':i===1?'#documents':'#timeline'}')">${step.cta} →</button>
+          </div>
+        </div>
+      </div>`;
+
+    const header = div.querySelector('.guide-step-header');
+    header.addEventListener('click', () => toggleGuideStep(div, header));
+    header.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') toggleGuideStep(div, header); });
+    container.appendChild(div);
+  });
+  initReveal();
+}
+
+function toggleGuideStep(div, header) {
+  const isOpen = div.classList.contains('open');
+  document.querySelectorAll('.guide-step').forEach(s => {
+    s.classList.remove('open');
+    s.querySelector('.guide-step-header').setAttribute('aria-expanded','false');
+  });
+  if (!isOpen) {
+    div.classList.add('open');
+    header.setAttribute('aria-expanded','true');
+  }
+}
+
+function markStepDone(idx) {
+  if (!guideCompleted.includes(idx)) {
+    guideCompleted.push(idx);
+    LS.set('eg-guide-completed', guideCompleted);
+  }
+  if (idx === 0 && currentStep < 2) { currentStep = 2; LS.set('eg-journey-step',2); renderProgress(); }
+  if (idx === 1 && currentStep < 3) { currentStep = 3; LS.set('eg-journey-step',3); renderProgress(); }
+  if (idx === 2 && currentStep < 4) { currentStep = 4; LS.set('eg-journey-step',4); renderProgress(); }
+  renderGuide();
+}
+
+function scrollToSection(hash) {
+  const el = document.querySelector(hash);
+  if (el) el.scrollIntoView({ behavior:'smooth' });
+}
+
+renderGuide();
+
+/* ═══ DOCUMENTS TABLE ═══════════════════════════════════════ */
+const docsBody = document.getElementById('docsBody');
+DATA.documents.forEach(doc => {
+  docsBody.innerHTML += `<tr>
+    <td><strong>${doc.name}</strong></td>
+    <td>${doc.purpose}</td>
+    <td><span class="badge badge-${doc.status==='required'?'req':'opt'}">${doc.status}</span></td>
+  </tr>`;
+});
+
+/* ═══ FAQ ═══════════════════════════════════════════════════ */
+const faqList = document.getElementById('faqList');
+DATA.faq.forEach((item, i) => {
+  const id = `faq-a-${i}`;
+  const div = document.createElement('div');
+  div.className = 'faq-item reveal';
+  div.innerHTML = `
+    <button class="faq-q" aria-expanded="false" aria-controls="${id}">
+      ${item.q}
+      <span class="faq-icon" aria-hidden="true">+</span>
+    </button>
+    <div class="faq-a" id="${id}" role="region">${item.a}</div>`;
+  faqList.appendChild(div);
+  const btn = div.querySelector('.faq-q');
+  const ans = div.querySelector('.faq-a');
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.faq-q').forEach(b => { b.setAttribute('aria-expanded','false'); b.nextElementSibling.classList.remove('open'); });
+    if (!expanded) { btn.setAttribute('aria-expanded','true'); ans.classList.add('open'); }
+  });
+});
+</script>
+
+<script>
+/* ═══ ASSISTANT WIZARD ══════════════════════════════════════ */
+const overlay = document.getElementById('assistantOverlay');
+const wizardBody = document.getElementById('wizardBody');
+const wizardProgress = document.getElementById('wizardProgress');
+
+function openAssistant() {
+  wizardAnswers = {};
+  wizardStep = 0;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderWizardStep();
+}
+
+function closeAssistant() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('assistantClose').addEventListener('click', closeAssistant);
+document.getElementById('fabBtn').addEventListener('click', openAssistant);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeAssistant(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAssistant(); });
+
+function renderWizardProgress() {
+  wizardProgress.innerHTML = '';
+  const total = DATA.wizardSteps.length;
+  DATA.wizardSteps.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'wiz-dot' + (i < wizardStep ? ' done' : i === wizardStep ? ' active' : '');
+    wizardProgress.appendChild(dot);
+  });
+}
+
+function renderWizardStep() {
+  renderWizardProgress();
+  const step = DATA.wizardSteps[wizardStep];
+  wizardBody.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.className = 'wiz-step';
+
+  if (step.type === 'options') {
+    wrap.innerHTML = `<div class="wiz-question">${step.question}</div>
+      <div class="wiz-options">
+        ${step.options.map(o => `
+          <button class="wiz-option" data-value="${o.value}">
+            <span class="wiz-option-icon">${o.icon}</span>${o.label}
+          </button>`).join('')}
+      </div>`;
+    wizardBody.appendChild(wrap);
+    wrap.querySelectorAll('.wiz-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        wrap.querySelectorAll('.wiz-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        wizardAnswers[step.key] = btn.dataset.value;
+        setTimeout(() => advanceWizard(), 350);
+      });
+    });
+  } else if (step.type === 'input') {
+    wrap.innerHTML = `<div class="wiz-question">${step.question}</div>
+      <div class="wiz-input-wrap">
+        <label>${step.label}</label>
+        <input type="${step.inputType}" id="wizInput" placeholder="${step.placeholder}" min="1" max="120"/>
+      </div>
+      <div class="wiz-nav">
+        ${wizardStep > 0 ? `<button class="btn btn-ghost" id="wizBack">← Back</button>` : ''}
+        <button class="btn btn-accent" id="wizNext">Continue →</button>
+      </div>`;
+    wizardBody.appendChild(wrap);
+    const inp = document.getElementById('wizInput');
+    const saved = wizardAnswers[step.key];
+    if (saved) inp.value = saved;
+    inp.focus();
+    inp.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('wizNext').click(); });
+    document.getElementById('wizNext').addEventListener('click', () => {
+      const val = inp.value.trim();
+      if (!val) { inp.style.borderColor='var(--red)'; return; }
+      wizardAnswers[step.key] = val;
+      advanceWizard();
+    });
+    const backBtn = document.getElementById('wizBack');
+    if (backBtn) backBtn.addEventListener('click', () => { wizardStep--; renderWizardStep(); });
+  } else if (step.type === 'select') {
+    let opts = '<option value="">— Select —</option>';
+    DATA.states.forEach(s => { opts += `<option value="${s.value}">${s.label}</option>`; });
+    wrap.innerHTML = `<div class="wiz-question">${step.question}</div>
+      <div class="wiz-input-wrap">
+        <label>${step.label}</label>
+        <select id="wizSelect">${opts}</select>
+      </div>
+      <div class="wiz-nav">
+        ${wizardStep > 0 ? `<button class="btn btn-ghost" id="wizBack">← Back</button>` : ''}
+        <button class="btn btn-accent" id="wizNext">Continue →</button>
+      </div>`;
+    wizardBody.appendChild(wrap);
+    const sel = document.getElementById('wizSelect');
+    if (wizardAnswers[step.key]) sel.value = wizardAnswers[step.key];
+    document.getElementById('wizNext').addEventListener('click', () => {
+      if (!sel.value) { sel.style.borderColor='var(--red)'; return; }
+      wizardAnswers[step.key] = sel.value;
+      advanceWizard();
+    });
+    const backBtn = document.getElementById('wizBack');
+    if (backBtn) backBtn.addEventListener('click', () => { wizardStep--; renderWizardStep(); });
+  }
+}
+
+function advanceWizard() {
+  if (wizardStep < DATA.wizardSteps.length - 1) {
+    wizardStep++;
+    renderWizardStep();
+  } else {
+    showWizardResult();
+  }
+}
+
+function showWizardResult() {
+  renderWizardProgress();
+  const { citizenship, age, state, conviction } = wizardAnswers;
+  const stateData = DATA.states.find(s => s.value === state);
+  const ageNum = parseInt(age);
+  const result = determineEligibility(ageNum, citizenship, conviction, stateData);
+
+  // Save to localStorage
+  LS.set('eg-wizard-result', { citizenship, age, state, conviction });
+  if (result.type === 'eligible' && currentStep < 1) {
+    currentStep = 1; LS.set('eg-journey-step',1); renderProgress();
+  }
+
+  // Build next steps
+  let nextSteps = [];
+  if (result.type === 'eligible') {
+    nextSteps = [
+      {icon:'📝',text:'Register to vote before the deadline'},
+      {icon:'📄',text:'Gather your ID and proof of address'},
+      {icon:'📍',text:'Find your assigned polling station'},
+    ];
+    if (stateData?.sameDay) nextSteps.push({icon:'🗓️',text:`${stateData.label} allows same-day registration`});
+    if (stateData?.earlyVoting) nextSteps.push({icon:'🗳️',text:`${stateData.label} offers early voting`});
+  }
+
+  wizardBody.innerHTML = `<div class="wiz-step wiz-result">
+    <span class="wiz-result-icon">${result.icon}</span>
+    <div class="wiz-result-title">${result.title}</div>
+    <div class="wiz-result-body">${result.body}</div>
+    ${nextSteps.length ? `<div class="wiz-next-steps">
+      <h4>Your next steps</h4>
+      ${nextSteps.map(s=>`<div class="wiz-next-item"><div class="wiz-next-item-icon">${s.icon}</div><div>${s.text}</div></div>`).join('')}
+    </div>` : ''}
+    <div class="wiz-result-actions" style="margin-top:1.25rem">
+      ${result.type==='eligible' ? `<button class="btn btn-accent" onclick="closeAssistant();scrollToSection('#guide')">📝 Start Voting Guide →</button>` : ''}
+      <button class="btn btn-ghost" onclick="closeAssistant();scrollToSection('#eligibility')">Check Eligibility Form</button>
+      <button class="btn btn-ghost" onclick="wizardStep=0;wizardAnswers={};renderWizardStep()">Start Over</button>
+    </div>
+  </div>`;
+}
+</script>
+
+<script>
+/* ═══ GLOBAL SEARCH ═════════════════════════════════════════ */
+const searchInput = document.getElementById('globalSearch');
+const searchResults = document.getElementById('searchResults');
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  if (q.length < 2) { searchResults.classList.remove('open'); return; }
+  const matches = DATA.searchIndex.filter(item =>
+    item.title.toLowerCase().includes(q) || item.keywords.toLowerCase().includes(q)
+  );
+  if (!matches.length) {
+    searchResults.innerHTML = `<div class="search-empty">No results for "<strong>${q}</strong>"</div>`;
+  } else {
+    searchResults.innerHTML = matches.slice(0,6).map(m => {
+      const hl = m.title.replace(new RegExp(`(${q})`, 'gi'), '<mark>$1</mark>');
+      return `<div class="search-result-item" data-section="${m.section}" tabindex="0">${hl}</div>`;
+    }).join('');
+    searchResults.querySelectorAll('.search-result-item').forEach(item => {
+      item.addEventListener('click', () => {
+        scrollToSection(item.dataset.section);
+        searchInput.value = '';
+        searchResults.classList.remove('open');
+      });
+      item.addEventListener('keydown', e => {
+        if (e.key==='Enter') { scrollToSection(item.dataset.section); searchInput.value=''; searchResults.classList.remove('open'); }
+      });
+    });
+  }
+  searchResults.classList.add('open');
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) searchResults.classList.remove('open');
+});
+
+searchInput.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { searchResults.classList.remove('open'); searchInput.blur(); }
+});
+
+/* ═══ SCROLL REVEAL ═════════════════════════════════════════ */
+function initReveal() {
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 5) * 0.07}s`;
+    ro.observe(el);
+  });
+}
+initReveal();
+
+/* ═══ SCROLL-BASED JOURNEY PROGRESS ════════════════════════ */
+const sectionMap = { eligibility:0, guide:2, documents:3, timeline:1 };
+document.querySelectorAll('.section').forEach(s => {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const mapped = sectionMap[e.target.id];
+        if (mapped !== undefined && mapped > currentStep) {
+          currentStep = mapped; LS.set('eg-journey-step', mapped); renderProgress();
+        }
+      }
+    });
+  }, { threshold: 0.3 }).observe(s);
+});
+
+/* ═══ RESTORE WIZARD RESULT IF SAVED ═══════════════════════ */
+const savedWiz = LS.get('eg-wizard-result', null);
+if (savedWiz && savedWiz.state) {
+  const stateData = DATA.states.find(s => s.value === savedWiz.state);
+  if (stateData) {
+    // Pre-fill eligibility form with wizard answers
+    if (savedWiz.age) document.getElementById('eligAge').value = savedWiz.age;
+    if (savedWiz.citizenship) document.getElementById('eligCitizen').value = savedWiz.citizenship;
+    if (savedWiz.state) document.getElementById('eligState').value = savedWiz.state;
+    if (savedWiz.conviction) document.getElementById('eligConviction').value = savedWiz.conviction;
+  }
+}
+</script>
+</body>
+</html>
