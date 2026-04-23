@@ -1,0 +1,49 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches: [main]          # triggers on every push to main
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Authenticate to Google Cloud
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      # 3. Set up gcloud CLI
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # 4. Build & deploy to Cloud Run
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy votegenie \
+            --source . \
+            --platform managed \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --port 8080 \
+            --memory 256Mi \
+            --cpu 1 \
+            --quiet \
+            --project votegenie
+
+      # 5. Print live URL
+      - name: Print URL
+        run: |
+          echo "✅ Live at:"
+          gcloud run services describe votegenie \
+            --platform managed \
+            --region us-central1 \
+            --format "value(status.url)" \
+            --project votegenie
