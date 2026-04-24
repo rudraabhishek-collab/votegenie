@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 25 510 360" id="india-political-map">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.15)"/>
+    </filter>
+  </defs>
+  <!-- Ocean background -->
+  <rect x="60" y="25" width="510" height="360" fill="#bfdbfe" rx="8"/>
+  <!-- State paths will be rendered by React with dynamic colors -->
+  <path id="state-Jammu---Kashmir" d="M 195 42 L 210 35 L 228 32 L 245 38 L 252 48 L 248 60 L 238 68 L 222 72 L 208 68 L 196 58 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Ladakh" d="M 248 38 L 285 28 L 310 32 L 318 48 L 308 62 L 288 68 L 265 68 L 252 58 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Himachal-Pradesh" d="M 222 72 L 238 68 L 252 72 L 258 85 L 252 98 L 238 102 L 225 98 L 218 85 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Punjab" d="M 196 72 L 208 68 L 222 72 L 218 85 L 212 95 L 198 98 L 185 92 L 182 80 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Chandigarh" d="M 212 88 L 218 86 L 220 92 L 214 94 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Haryana" d="M 198 98 L 212 95 L 225 98 L 228 112 L 222 125 L 208 128 L 195 122 L 190 110 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Delhi" d="M 218 118 L 226 115 L 230 122 L 224 128 L 216 126 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Uttarakhand" d="M 252 98 L 268 92 L 285 95 L 295 108 L 290 122 L 275 128 L 260 125 L 248 115 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Uttar-Pradesh" d="M 222 125 L 228 112 L 248 115 L 260 125 L 275 128 L 295 122 L 318 128 L 338 135 L 352 148 L 355 162 L 345 175 L 328 182 L 308 178 L 288 172 L 268 165 L 248 158 L 232 148 L 222 138 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Rajasthan" d="M 155 98 L 182 80 L 185 92 L 195 122 L 208 128 L 222 138 L 218 158 L 208 178 L 192 192 L 172 198 L 148 192 L 128 178 L 118 158 L 122 135 L 135 115 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Bihar" d="M 338 135 L 355 128 L 375 132 L 392 142 L 398 158 L 390 172 L 372 178 L 352 175 L 338 162 L 335 148 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Jharkhand" d="M 352 175 L 372 178 L 390 172 L 398 185 L 395 202 L 382 212 L 362 215 L 345 208 L 338 195 L 340 182 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-West-Bengal" d="M 392 142 L 412 138 L 428 148 L 432 165 L 428 182 L 418 198 L 405 208 L 390 212 L 378 205 L 368 192 L 372 178 L 390 172 L 398 158 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Sikkim" d="M 412 128 L 422 125 L 428 132 L 422 140 L 412 138 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Assam" d="M 428 148 L 448 142 L 468 145 L 482 155 L 480 168 L 465 178 L 445 182 L 428 178 L 418 168 L 418 155 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Arunachal-Pradesh" d="M 448 118 L 488 112 L 512 118 L 518 135 L 505 145 L 482 148 L 462 145 L 448 135 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Nagaland" d="M 480 168 L 492 162 L 502 168 L 500 182 L 488 188 L 478 182 L 475 172 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Manipur" d="M 488 188 L 500 182 L 508 190 L 505 205 L 492 210 L 480 205 L 478 195 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Mizoram" d="M 472 205 L 482 200 L 492 208 L 490 222 L 478 228 L 465 222 L 462 212 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Tripura" d="M 452 198 L 462 195 L 470 202 L 468 215 L 458 218 L 448 212 L 448 205 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Meghalaya" d="M 428 178 L 445 182 L 455 188 L 452 198 L 438 202 L 422 198 L 418 188 L 420 180 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Odisha" d="M 338 195 L 345 208 L 362 215 L 372 228 L 368 248 L 355 262 L 335 268 L 315 262 L 302 248 L 305 228 L 315 215 L 325 205 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Chhattisgarh" d="M 288 172 L 308 178 L 328 182 L 338 195 L 325 205 L 315 215 L 302 218 L 285 212 L 272 198 L 272 182 L 278 172 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Madhya-Pradesh" d="M 208 178 L 218 158 L 232 148 L 248 158 L 268 165 L 288 172 L 278 182 L 272 198 L 258 208 L 238 212 L 218 208 L 202 198 L 195 182 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Gujarat" d="M 118 158 L 128 178 L 122 198 L 108 215 L 92 218 L 75 208 L 68 192 L 72 172 L 82 158 L 98 148 L 112 148 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Maharashtra" d="M 172 198 L 192 192 L 208 178 L 195 182 L 202 198 L 218 208 L 238 212 L 248 228 L 242 248 L 228 262 L 208 268 L 188 265 L 168 255 L 152 242 L 145 225 L 148 208 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Telangana" d="M 258 208 L 272 198 L 285 212 L 302 218 L 308 235 L 302 252 L 288 262 L 272 265 L 258 258 L 248 245 L 248 228 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Andhra-Pradesh" d="M 248 245 L 258 258 L 272 265 L 288 262 L 302 252 L 315 262 L 318 278 L 308 295 L 292 305 L 272 308 L 252 302 L 235 288 L 228 272 L 228 258 L 235 248 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Karnataka" d="M 168 255 L 188 265 L 208 268 L 228 262 L 228 272 L 228 258 L 235 248 L 235 288 L 225 302 L 208 312 L 188 315 L 168 308 L 152 295 L 145 278 L 148 262 L 158 252 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Goa" d="M 148 262 L 158 258 L 165 265 L 162 275 L 152 278 L 145 272 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Kerala" d="M 188 315 L 208 312 L 215 328 L 212 348 L 202 362 L 188 368 L 175 362 L 168 348 L 170 332 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Tamil-Nadu" d="M 225 302 L 235 288 L 252 302 L 272 308 L 278 325 L 272 345 L 258 358 L 238 365 L 218 362 L 205 348 L 205 332 L 212 318 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Puducherry" d="M 258 335 L 265 332 L 268 340 L 262 345 L 255 342 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Andaman---Nicobar-Islands" d="M 545 248 L 550 242 L 555 248 L 552 258 L 545 255 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Lakshadweep" d="M 95 318 L 100 315 L 103 320 L 99 325 L 94 322 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path id="state-Dadra---Nagar-Haveli-and-Daman---Diu" d="M 118 215 L 125 212 L 128 218 L 122 222 Z" fill="#e8eaf6" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Sea labels -->
+  <text x="88" y="280" font-family="Georgia,serif" font-size="7" fill="#1e40af" font-style="italic" opacity="0.7">ARABIAN</text>
+  <text x="90" y="290" font-family="Georgia,serif" font-size="7" fill="#1e40af" font-style="italic" opacity="0.7">SEA</text>
+  <text x="440" y="260" font-family="Georgia,serif" font-size="7" fill="#1e40af" font-style="italic" opacity="0.7">BAY OF</text>
+  <text x="438" y="270" font-family="Georgia,serif" font-size="7" fill="#1e40af" font-style="italic" opacity="0.7">BENGAL</text>
+  <text x="200" y="375" font-family="Georgia,serif" font-size="7" fill="#1e40af" font-style="italic" opacity="0.7">INDIAN OCEAN</text>
+</svg>
