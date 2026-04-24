@@ -102,7 +102,11 @@
     "reminderSet": "\"{{title}}\" के लिए रिमाइंडर सेट!",
     "reminderRemoved": "रिमाइंडर हटाया गया।",
     "whatToDo": "क्या करें",
-    "callout": "दिखाई गई तिथियाँ नमूना डेटा हैं। हमेशा अपने आधिकारिक स्थानीय चुनाव प्राधिकरण से सत्यापित करें।"
+    "callout": "दिखाई गई तिथियाँ अपेक्षित हैं। हमेशा आधिकारिक तिथियों के लिए eci.gov.in देखें।",
+    "filterAll": "सभी",
+    "filterRegistration": "पंजीकरण",
+    "filterState": "राज्य चुनाव",
+    "filterCentral": "केंद्रीय चुनाव"
   },
   "eligibility": {
     "tag": "पात्रता",
@@ -529,5 +533,40 @@
   },
   "lang": {
     "selectLanguage": "भाषा"
+  },
+  "stateinfo": {
+    "tag": "राज्य चुनाव जानकारी",
+    "title": "वर्तमान नेता और आगामी चुनाव",
+    "subtitle": "किसी भी राज्य या केंद्र शासित प्रदेश का मुख्यमंत्री, सत्तारूढ़ दल और अगली चुनाव तिथि देखें।",
+    "selectPlaceholder": "— राज्य या UT चुनें —",
+    "compareBtn": "⚖️ राज्यों की तुलना करें",
+    "electionInfo": "🗓️ चुनाव जानकारी",
+    "govInfo": "🏛️ सरकार",
+    "nextElection": "अगला चुनाव",
+    "lastElection": "पिछला चुनाव",
+    "recentResult": "हालिया परिणाम",
+    "chiefMinister": "मुख्यमंत्री",
+    "rulingAlliance": "सत्तारूढ़ गठबंधन",
+    "opposition": "विपक्ष",
+    "lokSabhaSeats": "लोकसभा सीटें",
+    "voterHelpline": "मतदाता हेल्पलाइन",
+    "postalVoting": "डाक मतदान",
+    "available": "✅ उपलब्ध",
+    "notAvailable": "❌ उपलब्ध नहीं",
+    "noAssembly": "इस UT में कोई विधानसभा नहीं है",
+    "centrallyAdmin": "केंद्र सरकार द्वारा सीधे प्रशासित।",
+    "emptyTitle": "शुरू करने के लिए एक राज्य चुनें",
+    "emptySubtitle": "सभी 28 राज्य और 8 केंद्र शासित प्रदेश — मुख्यमंत्री, सत्तारूढ़ दल और आगामी चुनाव तिथियाँ।",
+    "compareTitle": "⚖️ दो राज्यों / UTs की तुलना करें",
+    "compareSelectA": "— राज्य A —",
+    "compareSelectB": "— राज्य B —",
+    "compareEmpty": "तुलना के लिए ऊपर दो राज्य चुनें।",
+    "disclaimer": "डेटा 2025 के नवीनतम चुनावों पर आधारित है। हमेशा आधिकारिक जानकारी के लिए eci.gov.in देखें।",
+    "statesGroup": "राज्य (28)",
+    "utsGroup": "केंद्र शासित प्रदेश (8)",
+    "capital": "राजधानी",
+    "assemblySeats": "विधानसभा सीटें",
+    "centralElection": "🏛️ केंद्रीय चुनाव",
+    "stateElection": "🗺️ राज्य"
   }
 }
