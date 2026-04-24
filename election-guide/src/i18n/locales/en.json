@@ -317,7 +317,11 @@
       "booth": "Your polling booth is assigned based on your registered address.\n\nFind it:\n• On your **EPIC card**\n• On the **Voter Helpline App**\n• At **electoralsearch.eci.gov.in**\n\nPolling booths are open **7 AM – 6 PM** on polling day.",
       "howToVote": "On polling day:\n1. Carry your EPIC card or approved alternative ID\n2. Go to your assigned polling booth\n3. Show ID — officer marks your finger with **indelible ink**\n4. Press the **blue EVM button** next to your candidate\n5. Verify on **VVPAT** (7 seconds)\n\nSee the **Voting Guide** section for full details.",
       "thanks": "You're welcome! 😊 Every vote counts — make yours count in 2026! 🗳️\n\nAnything else you'd like to know?",
-      "fallback": "I'm not sure about that. Try asking about:\n• Eligibility to vote\n• How to register (NVSP)\n• EPIC / Voter ID card\n• EVM and VVPAT\n• NOTA\n• Voter Helpline 1950\n• Polling booth location"
+      "fallback": "I'm not sure about that. Try asking about:\n• Eligibility to vote\n• How to register (NVSP)\n• EPIC / Voter ID card\n• EVM and VVPAT\n• NOTA\n• Voter Helpline 1950\n• Polling booth location",
+      "stateInfoCM": "The Chief Minister of **{{name}}** is **{{cm}}** ({{cmParty}}).\n\nRuling Alliance: {{rulingAlliance}}\nOpposition: {{oppositionParty}}\n\n👉 See the **State Info** section for full details.",
+      "stateInfoElection": "The next assembly election in **{{name}}** is expected in **{{nextElection}}**.\n\nLast election: {{lastElection}}\nRecent result: {{recentResult}}\n\n👉 See the **State Info** section for full details.",
+      "stateInfoParty": "The ruling party in **{{name}}** is **{{rulingParty}}** ({{rulingAlliance}}).\n\nCM: {{cm}}\nOpposition: {{oppositionParty}}\n\n👉 See the **State Info** section for full details.",
+      "stateInfoGeneric": "Here's a quick summary for **{{name}}**:\n\n👤 CM: {{cm}} ({{cmParty}})\n🏛️ Ruling: {{rulingAlliance}}\n📅 Next Election: {{nextElection}}\n📊 Last Result: {{recentResult}}\n\n👉 See the **State Info** section for full details."
     }
   },
   "footer": {
