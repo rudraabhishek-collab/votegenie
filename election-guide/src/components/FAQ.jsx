@@ -147,7 +147,7 @@ export default function FAQ({ dark, onOpenAssistant }) {
           return (
             <button key={cat.id} onClick={() => { setCategory(cat.id); setOpenIdx(null); setShowAll(false) }}
               className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[0.78rem] font-bold border transition-all duration-200 hover:-translate-y-0.5
-                ${isActive ? 'bg-gradient-to-r from-indigo-500 to-violet-600 border-transparent text-white shadow-glow'
+                ${isActive ? 'bg-gradient-to-r from-[#FF9933] to-[#f97316] border-transparent text-white shadow-[0_4px_12px_rgba(255,153,51,0.4)]'
                            : dark ? 'bg-white/5 border-white/10 text-slate-400 hover:border-indigo-600/50 hover:text-indigo-400'
                                   : 'bg-white border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'}`}>
               <span>{cat.icon}</span>{cat.label}
@@ -170,7 +170,7 @@ export default function FAQ({ dark, onOpenAssistant }) {
           <p className={`font-bold text-[1rem] mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>{t('faq.noResults', { query })}</p>
           <p className={`text-[0.88rem] mb-5 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{t('faq.noResultsSub')}</p>
           <button onClick={onOpenAssistant}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.88rem] text-white bg-gradient-to-r from-indigo-500 to-violet-600 shadow-glow hover:-translate-y-0.5 transition-all">
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.88rem] text-white bg-gradient-to-r from-[#FF9933] to-[#1a237e] shadow-[0_4px_16px_rgba(255,153,51,0.4)] hover:-translate-y-0.5 transition-all">
             {t('faq.askAssistant')}
           </button>
         </div>
@@ -200,7 +200,7 @@ export default function FAQ({ dark, onOpenAssistant }) {
           <p className={`text-[0.88rem] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{t('faq.stillHaveQuestionsSub')}</p>
         </div>
         <button onClick={onOpenAssistant}
-          className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.88rem] text-white bg-gradient-to-r from-indigo-500 to-violet-600 shadow-glow hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-95 transition-all">
+          className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.88rem] text-white bg-gradient-to-r from-[#FF9933] to-[#1a237e] shadow-[0_4px_16px_rgba(255,153,51,0.4)] hover:-translate-y-0.5 active:scale-95 transition-all">
           {t('faq.askAssistant')}
         </button>
       </div>

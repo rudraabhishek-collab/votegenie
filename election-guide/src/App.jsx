@@ -74,9 +74,7 @@ export default function App() {
     if (stepMap[idx] !== undefined) setCurrentStep(s => Math.max(s, stepMap[idx]))
   }
 
-  const bg = dark
-    ? 'bg-[#0a0d1f] bg-mesh-dark'
-    : 'bg-[#f0f4ff] bg-mesh-light'
+  const bg = dark ? 'bg-[#0a0d1f] bg-mesh-dark' : 'bg-[#fff8f0] bg-mesh-light'
 
   return (
     <div className={`min-h-screen ${bg} transition-colors duration-300 dark:text-slate-100`}>
@@ -94,7 +92,7 @@ export default function App() {
       {/* Decorative Wave Transition */}
       <div className="w-full relative z-10 leading-none -mt-1 overflow-hidden pointer-events-none">
         <svg className="block w-full h-[35px] sm:h-[50px] md:h-[70px]" preserveAspectRatio="none" viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0C240 70 480 70 720 35C960 0 1200 0 1440 35V70H0V0Z" fill={dark ? "#0a0d1f" : "#f0f4ff"} />
+          <path d="M0 0C240 70 480 70 720 35C960 0 1200 0 1440 35V70H0V0Z" fill={dark ? "#0a0d1f" : "#fff8f0"} />
         </svg>
       </div>
 
@@ -147,9 +145,9 @@ export default function App() {
         onClick={() => setChatOpen(o => !o)}
         aria-label={chatOpen ? 'Close assistant' : 'Open voter assistant'}
         className={`fixed bottom-8 right-8 z-50 flex items-center gap-2.5 px-5 py-3.5 rounded-full font-bold text-[0.88rem] text-white
-          bg-gradient-to-r from-[#1a237e] to-[#283593]
-          shadow-[0_8px_32px_rgba(26,35,126,0.45),0_0_0_3px_rgba(255,153,51,0.4),0_2px_0_rgba(255,255,255,0.15)_inset]
-          hover:-translate-y-1.5 hover:scale-105 hover:shadow-[0_12px_40px_rgba(26,35,126,0.55),0_0_0_3px_rgba(255,153,51,0.6)]
+          bg-gradient-to-r from-[#FF9933] via-[#f97316] to-[#1a237e]
+          shadow-[0_8px_32px_rgba(255,153,51,0.45),0_0_0_3px_rgba(26,35,126,0.3)]
+          hover:-translate-y-1.5 hover:scale-105 hover:shadow-[0_12px_40px_rgba(255,153,51,0.55)]
           active:scale-95 transition-all duration-300
           ${chatOpen ? 'animate-glow-pulse' : ''}`}>
         <span className={`text-lg transition-transform duration-300 ${chatOpen ? 'rotate-90' : ''}`}>

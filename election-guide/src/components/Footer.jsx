@@ -23,7 +23,7 @@ export default function Footer({ dark }) {
       </div>
 
       <div className="relative max-w-5xl mx-auto px-6 py-12 text-center">
-        <div className="text-[1.2rem] font-black tracking-[-0.03em] mb-3 text-gradient inline-block">
+        <div className="text-[1.2rem] font-black tracking-[-0.03em] mb-3 inline-block" style="background:linear-gradient(135deg,#FF9933,#f97316,#1a237e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">
           {t('footer.title')}
         </div>
         <p className="text-[0.88rem] max-w-md mx-auto leading-relaxed">{t('footer.description')}</p>

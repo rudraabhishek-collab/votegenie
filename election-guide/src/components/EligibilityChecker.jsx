@@ -117,7 +117,7 @@ function ResultCard({ result, dark, onReset }) {
       <div className="flex gap-3 flex-wrap mt-5">
         {result.type === 'eligible' && (
           <a href="#guide"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-[0.85rem] text-white bg-gradient-to-r from-indigo-500 to-violet-600 shadow-glow hover:-translate-y-0.5 transition-all no-underline">
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-[0.85rem] text-white bg-gradient-to-r from-[#FF9933] to-[#1a237e] shadow-[0_4px_12px_rgba(255,153,51,0.4)] hover:-translate-y-0.5 transition-all no-underline">
             📝 Start Registration Guide →
           </a>
         )}
@@ -295,7 +295,7 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
           )}
 
           <button onClick={handleSubmit}
-            className="w-full py-3.5 rounded-xl font-bold text-white text-[0.95rem] bg-gradient-to-r from-indigo-500 to-violet-600 shadow-glow hover:shadow-glow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+            className="w-full py-3.5 rounded-xl font-bold text-white text-[0.95rem] bg-gradient-to-r from-[#FF9933] to-[#1a237e] shadow-[0_4px_16px_rgba(255,153,51,0.4)] hover:shadow-[0_8px_24px_rgba(255,153,51,0.5)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
             Check My Eligibility →
           </button>
         </div>

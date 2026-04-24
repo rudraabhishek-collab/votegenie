@@ -84,7 +84,7 @@ export default function Timeline({ dark }) {
             <button key={f.id} onClick={() => setFilter(f.id)}
               className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[0.78rem] font-bold border transition-all duration-200 hover:-translate-y-0.5
                 ${isActive
-                  ? 'bg-gradient-to-r from-indigo-500 to-violet-600 border-transparent text-white shadow-[0_4px_12px_rgba(99,102,241,0.3)]'
+                  ? 'bg-gradient-to-r from-[#FF9933] to-[#f97316] border-transparent text-white shadow-[0_4px_12px_rgba(255,153,51,0.4)]'
                   : dark
                     ? 'bg-white/5 border-white/10 text-slate-400 hover:border-indigo-600/50 hover:text-indigo-400'
                     : 'bg-white border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'
