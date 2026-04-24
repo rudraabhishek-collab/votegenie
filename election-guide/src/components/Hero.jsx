@@ -207,20 +207,20 @@ function FloatingStateCard() {
           <span className="ml-auto w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
         </div>
         <div className="space-y-1">
-          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-slate-500 flex items-center gap-1.5">
             <span className="text-[#FF9933]">🗳️</span>
             <span className="font-semibold text-[#1a237e]">{c.next}</span>
           </p>
-          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-slate-500 flex items-center gap-1.5">
             <span className="text-[#FF9933]">👤</span>
             <span className="font-semibold text-[#1a237e]">{c.cm}</span>
           </p>
-          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-slate-500 flex items-center gap-1.5">
             <span className="text-[#FF9933]">🏛️</span>
             <span className="font-semibold text-[#1a237e]">{c.party}</span>
           </p>
         </div>
-        <p className="text-[0.58rem] text-slate-600 mt-2 text-right">Live · ECI Data</p>
+        <p className="text-[0.58rem] text-slate-500 mt-2 text-right">Live · ECI Data</p>
       </div>
     </div>
   )
@@ -290,7 +290,7 @@ function TrustBadges() {
           <span className="text-sm">{t.icon}</span>
           <div className="text-left">
             <p className="text-[0.72rem] font-bold text-white/70 leading-none">{t.text}</p>
-            <p className="text-[0.62rem] text-[#1a237e]/60 leading-none mt-0.5">{t.sub}</p>
+            <p className="text-[0.62rem] text-white/50 leading-none mt-0.5">{t.sub}</p>
           </div>
         </div>
       ))}
