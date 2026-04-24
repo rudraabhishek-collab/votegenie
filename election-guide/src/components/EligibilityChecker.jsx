@@ -211,7 +211,7 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
 
         <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: 'linear-gradient(90deg,#FF6A00,#FF4500,#3b82f6)' }} />
 
-        <div className="relative p-8">
+        <div className="relative p-5 sm:p-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label className={`block text-[0.72rem] font-extrabold uppercase tracking-[0.08em] mb-1.5 ${dark ? 'text-slate-400' : 'text-white/70'}`}>Your Age</label>

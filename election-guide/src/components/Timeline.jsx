@@ -101,7 +101,7 @@ export default function Timeline({ dark }) {
       </div>
 
       {/* Timeline scroll */}
-      <div className="md:overflow-x-auto md:pb-3 md:scrollbar-thin md:-mx-2 md:px-2">
+      <div className="md:overflow-x-auto md:pb-3 md:scrollbar-thin md:-mx-2 md:px-2 overflow-x-auto pb-2 -mx-1 px-1">
         <div className="flex flex-col md:flex-row md:min-w-max py-4 md:py-8 px-4 relative gap-8 md:gap-0">
           {/* Connecting line */}
           <div className="hidden md:block absolute top-[2.6rem] left-20 right-20 h-0.5 opacity-40 rounded-full"
@@ -183,7 +183,7 @@ export default function Timeline({ dark }) {
           ${dark ? 'bg-gray-900 border-violet-800/30' : 'bg-white border-indigo-100'}`}
           style={{ animation: 'slideDown 0.3s cubic-bezier(0.34,1.56,0.64,1) both' }}>
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500" />
-          <div className="p-7">
+          <div className="p-5 sm:p-7">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap mb-1">

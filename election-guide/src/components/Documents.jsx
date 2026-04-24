@@ -8,7 +8,7 @@ export default function Documents({ dark }) {
   return (
     <section id="documents" className="scroll-mt-20" aria-labelledby="docs-h">
       <SectionHeader tag={t('documents.tag')} title={t('documents.title')} subtitle={t('documents.subtitle')} dark={dark} />
-      <div className={`overflow-x-auto rounded-2xl border shadow-[0_4px_24px_rgba(11,30,60,0.18)]
+      <div className={`overflow-x-auto rounded-2xl border shadow-[0_4px_24px_rgba(11,30,60,0.18)] -mx-1 px-1
         ${dark ? 'border-white/10' : 'border-[#0B1E3C]/10'}`}>
         <table className="w-full text-[0.88rem]" aria-label="Required documents">
           <thead>

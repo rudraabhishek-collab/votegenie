@@ -38,27 +38,28 @@ function FloatingStateCard() {
   }, [])
   const c = cards[idx]
   return (
+    // Hidden on mobile (< md), shown as absolute on md+
     <div
-      className="absolute right-6 top-24 md:right-12 md:top-32 z-20 pointer-events-none"
+      className="hidden md:block absolute right-6 top-24 md:right-12 md:top-32 z-20 pointer-events-none"
       style={{ animation: 'fadeUp 0.8s 0.9s ease both', opacity: 0 }}
     >
-      <div className="bg-[#0B1E3C] backdrop-blur-md border border-white/20 rounded-[20px] px-5 py-4 shadow-[0_8px_32px_rgba(0,0,0,0.25)] min-w-[200px]">
+      <div className="bg-[#0B1E3C] backdrop-blur-md border border-white/20 rounded-[20px] px-5 py-4 shadow-[0_8px_32px_rgba(0,0,0,0.25)] min-w-[200px] max-w-[220px]">
         <div className="flex items-center gap-2.5 mb-3">
           <span className="text-lg">{c.flag}</span>
-          <span className="font-bold text-[0.95rem] text-white">{c.state}</span>
-          <span className="ml-auto w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+          <span className="font-bold text-[0.95rem] text-white truncate">{c.state}</span>
+          <span className="ml-auto w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
         </div>
         <div className="space-y-2">
           <p className="text-[0.75rem] text-white/95 flex items-center gap-2">
-            <span className="text-[#FF6A00]">📅</span>
+            <span className="text-[#FF6A00] flex-shrink-0">📅</span>
             <span className="font-semibold">{c.next}</span>
           </p>
           <p className="text-[0.75rem] text-white/95 flex items-center gap-2">
-            <span className="text-[#FF6A00]">👤</span>
-            <span className="font-semibold">{c.cm}</span>
+            <span className="text-[#FF6A00] flex-shrink-0">👤</span>
+            <span className="font-semibold truncate">{c.cm}</span>
           </p>
           <p className="text-[0.75rem] text-white/95 flex items-center gap-2">
-            <span className="text-[#FF6A00]">🏛️</span>
+            <span className="text-[#FF6A00] flex-shrink-0">🏛️</span>
             <span className="font-semibold">{c.party}</span>
           </p>
         </div>
@@ -103,29 +104,17 @@ export default function Hero({ onOpenAssistant }) {
 
       <FloatingStateCard />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-32 flex flex-col items-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-20 sm:pb-32 flex flex-col items-center">
 
         {/* Top badges row - Authority logos */}
         <div
-          className="flex items-center justify-center gap-4 mb-8 flex-wrap"
+          className="flex items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8 flex-wrap"
           style={{ animation: 'fadeUp 0.5s 0.1s ease both', opacity: 0 }}
         >
           {[
-            { 
-              logo: '/logos/eci.svg', 
-              name: 'Election Commission of India',
-              url: 'https://eci.gov.in'
-            },
-            { 
-              logo: '/logos/nvsp.svg', 
-              name: 'NVSP — Voter Service Portal',
-              url: 'https://www.nvsp.in'
-            },
-            { 
-              logo: '/logos/emblem.svg', 
-              name: 'Govt. of India',
-              url: 'https://www.india.gov.in'
-            },
+            { logo: '/logos/eci.svg',    name: 'Election Commission of India', url: 'https://eci.gov.in'        },
+            { logo: '/logos/nvsp.svg',   name: 'NVSP — Voter Service Portal',  url: 'https://www.nvsp.in'       },
+            { logo: '/logos/emblem.svg', name: 'Govt. of India',               url: 'https://www.india.gov.in'  },
           ].map((badge, i) => (
             <a
               key={i}
@@ -133,63 +122,52 @@ export default function Hero({ onOpenAssistant }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visit ${badge.name} official website`}
-              className="relative inline-flex items-center gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-[18px] px-5 py-3 shadow-lg
-                hover:scale-[1.03] hover:shadow-[0_8px_32px_rgba(255,106,0,0.3)] 
+              className="relative inline-flex items-center gap-2 sm:gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-[14px] sm:rounded-[18px] px-3 sm:px-5 py-2 sm:py-3 shadow-lg
+                hover:scale-[1.03] hover:shadow-[0_8px_32px_rgba(255,106,0,0.3)]
                 transition-all duration-300 cursor-pointer no-underline overflow-hidden"
             >
-              {/* Ashoka Chakra background watermark */}
               <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
                 <svg viewBox="0 0 200 200" className="w-24 h-24">
                   <circle cx="100" cy="100" r="85" fill="none" stroke="#60a5fa" strokeWidth="3"/>
                   <circle cx="100" cy="100" r="10" fill="#60a5fa"/>
                   {Array.from({ length: 24 }, (_, idx) => {
                     const angle = (idx * 15 - 90) * Math.PI / 180
-                    const x1 = 100 + 18 * Math.cos(angle)
-                    const y1 = 100 + 18 * Math.sin(angle)
-                    const x2 = 100 + 83 * Math.cos(angle)
-                    const y2 = 100 + 83 * Math.sin(angle)
-                    return <line key={idx} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#60a5fa" strokeWidth="2"/>
+                    return <line key={idx} x1={100+18*Math.cos(angle)} y1={100+18*Math.sin(angle)} x2={100+83*Math.cos(angle)} y2={100+83*Math.sin(angle)} stroke="#60a5fa" strokeWidth="2"/>
                   })}
                 </svg>
               </div>
-              
-              {/* Content */}
-              <img 
-                src={badge.logo} 
-                alt={`${badge.name} logo`}
-                className="w-7 h-7 object-contain relative z-10"
-              />
-              <span className="text-[0.8rem] font-bold text-white hidden sm:inline relative z-10">{badge.name}</span>
+              <img src={badge.logo} alt={`${badge.name} logo`} className="w-6 h-6 sm:w-7 sm:h-7 object-contain relative z-10" />
+              <span className="text-[0.72rem] sm:text-[0.8rem] font-bold text-white hidden sm:inline relative z-10">{badge.name}</span>
             </a>
           ))}
         </div>
 
         {/* Small tagline badge */}
         <div
-          className="inline-flex items-center gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-full text-[0.7rem] font-extrabold tracking-[0.08em] uppercase px-6 py-2.5 mb-10 text-white shadow-md"
+          className="inline-flex items-center gap-2 sm:gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-full text-[0.62rem] sm:text-[0.7rem] font-extrabold tracking-[0.08em] uppercase px-4 sm:px-6 py-2 sm:py-2.5 mb-7 sm:mb-10 text-white shadow-md text-center"
           style={{ animation: 'fadeUp 0.5s 0.2s ease both', opacity: 0 }}
         >
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-2 w-2 flex-shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
           </span>
           {t('hero.badge')}
         </div>
 
-        {/* Main Heading - MAXIMUM VISIBILITY */}
+        {/* Main Heading */}
         <h1
           id="hero-heading"
-          className="font-black leading-[1.1] tracking-tight mb-8 relative z-10"
-          style={{ 
-            animation: 'fadeUp 0.6s 0.3s ease both', 
+          className="font-black leading-[1.1] tracking-tight mb-6 sm:mb-8 relative z-10 w-full"
+          style={{
+            animation: 'fadeUp 0.6s 0.3s ease both',
             opacity: 0,
-            fontSize: 'clamp(3.5rem, 9vw, 4.5rem)'
+            fontSize: 'clamp(2.2rem, 7vw, 4.5rem)',
           }}
         >
-          <span className="block text-[#0B1E3C] font-black drop-shadow-sm mb-2">
+          <span className="block text-[#0B1E3C] font-black drop-shadow-sm mb-1 sm:mb-2">
             {t('hero.headline1')}
           </span>
-          <span 
+          <span
             className="block font-black"
             style={{
               background: 'linear-gradient(135deg, #FF6A00 0%, #FF4500 100%)',
@@ -204,34 +182,29 @@ export default function Hero({ onOpenAssistant }) {
 
         {/* Subtext */}
         <p
-          className="text-[1.125rem] text-[#0B1E3C]/70 max-w-[700px] mx-auto mb-12 leading-relaxed font-medium relative z-10"
-          style={{ 
-            animation: 'fadeUp 0.6s 0.4s ease both', 
-            opacity: 0
-          }}
+          className="text-[0.95rem] sm:text-[1.125rem] text-[#0B1E3C]/70 max-w-[700px] mx-auto mb-8 sm:mb-12 leading-relaxed font-medium relative z-10 px-1"
+          style={{ animation: 'fadeUp 0.6s 0.4s ease both', opacity: 0 }}
         >
           {t('hero.subheading')}
         </p>
 
         {/* Primary CTA */}
         <div
-          className="flex flex-col items-center gap-3"
+          className="flex flex-col items-center gap-3 w-full sm:w-auto"
           style={{ animation: 'fadeUp 0.6s 0.5s ease both', opacity: 0 }}
         >
           <button
             onClick={handleStart}
             disabled={loading}
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-[20px] font-bold text-[1.125rem]
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 sm:px-10 py-4 sm:py-5 rounded-[16px] sm:rounded-[20px] font-bold text-[1rem] sm:text-[1.125rem]
               text-white shadow-[0_8px_32px_rgba(255,106,0,0.4)]
               hover:shadow-[0_12px_48px_rgba(255,106,0,0.5)]
               hover:scale-105 disabled:opacity-70 disabled:cursor-wait transition-all duration-300"
-            style={{
-              background: 'linear-gradient(135deg, #FF6A00 0%, #FF4500 100%)',
-            }}
+            style={{ background: 'linear-gradient(135deg, #FF6A00 0%, #FF4500 100%)' }}
           >
             {loading ? (
               <>
-                <svg className="w-5 h-5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 animate-spin text-white flex-shrink-0" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                 </svg>
@@ -239,13 +212,13 @@ export default function Hero({ onOpenAssistant }) {
               </>
             ) : (
               <>
-                <span className="text-xl">☑️</span>
+                <span className="text-xl flex-shrink-0">☑️</span>
                 <span>{t('hero.cta')}</span>
               </>
             )}
           </button>
 
-          <p className="text-[0.8rem] text-[#0B1E3C]/60 font-semibold tracking-wide">
+          <p className="text-[0.75rem] sm:text-[0.8rem] text-[#0B1E3C]/60 font-semibold tracking-wide text-center">
             {t('hero.ctaSubtext')} · Powered by ECI &amp; NVSP
           </p>
         </div>

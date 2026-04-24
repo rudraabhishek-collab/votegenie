@@ -55,7 +55,7 @@ export default function VotingGuide({ dark, completed, onComplete }) {
               ${isOpen ? 'shadow-[0_8px_40px_rgba(255,106,0,0.2)] scale-[1.005]' : 'shadow-[0_4px_20px_rgba(11,30,60,0.18)] hover:shadow-[0_8px_32px_rgba(255,106,0,0.15)] hover:scale-[1.002]'}`}>
 
               <button onClick={() => toggle(i)} aria-expanded={isOpen}
-                className={`w-full flex items-center gap-4 px-6 py-5 text-left transition-colors duration-200
+                className={`w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-4 sm:py-5 text-left transition-colors duration-200
                   ${dark ? 'hover:bg-white/5' : 'hover:bg-white/5'}`}>
                 <div className={`w-11 h-11 rounded-full flex items-center justify-center text-[0.95rem] font-black flex-shrink-0 transition-all duration-300
                   ${isDone ? 'bg-gradient-to-br from-emerald-500 to-teal-500 text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)]'
@@ -81,7 +81,7 @@ export default function VotingGuide({ dark, completed, onComplete }) {
               </button>
 
               <Collapsible open={isOpen}>
-                <div className={`border-t px-6 pb-6 border-white/10`}>
+                <div className={`border-t px-4 sm:px-6 pb-5 sm:pb-6 border-white/10`}>
                   <p className={`text-[0.92rem] leading-relaxed mt-5 mb-4 text-white/80`}>{step.body}</p>
                   <div className="flex flex-col gap-2.5">
                     {step.items.map((item, j) => (

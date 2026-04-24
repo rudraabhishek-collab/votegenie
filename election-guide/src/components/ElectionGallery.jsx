@@ -83,12 +83,12 @@ export default function ElectionGallery({ dark }) {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         {IMAGES.map((img, i) => (
           <button key={i} onClick={() => setActive(active === i ? null : i)}
             className={`relative overflow-hidden rounded-2xl group transition-all duration-300
               ${active === i ? 'ring-4 ring-[#FF9933] scale-[1.02]' : 'hover:scale-[1.02]'}
-              ${i === 0 ? 'col-span-2 row-span-1' : ''}`}
+              ${i === 0 ? 'sm:col-span-2 md:col-span-2' : ''}`}
             style={{ aspectRatio: i === 0 ? '16/7' : '4/3' }}>
 
             {/* Image with fallback */}
@@ -128,7 +128,7 @@ export default function ElectionGallery({ dark }) {
       </div>
 
       {/* Stats strip */}
-      <div className={`mt-5 rounded-2xl border p-4 flex flex-wrap gap-4 justify-around
+      <div className={`mt-5 rounded-2xl border p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-4 justify-around
         ${dark ? 'bg-[#1a237e]/20 border-[#283593]/40' : 'bg-[#e8eaf6] border-[#1a237e]/15'}`}>
         {[
           { num: '96.8 Cr', label: isHindi ? 'पंजीकृत मतदाता' : 'Registered Voters', icon: '🗳️' },

@@ -193,7 +193,7 @@ export default function ChatAssistant({ open, onClose, dark }) {
       <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm" onClick={onClose} />
 
       <div
-        className={`fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] flex flex-col rounded-3xl border shadow-modal overflow-hidden
+        className={`fixed bottom-20 sm:bottom-24 right-3 sm:right-6 z-50 w-[calc(100vw-1.5rem)] sm:w-[360px] max-w-[calc(100vw-1.5rem)] flex flex-col rounded-3xl border shadow-modal overflow-hidden
           ${dark ? 'bg-[#0a0e1f] border-violet-800/30' : 'bg-white border-indigo-100'}
           animate-[fadeUp_0.35s_cubic-bezier(0.34,1.56,0.64,1)_both]`}
         style={{ height: '520px' }}

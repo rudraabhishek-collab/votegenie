@@ -23,7 +23,7 @@ export default function SectionHeader({ tag, title, subtitle, dark }) {
         }`}>
         {tag}
       </span>
-      <h2 className={`text-[clamp(1.65rem,3vw,2.1rem)] font-black leading-tight tracking-[-0.04em]
+      <h2 className={`text-[clamp(1.4rem,4vw,2.1rem)] font-black leading-tight tracking-[-0.04em]
         ${dark ? 'text-white' : 'text-[#0B1E3C]'}`}>
         {title}
       </h2>

@@ -53,7 +53,7 @@ export default function Overview({ dark }) {
     <section id="overview" className="scroll-mt-20" aria-labelledby="overview-h" ref={ref}>
       <SectionHeader tag={t('overview.tag')} title={t('overview.title')}
         subtitle={t('overview.subtitle')} dark={dark} />
-      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item, i) => (
           <OverviewCard key={i} item={item} dark={dark} index={i} />
         ))}

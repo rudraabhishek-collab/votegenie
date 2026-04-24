@@ -209,8 +209,7 @@ export default function StateInfo({ dark }) {
   const data = stateData[selected]
   const isUT = data && data.seats === 0
 
-  const selectCls = `w-full sm:w-80 rounded-xl px-4 py-2.5 text-[0.9rem] border appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-400/30 transition-all
-    ${dark ? 'bg-white/[0.07] border-white/10 text-white focus:border-indigo-400' : 'bg-slate-50 border-indigo-100 text-gray-900 focus:border-indigo-400 focus:bg-white'}`
+  const selectCls = `w-full sm:w-80 rounded-xl px-4 py-2.5 text-[0.9rem] border appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-400/30 transition-all    ${dark ? 'bg-white/[0.07] border-white/10 text-white focus:border-indigo-400' : 'bg-slate-50 border-indigo-100 text-gray-900 focus:border-indigo-400 focus:bg-white'}`
 
   return (
     <section id="stateinfo" className="scroll-mt-20" aria-labelledby="stateinfo-h">
@@ -222,7 +221,7 @@ export default function StateInfo({ dark }) {
       />
 
       {/* Controls */}
-      <div className="flex flex-wrap items-center gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 mb-6">
         <div className="relative flex-1 sm:flex-none">
           <select value={selected} onChange={e => { setSelected(e.target.value); setShowCompare(false) }}
             className={selectCls} aria-label="Select state or UT">

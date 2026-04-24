@@ -123,7 +123,7 @@ export default function App() {
         dark={dark}
       />
 
-      <main className="max-w-5xl mx-auto px-6 py-16 space-y-20" id="main-content" style={dark ? {} : {
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12 sm:space-y-20" id="main-content" style={dark ? {} : {
         background: 'linear-gradient(180deg, #fdf6ee 0%, #ffeedd 18%, #fff0e6 40%, #f5eeff 65%, #ffeedd 85%, #fdf6ee 100%)',
       }}>
         <Overview dark={dark} />
@@ -148,7 +148,7 @@ export default function App() {
       <button
         onClick={() => setChatOpen(o => !o)}
         aria-label={chatOpen ? 'Close assistant' : 'Open voter assistant'}
-        className={`fixed bottom-8 right-8 z-50 flex items-center gap-2.5 px-5 py-3.5 rounded-full font-bold text-[0.88rem] text-white
+        className={`fixed bottom-5 right-4 sm:bottom-8 sm:right-8 z-50 flex items-center gap-2.5 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full font-bold text-[0.82rem] sm:text-[0.88rem] text-white
           bg-gradient-to-r from-[#FF9933] via-[#f97316] to-[#1a237e]
           shadow-[0_8px_32px_rgba(255,153,51,0.45),0_0_0_3px_rgba(26,35,126,0.3)]
           hover:-translate-y-1.5 hover:scale-105 hover:shadow-[0_12px_40px_rgba(255,153,51,0.55)]

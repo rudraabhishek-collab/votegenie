@@ -153,22 +153,21 @@ export default function IndiaMap({ dark, onStateSelect }) {
       <div className="flex flex-col lg:flex-row gap-6 items-start">
 
         {/* ── SVG Map ─────────────────────────────────────────────────────── */}
-        <div className={`relative flex-1 rounded-2xl border overflow-hidden shadow-card
+        <div className={`relative w-full lg:flex-1 rounded-2xl border overflow-hidden shadow-card
           ${dark ? 'bg-[#0a0e1f] border-[#283593]/50' : 'bg-[#dbeafe] border-[#1a237e]/20'}`}>
 
-          {/* Legend */}
-          <div className={`absolute top-3 left-3 z-20 rounded-xl px-3 py-2.5 border shadow-xl backdrop-blur-sm
+          {/* Legend — static on mobile, absolute on lg+ */}
+          <div className={`lg:absolute lg:top-3 lg:left-3 lg:z-20 relative z-10 m-3 lg:m-0 rounded-xl px-3 py-2.5 border shadow-xl backdrop-blur-sm w-fit
             ${dark ? 'bg-[#0d1757]/98 border-white/15' : 'bg-white/98 border-[#1a237e]/20'}`}>
             <p className={`text-[0.58rem] font-extrabold uppercase tracking-widest mb-2 ${dark ? 'text-white' : 'text-slate-700'}`}>
               Ruling Party
             </p>
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-wrap gap-x-4 gap-y-1.5 lg:flex-col lg:gap-1.5">
               {uniqueParties.map(party => {
                 const p = PARTY[party]
                 return (
                   <div key={party} className="flex items-center gap-2">
-                    <div className="w-3.5 h-3.5 rounded-sm flex-shrink-0 border border-black/10"
-                      style={{ background: p.fill }} />
+                    <div className="w-3.5 h-3.5 rounded-sm flex-shrink-0 border border-black/10" style={{ background: p.fill }} />
                     <span className="text-sm leading-none">{p.symbol}</span>
                     <span className={`text-[0.65rem] font-bold ${dark ? 'text-white' : 'text-slate-700'}`}>{party}</span>
                   </div>
@@ -279,7 +278,7 @@ export default function IndiaMap({ dark, onStateSelect }) {
         </div>
 
         {/* ── Detail panel ────────────────────────────────────────────────── */}
-        <div className="lg:w-72 w-full flex flex-col gap-3">
+        <div className="w-full lg:w-72 flex flex-col gap-3">
 
           {selectedData ? (
             <div
