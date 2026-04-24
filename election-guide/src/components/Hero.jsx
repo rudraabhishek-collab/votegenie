@@ -97,17 +97,39 @@ export default function Hero({ onOpenAssistant }) {
           style={{ animation: 'fadeUp 0.5s 0.1s ease both', opacity: 0 }}
         >
           {[
-            { icon: '🏛️', name: 'Election Commission of India' },
-            { icon: '🗳️', name: 'NVSP — Voter Service Portal' },
-            { icon: '🇮🇳', name: 'Govt. of India' },
+            { 
+              logo: '/logos/eci.svg', 
+              name: 'Election Commission of India',
+              url: 'https://eci.gov.in'
+            },
+            { 
+              logo: '/logos/nvsp.svg', 
+              name: 'NVSP — Voter Service Portal',
+              url: 'https://www.nvsp.in'
+            },
+            { 
+              logo: '/logos/emblem.svg', 
+              name: 'Govt. of India',
+              url: 'https://www.india.gov.in'
+            },
           ].map((badge, i) => (
-            <div
+            <a
               key={i}
-              className="inline-flex items-center gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-[18px] px-5 py-3 shadow-lg"
+              href={badge.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${badge.name} official website`}
+              className="inline-flex items-center gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-[18px] px-5 py-3 shadow-lg
+                hover:scale-[1.03] hover:shadow-[0_8px_32px_rgba(255,106,0,0.3)] 
+                transition-all duration-300 cursor-pointer no-underline"
             >
-              <span className="text-xl">{badge.icon}</span>
+              <img 
+                src={badge.logo} 
+                alt={`${badge.name} logo`}
+                className="w-6 h-6 object-contain brightness-0 invert"
+              />
               <span className="text-[0.8rem] font-bold text-white hidden sm:inline">{badge.name}</span>
-            </div>
+            </a>
           ))}
         </div>
 
