@@ -10,7 +10,7 @@ function OverviewCard({ item, dark, index }) {
       className={`sr relative overflow-hidden rounded-2xl p-6 border cursor-default group
         transition-all duration-300 hover:-translate-y-1
         ${dark
-          ? 'bg-gray-900/80 border-violet-900/20 hover:border-violet-700/40 hover:shadow-[0_8px_40px_rgba(99,102,241,0.15)]'
+          ? 'bg-gray-900 border-violet-900/20 hover:border-violet-700/40 hover:shadow-[0_8px_40px_rgba(99,102,241,0.15)]'
           : 'bg-white border-indigo-100/60 hover:border-indigo-200 hover:shadow-card-hover'
         } shadow-card`}
       style={{ transitionDelay: `${index * 60}ms` }}>
