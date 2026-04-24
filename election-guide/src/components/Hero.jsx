@@ -173,7 +173,7 @@ export default function Hero({ onOpenAssistant }) {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
           </span>
-          First-Time Voter Assistant · India 2026
+          {t('hero.badge')}
         </div>
 
         {/* Main Heading - MAXIMUM VISIBILITY */}
@@ -187,7 +187,7 @@ export default function Hero({ onOpenAssistant }) {
           }}
         >
           <span className="block text-[#0B1E3C] font-black drop-shadow-sm mb-2">
-            Your vote matters.
+            {t('hero.headline1')}
           </span>
           <span 
             className="block font-black"
@@ -198,7 +198,7 @@ export default function Hero({ onOpenAssistant }) {
               backgroundClip: 'text',
             }}
           >
-            Let's make it count.
+            {t('hero.headline2')}
           </span>
         </h1>
 
@@ -210,8 +210,7 @@ export default function Hero({ onOpenAssistant }) {
             opacity: 0
           }}
         >
-          A step-by-step interactive guide for Indian voters — check eligibility, register
-          on NVSP, and prepare for polling day.
+          {t('hero.subheading')}
         </p>
 
         {/* Primary CTA */}
@@ -236,19 +235,18 @@ export default function Hero({ onOpenAssistant }) {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                 </svg>
-                <span>Loading…</span>
+                <span>{t('hero.ctaLoading')}</span>
               </>
             ) : (
               <>
                 <span className="text-xl">☑️</span>
-                <span>Check if you can vote in India</span>
-                <span className="text-lg">→</span>
+                <span>{t('hero.cta')}</span>
               </>
             )}
           </button>
 
           <p className="text-[0.8rem] text-[#0B1E3C]/60 font-semibold tracking-wide">
-            Takes less than 2 minutes · No account needed · Powered by ECI &amp; NVSP
+            {t('hero.ctaSubtext')} · Powered by ECI &amp; NVSP
           </p>
         </div>
       </div>
