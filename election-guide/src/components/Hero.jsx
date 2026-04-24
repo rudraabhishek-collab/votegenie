@@ -87,6 +87,20 @@ export default function Hero({ onOpenAssistant }) {
       }}
       aria-labelledby="hero-heading"
     >
+      {/* Ashoka Chakra background watermark */}
+      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.06]">
+        <svg viewBox="0 0 200 200" className="w-[700px] h-[700px]">
+          <circle cx="100" cy="100" r="92" fill="none" stroke="#3b82f6" strokeWidth="3"/>
+          <circle cx="100" cy="100" r="12" fill="#3b82f6"/>
+          {Array.from({ length: 24 }, (_, i) => {
+            const a = (i * 15 - 90) * Math.PI / 180
+            const x1 = 100 + 20 * Math.cos(a), y1 = 100 + 20 * Math.sin(a)
+            const x2 = 100 + 90 * Math.cos(a), y2 = 100 + 90 * Math.sin(a)
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#3b82f6" strokeWidth="2.5"/>
+          })}
+        </svg>
+      </div>
+
       <FloatingStateCard />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-32 flex flex-col items-center">
