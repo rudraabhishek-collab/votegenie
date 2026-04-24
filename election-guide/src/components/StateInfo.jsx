@@ -12,16 +12,34 @@ function PartyBadge({ party }) {
   )
 }
 
-// ─── Info row ──────────────────────────────────────────────────────────────
-function InfoRow({ icon, label, value, highlight, dark }) {
+// ─── Info row with tooltip ────────────────────────────────────────────────
+function InfoRow({ icon, label, value, highlight, dark, tooltip }) {
+  const [showTip, setShowTip] = useState(false)
   return (
-    <div className="flex items-start gap-3 py-2.5">
+    <div className="flex items-start gap-3 py-2.5 relative">
       <span className="text-base flex-shrink-0 mt-0.5">{icon}</span>
       <div className="flex-1 min-w-0">
-        <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.08em] text-slate-400 dark:text-slate-500 mb-0.5">{label}</p>
+        <div className="flex items-center gap-1.5">
+          <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.08em] text-slate-400 dark:text-slate-500">{label}</p>
+          {tooltip && (
+            <button
+              onMouseEnter={() => setShowTip(true)}
+              onMouseLeave={() => setShowTip(false)}
+              className="w-3.5 h-3.5 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center text-[0.6rem] font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors">
+              ?
+            </button>
+          )}
+        </div>
         <p className={`text-[0.9rem] font-semibold leading-snug break-words ${highlight ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-800 dark:text-slate-200'}`}>
           {value}
         </p>
+        {showTip && tooltip && (
+          <div className="absolute left-0 top-full mt-1 z-20 bg-[#1a237e] text-white text-[0.72rem] px-3 py-2 rounded-lg shadow-xl max-w-[220px] border border-white/20"
+            style={{ animation: 'fadeUp 0.2s ease both' }}>
+            {tooltip}
+            <div className="absolute -top-1 left-4 w-2 h-2 bg-[#1a237e] rotate-45 border-l border-t border-white/20" />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -80,7 +98,8 @@ function StateCard({ data, dark }) {
             🗓️ Election Info
           </p>
           <div className={`divide-y ${dark ? 'divide-white/[0.05]' : 'divide-slate-100'}`}>
-            <InfoRow icon="📅" label="Next Election"  value={data.nextElection}  highlight dark={dark} />
+            <InfoRow icon="📅" label="Next Election"  value={data.nextElection}  highlight dark={dark}
+              tooltip="Expected year based on 5-year term from last election. ECI announces official dates." />
             <InfoRow icon="🗳️" label="Last Election"  value={data.lastElection}  dark={dark} />
             <InfoRow icon="📊" label="Recent Result"  value={data.recentResult}  dark={dark} />
           </div>
@@ -90,9 +109,12 @@ function StateCard({ data, dark }) {
             🏛️ Government
           </p>
           <div className={`divide-y ${dark ? 'divide-white/[0.05]' : 'divide-slate-100'}`}>
-            <InfoRow icon="👤" label="Chief Minister"  value={data.cm}               highlight dark={dark} />
-            <InfoRow icon="🏳️" label="Ruling Alliance" value={data.rulingAlliance}   dark={dark} />
-            <InfoRow icon="⚔️" label="Opposition"      value={data.oppositionParty}  dark={dark} />
+            <InfoRow icon="👤" label="Chief Minister"  value={data.cm}               highlight dark={dark}
+              tooltip="CM (Chief Minister) is the head of the state government, elected by the majority party/alliance in the state assembly." />
+            <InfoRow icon="🏳️" label="Ruling Alliance" value={data.rulingAlliance}   dark={dark}
+              tooltip="The party or coalition of parties that holds majority seats in the state legislative assembly." />
+            <InfoRow icon="⚔️" label="Opposition"      value={data.oppositionParty}  dark={dark}
+              tooltip="The main party or alliance that did not win the majority and sits in opposition in the assembly." />
           </div>
         </div>
       </div>
@@ -280,10 +302,17 @@ export default function StateInfo({ dark }) {
       {showCompare && <CompareView dark={dark} />}
 
       {/* Disclaimer */}
-      <div className={`flex gap-3 items-start mt-5 rounded-xl border-l-[3px] border-indigo-500 px-5 py-4 text-[0.88rem] leading-relaxed
-        ${dark ? 'bg-indigo-950/40 border border-indigo-800/30 text-indigo-300' : 'bg-gradient-to-r from-indigo-50 to-violet-50/50 border border-indigo-100 text-indigo-700'}`}>
+      <div className={`flex gap-3 items-start mt-5 rounded-xl border-l-[3px] border-[#1a237e] px-5 py-4 text-[0.88rem] leading-relaxed
+        ${dark ? 'bg-[#1a237e]/20 border border-[#283593]/40 text-indigo-300' : 'bg-[#e8eaf6] border border-[#1a237e]/15 text-[#1a237e]'}`}>
         <span className="text-lg mt-0.5">💡</span>
-        <span>Data reflects the most recent elections as of 2025. Always verify with <strong>eci.gov.in</strong> for the latest official information.</span>
+        <div>
+          <span>Data reflects the most recent elections as of 2025. Always verify with </span>
+          <a href="https://eci.gov.in" target="_blank" rel="noopener noreferrer" className="font-bold underline hover:opacity-80">eci.gov.in</a>
+          <span> for the latest official information.</span>
+          <p className={`text-[0.72rem] mt-1 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+            🕐 Last updated: April 2026 · Data is indicative, not official.
+          </p>
+        </div>
       </div>
     </section>
   )

@@ -15,6 +15,7 @@ import Footer from './components/Footer'
 import AuthModal from './components/AuthModal'
 import UserMenu from './components/UserMenu'
 import ElectionGallery from './components/ElectionGallery'
+import IndiaMap from './components/IndiaMap'
 
 const LS_STEP  = 'eg-journey-step'
 const LS_GUIDE = 'eg-guide-completed'
@@ -134,6 +135,7 @@ export default function App() {
         <VotingGuide dark={dark} completed={guideCompleted} onComplete={handleGuideComplete} />
         <Documents dark={dark} />
         <ElectionGallery dark={dark} />
+        <IndiaMap dark={dark} onStateSelect={setSelectedState} />
         <StateInfo dark={dark} />
         <FAQ dark={dark} onOpenAssistant={() => setChatOpen(true)} />
       </main>

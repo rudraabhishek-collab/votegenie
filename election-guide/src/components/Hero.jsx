@@ -183,6 +183,65 @@ function HeroSearch() {
   )
 }
 
+// ─── Floating state info card (slightly rotated, glass effect) ────────────
+function FloatingStateCard() {
+  const [idx, setIdx] = useState(0)
+  const cards = [
+    { state: 'Maharashtra', flag: '🟠', next: '2029 (Expected)', cm: 'Devendra Fadnavis', party: 'BJP' },
+    { state: 'Uttar Pradesh', flag: '🟢', next: '2027 (Expected)', cm: 'Yogi Adityanath', party: 'BJP' },
+    { state: 'Tamil Nadu', flag: '🔴', next: '2026 (Expected)', cm: 'M. K. Stalin', party: 'DMK' },
+    { state: 'West Bengal', flag: '🟢', next: '2026 (Expected)', cm: 'Mamata Banerjee', party: 'TMC' },
+  ]
+  useEffect(() => {
+    const t = setInterval(() => setIdx(i => (i + 1) % cards.length), 3500)
+    return () => clearInterval(t)
+  }, [])
+  const c = cards[idx]
+  return (
+    <div className="absolute right-4 top-16 md:right-8 md:top-20 z-20 pointer-events-none"
+      style={{ transform: 'rotate(2.5deg)', animation: 'fadeUp 0.8s 0.9s ease both' }}>
+      <div className="bg-white/[0.12] backdrop-blur-xl border border-white/25 rounded-2xl px-4 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.3)] min-w-[170px]">
+        <div className="flex items-center gap-2 mb-2.5">
+          <span className="text-base">{c.flag}</span>
+          <span className="font-black text-[0.85rem] text-white">{c.state}</span>
+          <span className="ml-auto w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+        </div>
+        <div className="space-y-1">
+          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+            <span className="text-[#FF9933]">🗳️</span>
+            <span className="font-semibold text-white/80">{c.next}</span>
+          </p>
+          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+            <span className="text-[#FF9933]">👤</span>
+            <span className="font-semibold text-white/80">{c.cm}</span>
+          </p>
+          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+            <span className="text-[#FF9933]">🏛️</span>
+            <span className="font-semibold text-white/80">{c.party}</span>
+          </p>
+        </div>
+        <p className="text-[0.58rem] text-white/30 mt-2 text-right">Live · ECI Data</p>
+      </div>
+    </div>
+  )
+}
+
+// ─── Ink finger visual (subtle, bottom-left) ──────────────────────────────
+function InkFingerVisual() {
+  return (
+    <div className="absolute left-4 bottom-24 md:left-10 md:bottom-28 pointer-events-none opacity-[0.12] z-0"
+      style={{ transform: 'rotate(-8deg)' }}>
+      <svg viewBox="0 0 80 120" className="w-16 h-24" fill="none">
+        {/* Finger shape */}
+        <rect x="28" y="30" width="24" height="70" rx="12" fill="white"/>
+        <ellipse cx="40" cy="30" rx="12" ry="14" fill="white"/>
+        {/* Ink mark */}
+        <ellipse cx="40" cy="22" rx="8" ry="5" fill="#1a237e" opacity="0.8"/>
+        <ellipse cx="40" cy="22" rx="5" ry="3" fill="#3949ab" opacity="0.6"/>
+      </svg>
+    </div>
+  )
+}
 // ─── Quick action chips ────────────────────────────────────────────────────
 function QuickActions() {
   const { t } = useTranslation()
@@ -264,66 +323,71 @@ export default function Hero({ onOpenAssistant }) {
   return (
     <section
       className="relative overflow-hidden text-white text-center py-20 px-6"
-      style={{ background: 'linear-gradient(135deg,#0d1757 0%,#1a237e 35%,#283593 65%,#1565c0 100%)' }}
+      style={{ background: 'linear-gradient(135deg,#0d1757 0%,#1a237e 35%,#2d1b69 65%,#1a0a3e 100%)' }}
       aria-labelledby="hero-heading">
 
       <ParticleCanvas />
+      <InkFingerVisual />
+      <FloatingStateCard />
+
+      {/* India map outline — subtle background */}
+      <div aria-hidden className="absolute inset-0 flex items-center justify-end pointer-events-none opacity-[0.04] pr-8">
+        <svg viewBox="80 20 310 270" className="w-[420px] h-[360px]">
+          {/* Simplified India outline */}
+          <path d="M155 28 L200 22 L240 35 L280 30 L320 45 L355 55 L380 80 L375 110 L355 130 L325 145 L318 168 L305 185 L290 200 L268 215 L245 228 L220 240 L195 268 L178 275 L158 262 L145 242 L128 220 L108 195 L88 175 L85 148 L92 125 L108 105 L118 85 L125 65 L140 48 Z"
+            fill="none" stroke="white" strokeWidth="2"/>
+          {/* Ashoka Chakra center */}
+          <circle cx="220" cy="150" r="20" fill="none" stroke="white" strokeWidth="1"/>
+          <circle cx="220" cy="150" r="4" fill="white" opacity="0.5"/>
+        </svg>
+      </div>
 
       {/* Ashoka Chakra watermark */}
-      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
-        <svg viewBox="0 0 200 200" className="w-[500px] h-[500px]">
-          <circle cx="100" cy="100" r="90" fill="none" stroke="white" strokeWidth="3"/>
+      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.035]">
+        <svg viewBox="0 0 200 200" className="w-[480px] h-[480px]">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="white" strokeWidth="2.5"/>
           <circle cx="100" cy="100" r="10" fill="white"/>
           {Array.from({length:24},(_,i)=>{
-            const a=(i*15-90)*Math.PI/180;
-            const x1=100+18*Math.cos(a),y1=100+18*Math.sin(a);
-            const x2=100+88*Math.cos(a),y2=100+88*Math.sin(a);
-            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="1.5"/>;
+            const a=(i*15-90)*Math.PI/180
+            const x1=100+18*Math.cos(a),y1=100+18*Math.sin(a)
+            const x2=100+88*Math.cos(a),y2=100+88*Math.sin(a)
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="1.2"/>
           })}
         </svg>
       </div>
 
-      {/* Grid overlay */}
-      <div aria-hidden className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
+      {/* Saffron spotlight — slightly off-center for asymmetry */}
+      <div aria-hidden className="absolute pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 70% 50% at 40% 0%,rgba(255,153,51,0.18),transparent 65%)', inset: 0 }} />
 
-      {/* Spotlight */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 90% 70% at 50% 0%,rgba(255,153,51,0.15),transparent 65%)' }} />
+      {/* Subtle grid */}
+      <div aria-hidden className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)', backgroundSize: '55px 55px' }} />
 
       <div className="relative z-10 max-w-4xl mx-auto">
 
-        {/* Authority logos strip */}
-        <div className="flex items-center justify-center gap-6 mb-8 flex-wrap"
+        {/* Authority logos — slightly left-aligned for asymmetry */}
+        <div className="flex items-center justify-start md:justify-center gap-4 mb-7 flex-wrap"
           style={{ animation: 'fadeUp 0.5s 0.05s ease both' }}>
-          {/* ECI Logo */}
-          <div className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5">
-            <img src="/logos/eci.svg" alt="ECI" className="w-9 h-9 rounded-full" />
-            <div className="text-left">
-              <p className="text-[0.65rem] font-black tracking-[0.1em] uppercase text-white/90 leading-none">Election Commission</p>
-              <p className="text-[0.58rem] text-white/50 leading-none mt-0.5">of India</p>
-            </div>
-          </div>
-          {/* NVSP */}
-          <div className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5">
-            <img src="/logos/nvsp.svg" alt="NVSP" className="w-9 h-9 rounded-lg" />
-            <div className="text-left">
-              <p className="text-[0.65rem] font-black tracking-[0.1em] uppercase text-white/90 leading-none">NVSP</p>
-              <p className="text-[0.58rem] text-white/50 leading-none mt-0.5">Voter Service Portal</p>
-            </div>
-          </div>
-          {/* India Emblem */}
-          <div className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5">
-            <img src="/logos/emblem.svg" alt="Govt of India" className="w-9 h-9 rounded-full" />
-            <div className="text-left">
-              <p className="text-[0.65rem] font-black tracking-[0.1em] uppercase text-white/90 leading-none">Govt. of India</p>
-              <p className="text-[0.58rem] text-white/50 leading-none mt-0.5">Official Resource</p>
-            </div>
-          </div>
+          {[
+            { src: '/logos/eci.svg', name: 'Election Commission of India', url: 'https://eci.gov.in', short: 'ECI' },
+            { src: '/logos/nvsp.svg', name: 'NVSP', url: 'https://nvsp.in', short: 'NVSP' },
+            { src: '/logos/emblem.svg', name: 'Govt. of India', url: 'https://india.gov.in', short: 'GoI' },
+          ].map(logo => (
+            <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-white/[0.08] hover:bg-white/[0.15] backdrop-blur-sm border border-white/15 rounded-xl px-3 py-2 no-underline transition-all duration-200 hover:-translate-y-0.5 pointer-events-auto">
+              <img src={logo.src} alt={logo.name} className="w-7 h-7" />
+              <div className="text-left">
+                <p className="text-[0.62rem] font-black tracking-[0.08em] uppercase text-white/85 leading-none">{logo.short}</p>
+                <p className="text-[0.55rem] text-white/40 leading-none mt-0.5 hidden sm:block">{logo.name}</p>
+              </div>
+            </a>
+          ))}
+          <span className="text-[0.6rem] text-white/25 font-semibold ml-1 hidden md:block">Official Sources ↗</span>
         </div>
 
         {/* Live badge */}
-        <div className="inline-flex items-center gap-2.5 bg-white/[0.1] border border-white/[0.2] rounded-full text-[0.73rem] font-bold tracking-[0.1em] uppercase px-5 py-2 mb-6 backdrop-blur-xl"
+        <div className="inline-flex items-center gap-2.5 bg-white/[0.08] border border-white/[0.18] rounded-full text-[0.72rem] font-bold tracking-[0.1em] uppercase px-5 py-2 mb-5 backdrop-blur-xl"
           style={{ animation: 'fadeUp 0.6s 0.1s ease both' }}>
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -332,28 +396,31 @@ export default function Hero({ onOpenAssistant }) {
           {t('hero.badge')}
         </div>
 
-        {/* Headline */}
+        {/* Headline — slightly uneven line breaks for human feel */}
         <h1 id="hero-heading"
-          className="text-[clamp(2.2rem,5.5vw,3.8rem)] font-black leading-[1.1] tracking-[-0.03em] mb-4"
+          className="text-[clamp(2.1rem,5.5vw,3.7rem)] font-black leading-[1.08] tracking-[-0.03em] mb-4"
           style={{ animation: 'fadeUp 0.6s 0.18s ease both' }}>
           {t('hero.headline1')}<br />
-          <em className="not-italic text-gradient-hero">{t('hero.headline2')}</em>
+          <em className="not-italic" style={{
+            background: 'linear-gradient(135deg, #fde68a 0%, #FF9933 45%, #f97316 100%)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
+          }}>{t('hero.headline2')}</em>
         </h1>
 
         {/* Subheading */}
-        <p className="text-[1rem] opacity-70 max-w-xl mx-auto mb-8 leading-[1.8]"
+        <p className="text-[0.98rem] opacity-65 max-w-lg mx-auto mb-7 leading-[1.85]"
           style={{ animation: 'fadeUp 0.6s 0.28s ease both' }}>
           {t('hero.subheading')}
         </p>
 
         {/* Primary CTA */}
-        <div className="flex flex-col items-center gap-3 mb-7"
+        <div className="flex flex-col items-center gap-3 mb-6"
           style={{ animation: 'fadeUp 0.6s 0.38s ease both' }}>
           <button onClick={handleStart} disabled={loading}
             className="inline-flex items-center gap-3 px-9 py-4 rounded-2xl font-black text-[1rem]
               text-[#1a237e] bg-white
-              shadow-[0_4px_24px_rgba(0,0,0,0.25),0_0_0_3px_rgba(255,153,51,0.4)]
-              hover:shadow-[0_8px_40px_rgba(0,0,0,0.3),0_0_0_3px_rgba(255,153,51,0.6)]
+              shadow-[0_4px_24px_rgba(0,0,0,0.3),0_0_0_3px_rgba(255,153,51,0.5)]
+              hover:shadow-[0_8px_40px_rgba(0,0,0,0.35),0_0_0_4px_rgba(255,153,51,0.7)]
               hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-wait transition-all duration-200">
             {loading ? (
               <>
@@ -366,63 +433,93 @@ export default function Hero({ onOpenAssistant }) {
             ) : (
               <>
                 <span className="text-xl">🗳️</span>
-                <span>{t('hero.cta')}</span>
+                <span>Check if you can vote in India →</span>
               </>
             )}
           </button>
-          <p className="text-[0.75rem] text-white/40 font-medium tracking-wide">
-            {t('hero.ctaSubtext')}
+          <p className="text-[0.72rem] text-white/35 font-medium tracking-wide">
+            {t('hero.ctaSubtext')} · Powered by ECI &amp; NVSP data
           </p>
         </div>
 
-        {/* Secondary CTAs */}
-        <div className="flex gap-3 justify-center flex-wrap mb-8"
+        {/* Secondary CTAs — uneven gap for human feel */}
+        <div className="flex gap-2.5 justify-center flex-wrap mb-7"
           style={{ animation: 'fadeUp 0.6s 0.46s ease both' }}>
           <a href="#overview"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-[0.88rem] text-white
-              bg-white/[0.1] border border-white/[0.2] backdrop-blur-xl hover:bg-white/[0.18] hover:-translate-y-0.5 no-underline transition-all duration-200">
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.85rem] text-white
+              bg-white/[0.08] border border-white/[0.18] backdrop-blur-xl hover:bg-white/[0.16] hover:-translate-y-0.5 no-underline transition-all duration-200">
             {t('hero.howItWorks')}
           </a>
+          <a href="#indiamap"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.85rem] text-white
+              bg-white/[0.08] border border-white/[0.18] backdrop-blur-xl hover:bg-white/[0.16] hover:-translate-y-0.5 no-underline transition-all duration-200">
+            🗺️ Explore States
+          </a>
           <a href="#faq"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-[0.88rem] text-white
-              bg-white/[0.1] border border-white/[0.2] backdrop-blur-xl hover:bg-white/[0.18] hover:-translate-y-0.5 no-underline transition-all duration-200">
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.85rem] text-white
+              bg-white/[0.08] border border-white/[0.18] backdrop-blur-xl hover:bg-white/[0.16] hover:-translate-y-0.5 no-underline transition-all duration-200">
             ❓ FAQ
           </a>
         </div>
 
         {/* Quick actions */}
         <div style={{ animation: 'fadeUp 0.6s 0.52s ease both' }}>
-          <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-white/30 mb-3">{t('hero.jumpTo')}</p>
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-white/25 mb-3">{t('hero.jumpTo')}</p>
           <QuickActions />
         </div>
 
         {/* Search */}
-        <div className="mt-7" style={{ animation: 'fadeUp 0.6s 0.58s ease both' }}>
+        <div className="mt-6" style={{ animation: 'fadeUp 0.6s 0.58s ease both' }}>
           <HeroSearch />
         </div>
 
-        {/* Trust badges */}
-        <TrustBadges />
+        {/* Trust badges — clickable links */}
+        <div className="flex items-center justify-center gap-3 mt-8 flex-wrap"
+          style={{ animation: 'fadeUp 0.6s 0.62s ease both' }}>
+          {[
+            { icon: '🔒', text: '100% Private', sub: 'No data stored', href: null },
+            { icon: '⚡', text: 'Under 2 min', sub: 'Quick & easy', href: null },
+            { icon: '📋', text: 'Official info', sub: 'ECI verified', href: 'https://eci.gov.in' },
+          ].map(b => (
+            <a key={b.text} href={b.href || '#'} target={b.href ? '_blank' : '_self'} rel="noopener noreferrer"
+              onClick={b.href ? undefined : e => e.preventDefault()}
+              className="flex items-center gap-2 bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] rounded-full px-3.5 py-1.5 backdrop-blur-sm no-underline transition-all duration-200 cursor-default"
+              style={{ cursor: b.href ? 'pointer' : 'default' }}>
+              <span className="text-sm">{b.icon}</span>
+              <div className="text-left">
+                <p className="text-[0.7rem] font-bold text-white/70 leading-none">{b.text}</p>
+                <p className="text-[0.6rem] text-white/35 leading-none mt-0.5">{b.sub}</p>
+              </div>
+              {b.href && <span className="text-[0.6rem] text-white/30 ml-1">↗</span>}
+            </a>
+          ))}
+        </div>
 
         {/* Stats */}
         <div ref={statsRef}
-          className="flex justify-center mt-12 pt-8 border-t border-white/[0.1]"
+          className="flex justify-center mt-10 pt-8 border-t border-white/[0.08]"
           style={{ animation: 'fadeUp 0.6s 0.66s ease both' }}>
           {[
             { num: '5', suffix: ' min', label: t('hero.statToComplete') },
             { num: '3', suffix: ' steps', label: t('hero.statToRegister') },
             { num: '100', suffix: '%', label: t('hero.statNonPartisan') },
           ].map((s, i) => (
-            <div key={i} className={i > 0 ? 'border-l border-white/[0.1]' : ''}>
+            <div key={i} className={i > 0 ? 'border-l border-white/[0.08]' : ''}>
               <AnimatedStat {...s} active={statsActive} />
             </div>
           ))}
         </div>
+
+        {/* Micro-detail: last updated + disclaimer */}
+        <p className="mt-6 text-[0.65rem] text-white/20 text-center">
+          🕐 Last updated: April 2026 &nbsp;·&nbsp; Data is indicative. Always verify with{' '}
+          <a href="https://eci.gov.in" target="_blank" rel="noopener noreferrer" className="underline text-white/35 hover:text-white/60">eci.gov.in</a>
+        </p>
       </div>
 
       {/* Bottom fade */}
-      <div aria-hidden className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom,transparent,rgba(13,23,87,0.5))' }} />
+      <div aria-hidden className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom,transparent,rgba(13,23,87,0.6))' }} />
     </section>
   )
 

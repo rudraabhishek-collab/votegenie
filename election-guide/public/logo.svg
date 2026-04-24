@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+  <defs>
+    <linearGradient id="vg-bg" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="55%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#FF9933"/>
+    </linearGradient>
+    <linearGradient id="vg-check" x1="8" y1="22" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fde68a"/>
+      <stop offset="1" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="vg-spark" x1="28" y1="4" x2="42" y2="18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fde68a"/>
+      <stop offset="1" stop-color="#FF9933"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded bg -->
+  <rect width="44" height="44" rx="12" fill="url(#vg-bg)"/>
+  <!-- Shine -->
+  <rect width="44" height="22" rx="12" fill="white" fill-opacity="0.08"/>
+  <!-- Ballot box body -->
+  <rect x="9" y="20" width="22" height="15" rx="3" fill="white" fill-opacity="0.95"/>
+  <!-- Slot -->
+  <rect x="16" y="16.5" width="8" height="4" rx="2" fill="white" fill-opacity="0.6"/>
+  <!-- Checkmark -->
+  <path d="M14 27.5l4 4 8-8.5" stroke="url(#vg-check)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Genie spark (3 lines radiating from top-right) -->
+  <line x1="33" y1="8" x2="38" y2="4" stroke="url(#vg-spark)" stroke-width="2" stroke-linecap="round"/>
+  <line x1="35" y1="12" x2="41" y2="11" stroke="url(#vg-spark)" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="15" x2="37" y2="19" stroke="url(#vg-spark)" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Spark dot -->
+  <circle cx="33" cy="8" r="2" fill="#fbbf24"/>
+  <!-- Tricolor bottom strip -->
+  <rect x="9" y="33" width="7" height="2" rx="1" fill="#FF9933"/>
+  <rect x="17" y="33" width="7" height="2" rx="1" fill="white" fill-opacity="0.9"/>
+  <rect x="25" y="33" width="6" height="2" rx="1" fill="#138808"/>
+</svg>

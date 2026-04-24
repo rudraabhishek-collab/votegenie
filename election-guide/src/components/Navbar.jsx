@@ -4,37 +4,16 @@ import { searchIndex } from '../data'
 import LanguageSwitcher from './LanguageSwitcher'
 import UserMenu from './UserMenu'
 
-// ─── Logo SVG ──────────────────────────────────────────────────────────────
+// ─── VoteGenie Logo ────────────────────────────────────────────────────────
 function Logo({ size = 38 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"
-      className="drop-shadow-[0_3px_10px_rgba(99,102,241,0.55)] flex-shrink-0">
-      <defs>
-        <linearGradient id="lg1" x1="0" y1="0" x2="38" y2="38" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#6366f1"/>
-          <stop offset="0.5" stopColor="#8b5cf6"/>
-          <stop offset="1" stopColor="#a855f7"/>
-        </linearGradient>
-        <linearGradient id="lg2" x1="10" y1="18" x2="28" y2="30" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#c7d2fe"/>
-          <stop offset="1" stopColor="#818cf8"/>
-        </linearGradient>
-      </defs>
-      {/* Rounded square bg */}
-      <rect width="38" height="38" rx="10" fill="url(#lg1)"/>
-      {/* Shine overlay */}
-      <rect width="38" height="19" rx="10" fill="white" fillOpacity="0.07"/>
-      {/* Ballot box */}
-      <rect x="9" y="17" width="20" height="13" rx="2.5" fill="white" fillOpacity="0.92"/>
-      {/* Slot */}
-      <rect x="15" y="14.5" width="8" height="3.5" rx="1.75" fill="white" fillOpacity="0.65"/>
-      {/* Checkmark */}
-      <path d="M14 23.5l3.5 3.5 7-7.5" stroke="url(#lg2)" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round"/>
-      {/* Tricolor strip */}
-      <rect x="9"    y="28" width="6.5" height="2" rx="1" fill="#FF9933"/>
-      <rect x="15.75" y="28" width="6.5" height="2" rx="1" fill="white" fillOpacity="0.85"/>
-      <rect x="22.5" y="28" width="6.5" height="2" rx="1" fill="#138808"/>
-    </svg>
+    <img
+      src="/logo.svg"
+      alt="VoteGenie"
+      width={size}
+      height={size}
+      className="drop-shadow-[0_3px_12px_rgba(168,85,247,0.6)] flex-shrink-0 rounded-xl"
+    />
   )
 }
 
@@ -234,10 +213,10 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant, user, onOp
                 </span>
                 <span className={`font-black tracking-[-0.05em] leading-none transition-all duration-300
                   ${scrolled ? 'text-[0.92rem]' : 'text-[1rem]'}
-                  text-[#FF9933]`}>
+                  bg-gradient-to-r from-violet-300 to-[#FF9933] bg-clip-text text-transparent`}>
                   Genie
                 </span>
-                <span className="text-[0.85rem] ml-0.5 leading-none">⭐</span>
+                <span className="text-[0.75rem] ml-0.5 leading-none opacity-80">✦</span>
               </div>
               {/* Sub-tag */}
               <div className="flex items-center gap-1.5">
@@ -340,7 +319,7 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant, user, onOp
         {/* ── Scroll progress bar ──────────────────────────────────── */}
         <div className={`h-[2px] ${dark ? 'bg-white/5' : 'bg-slate-100'}`}>
           <div
-            className="h-full bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 transition-[width] duration-150"
+            className="h-full bg-gradient-to-r from-violet-500 via-purple-500 to-[#FF9933] transition-[width] duration-150"
             style={{ width: `${progress}%` }} />
         </div>
       </header>
