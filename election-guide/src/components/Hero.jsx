@@ -75,10 +75,10 @@ function AnimatedStat({ num, suffix = '', label, active, color }) {
   const count = useCountUp(isNum ? parseInt(num) : 0, 1400, active)
   return (
     <div className="text-center relative group">
-      <div className="text-[2.2rem] font-black tracking-[-0.04em]" style={{ color: color || '#1a237e' }}>
+      <div className="text-[2.2rem] font-black tracking-[-0.04em]" style={{ color: color === '#1a237e' ? '#ffffff' : color }}>
         {isNum ? `${count}${suffix}` : num}
       </div>
-      <div className="text-[0.75rem] text-[#1a237e]/80 font-bold mt-0.5 uppercase tracking-[0.1em] cursor-default">{label}</div>
+      <div className="text-[0.72rem] text-white/55 font-semibold mt-0.5 uppercase tracking-[0.1em] cursor-default">{label}</div>
       
       {/* Tooltip for non-partisan */}
       {label === t('hero.statNonPartisan') && (
@@ -323,12 +323,12 @@ export default function Hero({ onOpenAssistant }) {
     <section
       className="relative overflow-hidden text-center py-24 px-6"
       style={{
-        background: 'linear-gradient(135deg, #FF9933 0%, #ffffff 35%, #1a237e 100%)',
+        background: 'linear-gradient(160deg, #0d1757 0%, #1a237e 40%, #2d1b69 70%, #1a0a3e 100%)',
       }}
       aria-labelledby="hero-heading">
 
       {/* Animated gradient orbs */}
-      <div aria-hidden className="absolute top-[-200px] left-[-100px] w-[500px] h-[500px] rounded-full opacity-30 blur-3xl"
+      <div aria-hidden className="absolute top-[-200px] left-[-100px] w-[500px] h-[500px] rounded-full opacity-40 blur-3xl"
         style={{ background: 'radial-gradient(circle, #FF9933, transparent)' }} />
       <div aria-hidden className="absolute bottom-[-150px] right-[-100px] w-[600px] h-[600px] rounded-full opacity-25 blur-3xl"
         style={{ background: 'radial-gradient(circle, #1a237e, transparent)' }} />
@@ -336,13 +336,13 @@ export default function Hero({ onOpenAssistant }) {
       {/* Large Ashoka Chakra watermark — blue */}
       <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
         <svg viewBox="0 0 200 200" className="w-[700px] h-[700px]">
-          <circle cx="100" cy="100" r="92" fill="none" stroke="#1a237e" strokeWidth="4"/>
-          <circle cx="100" cy="100" r="12" fill="#1a237e"/>
+          <circle cx="100" cy="100" r="92" fill="none" stroke="white" strokeWidth="4"/>
+          <circle cx="100" cy="100" r="12" fill="white"/>
           {Array.from({length:24},(_,i)=>{
             const a=(i*15-90)*Math.PI/180
             const x1=100+20*Math.cos(a),y1=100+20*Math.sin(a)
             const x2=100+90*Math.cos(a),y2=100+90*Math.sin(a)
-            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#1a237e" strokeWidth="2"/>
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="2"/>
           })}
         </svg>
       </div>
@@ -382,7 +382,7 @@ export default function Hero({ onOpenAssistant }) {
         <h1 id="hero-heading"
           className="text-[clamp(2.5rem,7vw,5rem)] font-black leading-[0.95] tracking-[-0.05em] mb-5"
           style={{ animation: 'fadeUp 0.6s 0.18s ease both' }}>
-          <span className="text-[#1a237e]">{t('hero.headline1')}</span><br />
+          <span className="text-white">{t('hero.headline1')}</span><br />
           <span style={{
             background: 'linear-gradient(135deg, #FF9933 0%, #f97316 50%, #e65100 100%)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
@@ -390,7 +390,7 @@ export default function Hero({ onOpenAssistant }) {
         </h1>
 
         {/* Subheading */}
-        <p className="text-[1.05rem] text-slate-600 max-w-2xl mx-auto mb-8 leading-[1.75] font-medium"
+        <p className="text-[1.05rem] text-white/85 max-w-2xl mx-auto mb-8 leading-[1.75] font-medium"
           style={{ animation: 'fadeUp 0.6s 0.28s ease both' }}>
           {t('hero.subheading')}
         </p>
@@ -420,7 +420,7 @@ export default function Hero({ onOpenAssistant }) {
               </>
             )}
           </button>
-          <p className="text-[0.75rem] text-slate-600 font-semibold tracking-wide">
+          <p className="text-[0.75rem] text-white/60 font-semibold tracking-wide">
             {t('hero.ctaSubtext')} · Powered by ECI &amp; NVSP
           </p>
         </div>
@@ -435,8 +435,8 @@ export default function Hero({ onOpenAssistant }) {
           ].map(btn => (
             <a key={btn.href} href={btn.href}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-[0.9rem]
-                text-[#1a237e] bg-white border border-[#1a237e]/20 shadow-md
-                hover:bg-[#f0f4ff] hover:border-[#1a237e]/40 hover:-translate-y-1 hover:shadow-lg no-underline transition-all duration-200">
+                text-[#1a237e] bg-white border border-white/30 shadow-md
+                hover:bg-[#f0f4ff] hover:-translate-y-1 hover:shadow-lg no-underline transition-all duration-200">
               <span>{btn.icon}</span>
               {btn.label}
             </a>
@@ -445,7 +445,7 @@ export default function Hero({ onOpenAssistant }) {
 
         {/* Quick actions */}
         <div style={{ animation: 'fadeUp 0.6s 0.52s ease both' }}>
-          <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.12em] text-[#1a237e] mb-3">Quick Links</p>
+          <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.12em] text-white/50 mb-3">Quick Links</p>
           <QuickActions />
         </div>
 
@@ -478,29 +478,29 @@ export default function Hero({ onOpenAssistant }) {
 
         {/* Stats */}
         <div ref={statsRef}
-          className="flex justify-center mt-12 pt-10 border-t border-[#1a237e]/15"
+          className="flex justify-center mt-12 pt-10 border-t border-white/15"
           style={{ animation: 'fadeUp 0.6s 0.66s ease both' }}>
           {[
             { num: '5', suffix: ' min', label: t('hero.statToComplete'), color: '#FF9933' },
             { num: '3', suffix: ' steps', label: t('hero.statToRegister'), color: '#1a237e' },
             { num: '100', suffix: '%', label: t('hero.statNonPartisan'), color: '#138808' },
           ].map((s, i) => (
-            <div key={i} className={`text-center flex-1 max-w-[180px] px-6 ${i > 0 ? 'border-l border-[#1a237e]/15' : ''}`}>
+            <div key={i} className={`text-center flex-1 max-w-[180px] px-6 ${i > 0 ? 'border-l border-white/15' : ''}`}>
               <AnimatedStat num={s.num} suffix={s.suffix} label={s.label} active={statsActive} color={s.color} />
             </div>
           ))}
         </div>
 
         {/* Disclaimer */}
-        <p className="mt-8 text-[0.72rem] text-[#1a237e]/70 font-medium text-center">
+        <p className="mt-8 text-[0.72rem] text-white/45 font-medium text-center">
           🕐 Last updated: April 2026 · Data is indicative. Verify with{' '}
-          <a href="https://eci.gov.in" target="_blank" rel="noopener noreferrer" className="underline text-[#1a237e] hover:text-[#FF9933] font-semibold">eci.gov.in</a>
+          <a href="https://eci.gov.in" target="_blank" rel="noopener noreferrer" className="underline text-white/70 hover:text-[#FF9933] font-semibold">eci.gov.in</a>
         </p>
       </div>
 
       {/* Bottom fade */}
       <div aria-hidden className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom,transparent,#f0f4ff)' }} />
+        style={{ background: 'linear-gradient(to bottom,transparent,rgba(13,23,87,0.5))' }} />
     </section>
   )
 }
