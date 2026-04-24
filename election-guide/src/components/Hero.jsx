@@ -42,27 +42,27 @@ function FloatingStateCard() {
       className="absolute right-4 top-16 md:right-8 md:top-20 z-20 pointer-events-none"
       style={{ transform: 'rotate(2.5deg)', animation: 'fadeUp 0.8s 0.9s ease both', opacity: 0 }}
     >
-      <div className="bg-[rgba(13,23,87,0.82)] border border-white/25 rounded-2xl px-4 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] min-w-[170px] backdrop-blur-md">
+      <div className="bg-[rgba(13,23,87,0.90)] backdrop-blur-md border border-white/30 rounded-2xl px-4 py-3.5 shadow-lg min-w-[170px]">
         <div className="flex items-center gap-2 mb-2.5">
           <span className="text-base">{c.flag}</span>
           <span className="font-black text-[0.85rem] text-white">{c.state}</span>
           <span className="ml-auto w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
         </div>
         <div className="space-y-1">
-          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-white/90 flex items-center gap-1.5">
             <span className="text-[#FF9933]">🗳️</span>
-            <span className="font-semibold text-white/90">{c.next}</span>
+            <span className="font-semibold text-white">{c.next}</span>
           </p>
-          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-white/90 flex items-center gap-1.5">
             <span className="text-[#FF9933]">👤</span>
-            <span className="font-semibold text-white/90">{c.cm}</span>
+            <span className="font-semibold text-white">{c.cm}</span>
           </p>
-          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-white/90 flex items-center gap-1.5">
             <span className="text-[#FF9933]">🏛️</span>
-            <span className="font-semibold text-white/90">{c.party}</span>
+            <span className="font-semibold text-white">{c.party}</span>
           </p>
         </div>
-        <p className="text-[0.58rem] text-white/50 mt-2 text-right">Live · ECI Data</p>
+        <p className="text-[0.58rem] text-white/70 mt-2 text-right">Live · ECI Data</p>
       </div>
     </div>
   )
@@ -110,12 +110,12 @@ export default function Hero({ onOpenAssistant }) {
           className="absolute left-8 top-24 md:left-16 md:top-32 z-20 pointer-events-none"
           style={{ transform: 'rotate(-3deg)', animation: 'fadeUp 0.8s 0.7s ease both', opacity: 0 }}
         >
-          <div className="bg-[rgba(13,23,87,0.85)] border border-white/30 rounded-2xl px-5 py-4 shadow-[0_8px_32px_rgba(0,0,0,0.4)] min-w-[160px] backdrop-blur-md">
+          <div className="bg-[rgba(13,23,87,0.90)] backdrop-blur-md border border-white/30 rounded-2xl px-5 py-4 shadow-lg min-w-[160px]">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">🗳️</span>
               <span className="font-black text-[0.9rem] text-white">Voter ID</span>
             </div>
-            <p className="text-[0.7rem] text-white/70 leading-relaxed">
+            <p className="text-[0.7rem] text-white/90 leading-relaxed">
               Register online via NVSP portal
             </p>
           </div>
@@ -125,12 +125,12 @@ export default function Hero({ onOpenAssistant }) {
           className="absolute left-8 top-56 md:left-20 md:top-72 z-20 pointer-events-none"
           style={{ transform: 'rotate(2deg)', animation: 'fadeUp 0.8s 0.9s ease both', opacity: 0 }}
         >
-          <div className="bg-[rgba(13,23,87,0.85)] border border-white/30 rounded-2xl px-5 py-4 shadow-[0_8px_32px_rgba(0,0,0,0.4)] min-w-[140px] backdrop-blur-md">
+          <div className="bg-[rgba(13,23,87,0.90)] backdrop-blur-md border border-white/30 rounded-2xl px-5 py-4 shadow-lg min-w-[140px]">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">👤</span>
               <span className="font-black text-[0.9rem] text-white">Profile</span>
             </div>
-            <p className="text-[0.7rem] text-white/70 leading-relaxed">
+            <p className="text-[0.7rem] text-white/90 leading-relaxed">
               Track your registration status
             </p>
           </div>
@@ -139,33 +139,25 @@ export default function Hero({ onOpenAssistant }) {
         {/* Headline */}
         <h1
           id="hero-heading"
-          className="text-[clamp(3rem,8vw,5.5rem)] font-black leading-[1.05] tracking-[-0.04em] mb-6 relative z-10"
+          className="text-[clamp(3rem,8vw,5.5rem)] font-black leading-[1.05] tracking-tight mb-6 relative z-10"
           style={{ 
             animation: 'fadeUp 0.55s 0.2s ease both', 
-            opacity: 0,
-            textShadow: '0 2px 20px rgba(255,255,255,0.3)'
+            opacity: 0
           }}
         >
-          <span className="text-[#0d1757] drop-shadow-[0_2px_8px_rgba(255,255,255,0.4)]">Your vote matters.</span>
+          <span className="text-[#0d1757] drop-shadow-lg text-opacity-100">Your vote matters.</span>
           <br />
-          <span style={{
-            background: 'linear-gradient(135deg, #FF9933 0%, #f97316 60%, #ea580c 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            filter: 'drop-shadow(0 2px 8px rgba(255,153,51,0.3))',
-          }}>
+          <span className="text-[#FF6B1A] drop-shadow-lg text-opacity-100">
             Let's make it count.
           </span>
         </h1>
 
         {/* Subheading */}
         <p
-          className="text-[1.05rem] text-[#1a237e]/75 max-w-2xl mx-auto mb-12 leading-[1.7] font-medium relative z-10"
+          className="text-[1.05rem] text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed font-medium relative z-10"
           style={{ 
             animation: 'fadeUp 0.55s 0.3s ease both', 
-            opacity: 0,
-            textShadow: '0 1px 10px rgba(255,255,255,0.5)'
+            opacity: 0
           }}
         >
           A step-by-step interactive guide for Indian voters — check eligibility, register
@@ -180,8 +172,8 @@ export default function Hero({ onOpenAssistant }) {
           <button
             onClick={handleStart}
             disabled={loading}
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-black text-[1.1rem]
-              text-white shadow-[0_8px_32px_rgba(255,153,51,0.5)]
+            className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-semibold text-[1.1rem]
+              text-white shadow-md
               hover:shadow-[0_12px_48px_rgba(255,153,51,0.65)]
               hover:-translate-y-1 disabled:opacity-70 disabled:cursor-wait transition-all duration-300"
             style={{
@@ -205,7 +197,7 @@ export default function Hero({ onOpenAssistant }) {
             )}
           </button>
 
-          <p className="text-[0.75rem] text-[#1a237e]/55 font-semibold tracking-wide">
+          <p className="text-[0.75rem] text-gray-700 dark:text-gray-300 font-semibold tracking-wide">
             Takes less than 2 minutes · No account needed · Powered by ECI &amp; NVSP
           </p>
         </div>
