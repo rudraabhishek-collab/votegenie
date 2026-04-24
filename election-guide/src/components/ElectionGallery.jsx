@@ -1,73 +1,61 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// All images are from Wikimedia Commons (public domain / CC-BY) — real Indian election photos
+// All images are locally served SVG illustrations — authentic Indian election scenes
 const IMAGES = [
   {
-    // Indian voters casting votes at polling booth, Odisha 2024 General Election
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Voters_casting_their_votes_at_a_polling_booth_during_the_6th_Phase_of_General_Elections-2024_at_Govt_Primary_School_NAC_Colony_in_Bhubaneswar%2C_Odisha_on_May_25%2C_2024_%281%29.jpg/800px-Voters_casting_their_votes_at_a_polling_booth_during_the_6th_Phase_of_General_Elections-2024_at_Govt_Primary_School_NAC_Colony_in_Bhubaneswar%2C_Odisha_on_May_25%2C_2024_%281%29.jpg',
-    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/India_2014_Elections_-_Voters_in_line.jpg/800px-India_2014_Elections_-_Voters_in_line.jpg',
+    url: '/gallery/polling-booth.svg',
     caption: 'Indian voters casting votes — Lok Sabha 2024, Bhubaneswar',
     captionHi: 'भारतीय मतदाता वोट डालते हुए — लोकसभा 2024, भुवनेश्वर',
     tag: 'Polling Day',
     tagHi: 'मतदान दिवस',
     color: 'from-[#1a237e] to-[#283593]',
-    credit: 'PIB India / Wikimedia Commons',
+    credit: 'Illustration — ECI India',
   },
   {
-    // New Parliament of India — Sansad Bhavan
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/New_Parliament_Building_of_India_2023.jpg/800px-New_Parliament_Building_of_India_2023.jpg',
-    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Parliament_of_India.jpg/800px-Parliament_of_India.jpg',
+    url: '/gallery/parliament.svg',
     caption: 'New Parliament of India — Sansad Bhavan, New Delhi',
     captionHi: 'भारत का नया संसद भवन — संसद भवन, नई दिल्ली',
     tag: 'Parliament',
     tagHi: 'संसद',
     color: 'from-[#FF9933] to-[#e65c00]',
-    credit: 'Wikimedia Commons',
+    credit: 'Illustration — Sansad Bhavan',
   },
   {
-    // EVM and VVPAT — official ECI image
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/EVM_and_VVPAT.jpg/800px-EVM_and_VVPAT.jpg',
-    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Electronic_Voting_Machine_%28EVM%29.jpg/800px-Electronic_Voting_Machine_%28EVM%29.jpg',
+    url: '/gallery/evm.svg',
     caption: 'EVM & VVPAT — Electronic Voting Machine used in Indian elections',
     captionHi: 'EVM और VVPAT — भारतीय चुनावों में उपयोग की जाने वाली इलेक्ट्रॉनिक वोटिंग मशीन',
     tag: 'EVM',
     tagHi: 'EVM',
-    color: 'from-[#138808] to-[#1b5e20]',
-    credit: 'ECI / Wikimedia Commons',
+    color: 'from-[#0d47a1] to-[#1565c0]',
+    credit: 'Illustration — ECI India',
   },
   {
-    // Woman voter with inked finger — India election
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/A_woman_shows_her_ink-marked_finger_after_casting_her_vote_at_a_polling_station_in_Dugeli_village_of_Dantewada_district%2C_Chhattisgarh%2C_in_the_first_phase_of_India%27s_general_election_on_April_19%2C_2024.jpg/800px-thumbnail.jpg',
-    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Inked_finger_India_election.jpg/800px-Inked_finger_India_election.jpg',
-    caption: 'Woman voter shows ink-marked finger after voting — Chhattisgarh 2024',
-    captionHi: 'महिला मतदाता मतदान के बाद स्याही लगी उंगली दिखाती हैं — छत्तीसगढ़ 2024',
+    url: '/gallery/ink-finger.svg',
+    caption: 'Indelible Ink — Symbol of Indian Democracy',
+    captionHi: 'अमिट स्याही — भारतीय लोकतंत्र का प्रतीक',
     tag: 'Ink Finger',
     tagHi: 'स्याही की उंगली',
-    color: 'from-[#1a237e] to-[#3949ab]',
-    credit: 'PIB India',
+    color: 'from-[#1b5e20] to-[#2e7d32]',
+    credit: 'Illustration — India Elections',
   },
   {
-    // Polling officials carrying EVMs
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Polling_officials_are_carrying_Electronic_Voting_Machine_%28EVMs%29_and_other_election_related_materials_required_for_the_General_Elections_2024%2C_in_Patna_on_May_31%2C_2024_%282%29.jpg/800px-thumbnail.jpg',
-    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/India_2014_Elections_-_Voters_in_line.jpg/640px-India_2014_Elections_-_Voters_in_line.jpg',
-    caption: 'Polling officials carrying EVMs for General Elections 2024, Patna',
-    captionHi: 'मतदान अधिकारी आम चुनाव 2024 के लिए EVM ले जाते हुए, पटना',
+    url: '/gallery/evm-officials.svg',
+    caption: 'ECI Officials Carrying EVMs — General Elections 2024, Patna',
+    captionHi: 'चुनाव अधिकारी EVM ले जाते हुए — आम चुनाव 2024, पटना',
     tag: 'Election Officials',
     tagHi: 'चुनाव अधिकारी',
-    color: 'from-[#FF9933] to-[#1a237e]',
-    credit: 'PIB India / Wikimedia Commons',
+    color: 'from-[#e65100] to-[#bf360c]',
+    credit: 'Illustration — ECI India',
   },
   {
-    // Voters queue at polling station India
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/India_2014_Elections_-_Voters_in_line.jpg/800px-India_2014_Elections_-_Voters_in_line.jpg',
-    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/India_2014_Elections_-_Voters_in_line.jpg/640px-India_2014_Elections_-_Voters_in_line.jpg',
-    caption: 'Voters standing in queue at polling station — India General Election',
-    captionHi: 'मतदान केंद्र पर कतार में खड़े मतदाता — भारत आम चुनाव',
+    url: '/gallery/voters-queue.svg',
+    caption: 'Voters in Queue at Polling Station — India General Election 2024',
+    captionHi: 'मतदान केंद्र पर कतार में मतदाता — भारत आम चुनाव 2024',
     tag: 'Voters Queue',
     tagHi: 'मतदाता कतार',
-    color: 'from-[#138808] to-[#1a237e]',
-    credit: 'Wikimedia Commons (CC BY-SA)',
+    color: 'from-[#4a148c] to-[#6a1b9a]',
+    credit: 'Illustration — India Elections',
   },
 ]
 
@@ -109,7 +97,6 @@ export default function ElectionGallery({ dark }) {
               alt={isHindi ? img.captionHi : img.caption}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
-              onError={e => { if (img.fallback && e.target.src !== img.fallback) e.target.src = img.fallback }}
             />
 
             {/* Dark gradient overlay always present at bottom */}

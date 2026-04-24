@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="evmbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d47a1"/>
+      <stop offset="100%" style="stop-color:#1565c0"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#evmbg)"/>
+  <!-- Table -->
+  <rect x="100" y="320" width="600" height="20" rx="4" fill="#5d4037"/>
+  <rect x="150" y="340" width="20" height="80" fill="#5d4037"/>
+  <rect x="630" y="340" width="20" height="80" fill="#5d4037"/>
+  <!-- Control Unit (left box) -->
+  <rect x="130" y="160" width="220" height="160" rx="10" fill="#1a237e"/>
+  <rect x="130" y="160" width="220" height="40" rx="10" fill="#283593"/>
+  <text x="240" y="186" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="white">CONTROL UNIT</text>
+  <text x="240" y="202" text-anchor="middle" font-family="Arial" font-size="9" fill="#90caf9">Election Commission of India</text>
+  <!-- Control unit buttons -->
+  <rect x="155" y="215" width="70" height="25" rx="4" fill="#FF9933"/>
+  <text x="190" y="232" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" fill="white">BALLOT</text>
+  <rect x="245" y="215" width="70" height="25" rx="4" fill="#4caf50"/>
+  <text x="280" y="232" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" fill="white">RESULT</text>
+  <rect x="155" y="255" width="160" height="20" rx="4" fill="#37474f"/>
+  <text x="235" y="269" text-anchor="middle" font-family="Arial" font-size="9" fill="#90caf9">CLOSE ● TOTAL ● CLEAR</text>
+  <!-- Wire connecting -->
+  <path d="M 350 240 Q 380 240 380 240 Q 420 240 450 240" stroke="#FF9933" stroke-width="4" fill="none"/>
+  <!-- Balloting Unit (right box) -->
+  <rect x="450" y="140" width="220" height="180" rx="10" fill="#1a237e"/>
+  <rect x="450" y="140" width="220" height="40" rx="10" fill="#283593"/>
+  <text x="560" y="166" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="white">BALLOTING UNIT</text>
+  <!-- Candidate buttons -->
+  <rect x="465" y="195" width="190" height="22" rx="3" fill="#FF9933" opacity="0.9"/>
+  <text x="560" y="210" text-anchor="middle" font-family="Arial" font-size="10" fill="white">🪷 Candidate 1 — BJP</text>
+  <rect x="465" y="222" width="190" height="22" rx="3" fill="#1565c0" opacity="0.9"/>
+  <text x="560" y="237" text-anchor="middle" font-family="Arial" font-size="10" fill="white">✋ Candidate 2 — INC</text>
+  <rect x="465" y="249" width="190" height="22" rx="3" fill="#2e7d32" opacity="0.9"/>
+  <text x="560" y="264" text-anchor="middle" font-family="Arial" font-size="10" fill="white">🌾 Candidate 3 — TMC</text>
+  <rect x="465" y="276" width="190" height="22" rx="3" fill="#37474f" opacity="0.9"/>
+  <text x="560" y="291" text-anchor="middle" font-family="Arial" font-size="10" fill="white">📍 NOTA</text>
+  <!-- VVPAT -->
+  <rect x="680" y="180" width="90" height="120" rx="8" fill="#263238"/>
+  <rect x="680" y="180" width="90" height="30" rx="8" fill="#37474f"/>
+  <text x="725" y="200" text-anchor="middle" font-family="Arial" font-size="9" font-weight="bold" fill="#90caf9">VVPAT</text>
+  <rect x="695" y="220" width="60" height="40" rx="3" fill="#1a237e"/>
+  <text x="725" y="244" text-anchor="middle" font-family="Arial" font-size="8" fill="white">Paper Slip</text>
+  <!-- India flag strip -->
+  <rect x="0" y="0" width="800" height="6" fill="#FF9933"/>
+  <rect x="0" y="6" width="800" height="6" fill="white" opacity="0.8"/>
+  <rect x="0" y="12" width="800" height="6" fill="#138808"/>
+  <!-- Text -->
+  <text x="400" y="460" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="white" opacity="0.95">EVM &amp; VVPAT — Electronic Voting Machine</text>
+  <text x="400" y="485" text-anchor="middle" font-family="Arial" font-size="12" fill="white" opacity="0.7">इलेक्ट्रॉनिक वोटिंग मशीन — भारत निर्वाचन आयोग</text>
+</svg>

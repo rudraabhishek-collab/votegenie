@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="qbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a148c"/>
+      <stop offset="100%" style="stop-color:#6a1b9a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#qbg)"/>
+  <!-- Sky gradient -->
+  <rect x="0" y="0" width="800" height="250" fill="#1565c0" opacity="0.4"/>
+  <!-- Ground -->
+  <rect x="0" y="400" width="800" height="100" fill="#2e7d32" opacity="0.4"/>
+  <!-- Polling station building -->
+  <rect x="600" y="150" width="180" height="250" rx="5" fill="#e8eaf6" opacity="0.9"/>
+  <rect x="600" y="150" width="180" height="40" rx="5" fill="#1a237e"/>
+  <text x="690" y="175" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="white">POLLING STATION</text>
+  <text x="690" y="190" text-anchor="middle" font-family="Arial" font-size="9" fill="#90caf9">मतदान केंद्र</text>
+  <!-- Door -->
+  <rect x="655" y="310" width="70" height="90" rx="4" fill="#1a237e"/>
+  <circle cx="718" cy="355" r="5" fill="#FF9933"/>
+  <!-- Queue of diverse Indian voters -->
+  
+    <circle cx="80" cy="260" r="18" fill="#ffb74d"/>
+    <ellipse cx="80" cy="238" rx="20" ry="8" fill="#e91e63" opacity="0.8"/>
+    <rect x="62" y="278" width="36" height="55" rx="5" fill="#e91e63"/>
+    <line x1="80" y1="290" x2="58" y2="315" stroke="#ffb74d" stroke-width="5" stroke-linecap="round"/>
+    <line x1="80" y1="290" x2="102" y2="315" stroke="#ffb74d" stroke-width="5" stroke-linecap="round"/>
+  
+    <circle cx="155" cy="265" r="18" fill="#ff8a65"/>
+    
+    <rect x="137" y="283" width="36" height="55" rx="5" fill="#1565c0"/>
+    <line x1="155" y1="295" x2="133" y2="320" stroke="#ff8a65" stroke-width="5" stroke-linecap="round"/>
+    <line x1="155" y1="295" x2="177" y2="320" stroke="#ff8a65" stroke-width="5" stroke-linecap="round"/>
+  
+    <circle cx="225" cy="258" r="18" fill="#a5d6a7"/>
+    <ellipse cx="225" cy="236" rx="20" ry="8" fill="#ff5722" opacity="0.8"/>
+    <rect x="207" y="276" width="36" height="55" rx="5" fill="#ff5722"/>
+    <line x1="225" y1="288" x2="203" y2="313" stroke="#a5d6a7" stroke-width="5" stroke-linecap="round"/>
+    <line x1="225" y1="288" x2="247" y2="313" stroke="#a5d6a7" stroke-width="5" stroke-linecap="round"/>
+  
+    <circle cx="295" cy="262" r="18" fill="#ffcc80"/>
+    
+    <rect x="277" y="280" width="36" height="55" rx="5" fill="#4caf50"/>
+    <line x1="295" y1="292" x2="273" y2="317" stroke="#ffcc80" stroke-width="5" stroke-linecap="round"/>
+    <line x1="295" y1="292" x2="317" y2="317" stroke="#ffcc80" stroke-width="5" stroke-linecap="round"/>
+  
+    <circle cx="365" cy="260" r="18" fill="#ef9a9a"/>
+    <ellipse cx="365" cy="238" rx="20" ry="8" fill="#9c27b0" opacity="0.8"/>
+    <rect x="347" y="278" width="36" height="55" rx="5" fill="#9c27b0"/>
+    <line x1="365" y1="290" x2="343" y2="315" stroke="#ef9a9a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="365" y1="290" x2="387" y2="315" stroke="#ef9a9a" stroke-width="5" stroke-linecap="round"/>
+  
+    <circle cx="435" cy="264" r="18" fill="#80cbc4"/>
+    
+    <rect x="417" y="282" width="36" height="55" rx="5" fill="#ff9800"/>
+    <line x1="435" y1="294" x2="413" y2="319" stroke="#80cbc4" stroke-width="5" stroke-linecap="round"/>
+    <line x1="435" y1="294" x2="457" y2="319" stroke="#80cbc4" stroke-width="5" stroke-linecap="round"/>
+  
+    <circle cx="505" cy="259" r="18" fill="#f48fb1"/>
+    <ellipse cx="505" cy="237" rx="20" ry="8" fill="#2196f3" opacity="0.8"/>
+    <rect x="487" y="277" width="36" height="55" rx="5" fill="#2196f3"/>
+    <line x1="505" y1="289" x2="483" y2="314" stroke="#f48fb1" stroke-width="5" stroke-linecap="round"/>
+    <line x1="505" y1="289" x2="527" y2="314" stroke="#f48fb1" stroke-width="5" stroke-linecap="round"/>
+  
+    <circle cx="565" cy="263" r="18" fill="#ffe082"/>
+    
+    <rect x="547" y="281" width="36" height="55" rx="5" fill="#795548"/>
+    <line x1="565" y1="293" x2="543" y2="318" stroke="#ffe082" stroke-width="5" stroke-linecap="round"/>
+    <line x1="565" y1="293" x2="587" y2="318" stroke="#ffe082" stroke-width="5" stroke-linecap="round"/>
+  
+  <!-- Queue rope/barrier -->
+  <line x1="60" y1="410" x2="600" y2="410" stroke="#FF9933" stroke-width="3" stroke-dasharray="10,5"/>
+  <!-- Voter ID cards -->
+  <rect x="100" y="340" width="30" height="20" rx="2" fill="white" opacity="0.8"/>
+  <text x="115" y="354" text-anchor="middle" font-family="Arial" font-size="6" fill="#1a237e">EPIC</text>
+  <!-- India flag strip -->
+  <rect x="0" y="0" width="800" height="6" fill="#FF9933"/>
+  <rect x="0" y="6" width="800" height="6" fill="white" opacity="0.8"/>
+  <rect x="0" y="12" width="800" height="6" fill="#138808"/>
+  <!-- Text -->
+  <text x="400" y="460" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="white" opacity="0.95">Voters in Queue — India General Election 2024</text>
+  <text x="400" y="485" text-anchor="middle" font-family="Arial" font-size="12" fill="white" opacity="0.7">मतदाता कतार में — भारत आम चुनाव 2024</text>
+</svg>
