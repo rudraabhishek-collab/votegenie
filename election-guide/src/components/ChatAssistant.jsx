@@ -211,12 +211,12 @@ export default function ChatAssistant({ open, onClose, dark }) {
           </div>
           <button onClick={clearHistory}
             className={`text-[0.68rem] font-semibold px-2 py-1 rounded-lg border transition-all
-              ${dark ? 'border-white/10 text-slate-500 hover:text-slate-300' : 'border-slate-200 text-slate-400 hover:text-slate-600'}`}>
+              ${dark ? 'border-white/10 text-slate-600 hover:text-slate-300' : 'border-slate-200 text-slate-600 hover:text-slate-700'}`}>
             Clear
           </button>
           <button onClick={onClose} aria-label="Close"
             className={`w-7 h-7 rounded-full flex items-center justify-center text-xs border transition-all hover:rotate-90
-              ${dark ? 'bg-white/10 border-white/10 text-slate-400 hover:text-white' : 'bg-slate-100 border-slate-200 text-slate-400 hover:text-gray-700'}`}>
+              ${dark ? 'bg-white/10 border-white/10 text-slate-600 hover:text-white' : 'bg-slate-100 border-slate-200 text-slate-600 hover:text-gray-700'}`}>
             ✕
           </button>
         </div>
@@ -263,7 +263,7 @@ export default function ChatAssistant({ open, onClose, dark }) {
         {/* Quick suggestions */}
         {messages.length <= 2 && (
           <div className={`px-3 pb-2 border-t flex-shrink-0 ${dark ? 'border-white/[0.07]' : 'border-indigo-50'}`}>
-            <p className={`text-[0.65rem] font-bold uppercase tracking-widest pt-2 pb-1.5 ${dark ? 'text-slate-600' : 'text-slate-400'}`}>
+            <p className={`text-[0.65rem] font-bold uppercase tracking-widest pt-2 pb-1.5 ${dark ? 'text-white' : 'text-slate-700'}`}>
               Try asking:
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -294,8 +294,8 @@ export default function ChatAssistant({ open, onClose, dark }) {
             aria-label="Chat input"
             className={`flex-1 rounded-xl px-3.5 py-2.5 text-[0.85rem] border transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400/30
               ${dark
-                ? 'bg-white/[0.07] border-white/10 text-white placeholder:text-slate-500 focus:border-indigo-400'
-                : 'bg-slate-50 border-slate-200 text-gray-900 placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white'
+                ? 'bg-white/[0.07] border-white/10 text-white placeholder:text-slate-600 focus:border-indigo-400'
+                : 'bg-slate-50 border-slate-200 text-gray-900 placeholder:text-slate-600 focus:border-indigo-400 focus:bg-white'
               }`}
           />
           <button onClick={() => send()} disabled={!input.trim() || typing}

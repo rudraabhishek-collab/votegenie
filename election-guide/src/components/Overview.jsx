@@ -28,7 +28,7 @@ function OverviewCard({ item, dark, index }) {
         ${dark ? 'text-white' : 'text-[#1a237e]'}`}>
         {item.title}
       </h3>
-      <p className={`text-[0.875rem] leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+      <p className={`text-[0.875rem] leading-relaxed ${dark ? 'text-white' : 'text-slate-700'}`}>
         {item.body}
       </p>
     </article>

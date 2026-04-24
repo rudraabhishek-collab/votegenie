@@ -76,7 +76,7 @@ export default function ElectionGallery({ dark }) {
           <h2 className={`text-[clamp(1.5rem,3vw,2rem)] font-black tracking-tight ${dark ? 'text-white' : 'text-[#1a237e]'}`}>
             {isHindi ? 'भारतीय लोकतंत्र की झलकियाँ' : 'Glimpses of Indian Democracy'}
           </h2>
-          <p className={`mt-1.5 text-[0.9rem] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+          <p className={`mt-1.5 text-[0.9rem] ${dark ? 'text-white' : 'text-slate-700'}`}>
             {isHindi ? 'मतदान प्रक्रिया की वास्तविक तस्वीरें' : 'Real moments from India\'s election process'}
           </p>
         </div>
@@ -139,13 +139,13 @@ export default function ElectionGallery({ dark }) {
           <div key={s.label} className="text-center flex-1 min-w-[80px]">
             <div className="text-xl mb-1">{s.icon}</div>
             <div className={`text-[1.1rem] font-black tracking-tight ${dark ? 'text-[#FF9933]' : 'text-[#1a237e]'}`}>{s.num}</div>
-            <div className={`text-[0.68rem] font-semibold ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{s.label}</div>
+            <div className={`text-[0.68rem] font-semibold ${dark ? 'text-white' : 'text-slate-700'}`}>{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Photo credit */}
-      <p className={`mt-3 text-[0.65rem] text-center ${dark ? 'text-slate-700' : 'text-slate-400'}`}>
+      <p className={`mt-3 text-[0.65rem] text-center ${dark ? 'text-slate-700' : 'text-slate-700'}`}>
         📷 Photos: PIB India, Election Commission of India, Wikimedia Commons (public domain / CC-BY)
       </p>
     </section>

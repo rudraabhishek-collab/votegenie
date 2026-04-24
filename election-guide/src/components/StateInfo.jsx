@@ -20,12 +20,12 @@ function InfoRow({ icon, label, value, highlight, dark, tooltip }) {
       <span className="text-base flex-shrink-0 mt-0.5">{icon}</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
-          <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.08em] text-slate-400 dark:text-slate-500">{label}</p>
+          <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.08em] text-slate-600 dark:text-slate-600">{label}</p>
           {tooltip && (
             <button
               onMouseEnter={() => setShowTip(true)}
               onMouseLeave={() => setShowTip(false)}
-              className="w-3.5 h-3.5 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center text-[0.6rem] font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors">
+              className="w-3.5 h-3.5 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center text-[0.6rem] font-bold text-slate-600 dark:text-slate-600 hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors">
               ?
             </button>
           )}
@@ -53,12 +53,12 @@ function UTCard({ data, dark }) {
       <div className="p-8 text-center">
         <div className="text-4xl mb-3">🏛️</div>
         <h3 className={`text-[1.1rem] font-black mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>{data.fullName}</h3>
-        <p className={`text-[0.88rem] mb-4 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>Capital: {data.capital}</p>
+        <p className={`text-[0.88rem] mb-4 ${dark ? 'text-white' : 'text-slate-700'}`}>Capital: {data.capital}</p>
         <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-[0.85rem] font-semibold border
           ${dark ? 'bg-amber-950/50 border-amber-800/40 text-amber-400' : 'bg-amber-50 border-amber-200 text-amber-700'}`}>
           ⚠️ This UT has no state legislative assembly
         </div>
-        <p className={`mt-3 text-[0.82rem] ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+        <p className={`mt-3 text-[0.82rem] ${dark ? 'text-white' : 'text-slate-700'}`}>
           Administered directly by the Central Government via a Lieutenant Governor / Administrator.
         </p>
         <div className={`mt-4 rounded-xl px-4 py-3 border text-[0.85rem] ${dark ? 'bg-indigo-950/40 border-indigo-800/30 text-indigo-300' : 'bg-indigo-50 border-indigo-100 text-indigo-700'}`}>
@@ -83,7 +83,7 @@ function StateCard({ data, dark }) {
             <h3 className={`text-[1.15rem] font-black tracking-[-0.03em] ${dark ? 'text-white' : 'text-gray-900'}`}>
               {data.fullName}
             </h3>
-            <p className={`text-[0.78rem] mt-0.5 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+            <p className={`text-[0.78rem] mt-0.5 ${dark ? 'text-white' : 'text-slate-700'}`}>
               Capital: {data.capital} · {data.seats} Assembly seats
             </p>
           </div>
@@ -128,7 +128,7 @@ function StateCard({ data, dark }) {
           { label: 'Postal Voting',   value: data.postalVoting ? '✅ Available' : '❌ Not available' },
         ].map(s => (
           <div key={s.label} className="flex-1 min-w-[100px]">
-            <p className={`text-[0.65rem] font-extrabold uppercase tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>{s.label}</p>
+            <p className={`text-[0.65rem] font-extrabold uppercase tracking-widest ${dark ? 'text-white' : 'text-slate-700'}`}>{s.label}</p>
             <p className={`text-[0.88rem] font-bold mt-0.5 ${dark ? 'text-slate-200' : 'text-gray-800'}`}>{s.value}</p>
           </div>
         ))}
@@ -169,7 +169,7 @@ function CompareView({ dark }) {
     <div className={`rounded-2xl border overflow-hidden shadow-card ${dark ? 'bg-gray-900 border-violet-900/20' : 'bg-white border-indigo-100'}`}>
       <div className="h-[3px] bg-gradient-to-r from-pink-500 via-violet-500 to-indigo-500" />
       <div className="p-6">
-        <p className={`text-[0.78rem] font-extrabold uppercase tracking-[0.1em] mb-4 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+        <p className={`text-[0.78rem] font-extrabold uppercase tracking-[0.1em] mb-4 ${dark ? 'text-white' : 'text-slate-700'}`}>
           ⚖️ Compare Two States / UTs
         </p>
         <div className="grid grid-cols-2 gap-3 mb-6">
@@ -184,7 +184,7 @@ function CompareView({ dark }) {
                   {UTS_WITHOUT_ASSEMBLY.map(s => <option key={s} value={s}>{s}</option>)}
                 </optgroup>
               </select>
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▾</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 pointer-events-none text-xs">▾</span>
             </div>
           ))}
         </div>
@@ -194,7 +194,7 @@ function CompareView({ dark }) {
             <table className="w-full text-[0.85rem]">
               <thead>
                 <tr>
-                  <th className={`text-left py-2 px-3 text-[0.68rem] font-extrabold uppercase tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>Field</th>
+                  <th className={`text-left py-2 px-3 text-[0.68rem] font-extrabold uppercase tracking-widest ${dark ? 'text-white' : 'text-slate-700'}`}>Field</th>
                   <th className={`text-left py-2 px-3 text-[0.82rem] font-black ${dark ? 'text-indigo-400' : 'text-indigo-700'}`}>{stateA}</th>
                   <th className={`text-left py-2 px-3 text-[0.82rem] font-black ${dark ? 'text-violet-400' : 'text-violet-700'}`}>{stateB}</th>
                 </tr>
@@ -202,7 +202,7 @@ function CompareView({ dark }) {
               <tbody>
                 {COMPARE_FIELDS.map(f => (
                   <tr key={f.key} className={`border-t ${dark ? 'border-white/[0.05]' : 'border-slate-100'}`}>
-                    <td className={`py-2.5 px-3 font-semibold whitespace-nowrap ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    <td className={`py-2.5 px-3 font-semibold whitespace-nowrap ${dark ? 'text-white' : 'text-slate-700'}`}>
                       {f.icon} {f.label}
                     </td>
                     <td className={`py-2.5 px-3 font-semibold ${dark ? 'text-slate-200' : 'text-gray-800'}`}>{formatVal(f.key, dataA[f.key])}</td>
@@ -213,7 +213,7 @@ function CompareView({ dark }) {
             </table>
           </div>
         ) : (
-          <p className={`text-center text-[0.85rem] py-6 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+          <p className={`text-center text-[0.85rem] py-6 ${dark ? 'text-white' : 'text-slate-700'}`}>
             Select two states above to compare them side-by-side.
           </p>
         )}
@@ -254,7 +254,7 @@ export default function StateInfo({ dark }) {
               {UTS_WITHOUT_ASSEMBLY.map(s => <option key={s} value={s}>{s}</option>)}
             </optgroup>
           </select>
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▾</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 pointer-events-none text-xs">▾</span>
         </div>
 
         <button
@@ -263,8 +263,8 @@ export default function StateInfo({ dark }) {
             ${showCompare
               ? 'bg-gradient-to-r from-indigo-500 to-violet-600 border-transparent text-white shadow-[0_4px_12px_rgba(99,102,241,0.3)]'
               : dark
-                ? 'border-white/10 text-slate-400 hover:border-indigo-600/50 hover:text-indigo-400'
-                : 'border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'
+                ? 'border-white/10 text-slate-600 hover:border-indigo-600/50 hover:text-indigo-400'
+                : 'border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600'
             }`}>
           ⚖️ Compare States
         </button>
@@ -282,7 +282,7 @@ export default function StateInfo({ dark }) {
           <p className={`font-bold text-[1rem] mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>
             Select a state or UT to get started
           </p>
-          <p className={`text-[0.88rem] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+          <p className={`text-[0.88rem] ${dark ? 'text-white' : 'text-slate-700'}`}>
             All 28 states and 8 Union Territories covered — Chief Minister, ruling party, and upcoming election dates.
           </p>
           {/* Quick picks */}
@@ -290,7 +290,7 @@ export default function StateInfo({ dark }) {
             {['Maharashtra', 'Delhi', 'Uttar Pradesh', 'Tamil Nadu', 'West Bengal', 'Karnataka'].map(s => (
               <button key={s} onClick={() => setSelected(s)}
                 className={`px-3 py-1.5 rounded-full text-[0.78rem] font-semibold border transition-all hover:-translate-y-0.5
-                  ${dark ? 'border-white/10 text-slate-400 hover:border-indigo-600/50 hover:text-indigo-400' : 'border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'}`}>
+                  ${dark ? 'border-white/10 text-slate-600 hover:border-indigo-600/50 hover:text-indigo-400' : 'border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600'}`}>
                 {s}
               </button>
             ))}
@@ -309,7 +309,7 @@ export default function StateInfo({ dark }) {
           <span>Data reflects the most recent elections as of 2025. Always verify with </span>
           <a href="https://eci.gov.in" target="_blank" rel="noopener noreferrer" className="font-bold underline hover:opacity-80">eci.gov.in</a>
           <span> for the latest official information.</span>
-          <p className={`text-[0.72rem] mt-1 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+          <p className={`text-[0.72rem] mt-1 ${dark ? 'text-white' : 'text-slate-700'}`}>
             🕐 Last updated: April 2026 · Data is indicative, not official.
           </p>
         </div>

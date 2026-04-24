@@ -74,11 +74,11 @@ function ResultCard({ result, dark, onReset }) {
       </div>
 
       <h3 className={`text-xl font-black tracking-[-0.03em] mb-2 ${p.title}`}>{result.title}</h3>
-      <p className={`text-[0.92rem] leading-relaxed mb-1 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{result.body}</p>
+      <p className={`text-[0.92rem] leading-relaxed mb-1 ${dark ? 'text-white' : 'text-slate-700'}`}>{result.body}</p>
 
       {/* Requirement checklist */}
       <div className={`mt-4 rounded-xl p-4 border text-[0.85rem] space-y-2 ${dark ? 'bg-black/20 border-white/10' : 'bg-white/60 border-white'}`}>
-        <p className={`font-extrabold text-[0.75rem] uppercase tracking-widest mb-3 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>Requirements</p>
+        <p className={`font-extrabold text-[0.75rem] uppercase tracking-widest mb-3 ${dark ? 'text-white' : 'text-slate-700'}`}>Requirements</p>
         {[
           { label: 'Must be 18 or older (on Jan 1 of qualifying year)', met: parseInt(result.age) >= 18 },
           { label: 'Must be an Indian citizen', met: result.citizenship === 'citizen' },
@@ -89,7 +89,7 @@ function ResultCard({ result, dark, onReset }) {
               ${req.met ? 'bg-emerald-500 text-white' : 'bg-red-400 text-white'}`}>
               {req.met ? '✓' : '✗'}
             </span>
-            <span className={dark ? 'text-slate-300' : 'text-slate-600'}>{req.label}</span>
+            <span className={dark ? 'text-white' : 'text-slate-700'}>{req.label}</span>
           </div>
         ))}
       </div>
@@ -107,7 +107,7 @@ function ResultCard({ result, dark, onReset }) {
             ['🪪', 'EPIC card required',     result.stateData.epicRequired ? '✅ Yes' : '❌ No'],
             ['📞', 'Voter Helpline',         '1950'],
           ].map(([icon, label, val]) => (
-            <p key={label} className={`mb-1.5 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+            <p key={label} className={`mb-1.5 ${dark ? 'text-white' : 'text-slate-700'}`}>
               {icon} <strong>{label}:</strong> {val}
             </p>
           ))}
@@ -123,7 +123,7 @@ function ResultCard({ result, dark, onReset }) {
         )}
         <button onClick={onReset}
           className={`px-4 py-2.5 rounded-xl font-bold text-[0.85rem] border transition-all hover:border-indigo-400 hover:text-indigo-500
-            ${dark ? 'border-white/10 text-slate-400' : 'border-slate-200 text-slate-500'}`}>
+            ${dark ? 'border-white/10 text-slate-600' : 'border-slate-200 text-slate-700'}`}>
           ← Check Again
         </button>
       </div>
@@ -189,7 +189,7 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
         : 'bg-slate-50 border-indigo-100 text-gray-900 focus:border-indigo-400 focus:bg-white focus:ring-indigo-400/20'
     }`
 
-  const labelCls = `block text-[0.72rem] font-extrabold uppercase tracking-[0.08em] mb-1.5 ${dark ? 'text-slate-400' : 'text-slate-500'}`
+  const labelCls = `block text-[0.72rem] font-extrabold uppercase tracking-[0.08em] mb-1.5 ${dark ? 'text-white' : 'text-slate-700'}`
 
   // Live preview
   const livePreview = (() => {
@@ -245,7 +245,7 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
                   <option value="nri">NRI — Non-Resident Indian</option>
                   <option value="foreign">Foreign National / OCI Holder</option>
                 </select>
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▾</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 pointer-events-none text-xs">▾</span>
               </div>
               {errors.citizenship && <p className="text-red-500 text-[0.75rem] font-semibold mt-1">{errors.citizenship}</p>}
             </div>
@@ -266,7 +266,7 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
                       .map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
                   </optgroup>
                 </select>
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▾</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 pointer-events-none text-xs">▾</span>
               </div>
               {errors.state && <p className="text-red-500 text-[0.75rem] font-semibold mt-1">{errors.state}</p>}
             </div>
@@ -281,7 +281,7 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
                   <option value="unsure">Not sure — need to check</option>
                   <option value="no">No, not registered yet</option>
                 </select>
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▾</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 pointer-events-none text-xs">▾</span>
               </div>
             </div>
           </div>

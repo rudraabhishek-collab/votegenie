@@ -9,7 +9,7 @@ export default function JourneyTracker({ currentStep, onStepClick, dark }) {
       ${dark ? 'bg-gray-950/80 border-violet-900/20' : 'bg-white/90 border-indigo-100/60'} backdrop-blur-sm`}
       aria-label={t('journey.label')}>
       <div className="max-w-5xl mx-auto">
-        <p className={`text-[0.68rem] font-extrabold uppercase tracking-[0.12em] mb-4 ${dark ? 'text-slate-600' : 'text-slate-400'}`}>
+        <p className={`text-[0.68rem] font-extrabold uppercase tracking-[0.12em] mb-4 ${dark ? 'text-slate-600' : 'text-slate-600'}`}>
           {t('journey.label')}
         </p>
         <div className="flex items-center overflow-x-auto pb-1 scrollbar-thin" role="list">
@@ -24,7 +24,7 @@ export default function JourneyTracker({ currentStep, onStepClick, dark }) {
                     ? 'bg-gradient-to-br from-[#FF9933] to-[#f97316] text-white shadow-[0_4px_16px_rgba(255,153,51,0.5)]'
                     : i === currentStep
                       ? `border-2 border-[#FF9933] shadow-[0_0_0_5px_rgba(255,153,51,0.2)] ${dark ? 'bg-indigo-950 text-indigo-400' : 'bg-indigo-50 text-indigo-600'}`
-                      : `border-2 ${dark ? 'border-slate-700 bg-gray-900 text-slate-600' : 'border-slate-200 bg-white text-slate-400'}`
+                      : `border-2 ${dark ? 'border-slate-700 bg-gray-900 text-slate-600' : 'border-slate-200 bg-white text-slate-600'}`
                   } group-hover:scale-110 group-hover:shadow-glow`}>
                   {i < currentStep ? <span className="animate-[scaleIn_0.3s_ease_both]">✓</span> : i + 1}
                   {i === currentStep && (
@@ -34,7 +34,7 @@ export default function JourneyTracker({ currentStep, onStepClick, dark }) {
                 <span className={`text-[0.67rem] font-semibold text-center leading-tight whitespace-pre-line transition-colors duration-200
                   ${i === currentStep ? 'text-[#FF9933] font-extrabold'
                     : i < currentStep ? dark ? 'text-indigo-400/70' : 'text-indigo-400'
-                    : dark ? 'text-slate-600' : 'text-slate-400'}`}>
+                    : dark ? 'text-slate-600' : 'text-slate-600'}`}>
                   {label}
                 </span>
               </button>

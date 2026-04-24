@@ -80,7 +80,7 @@ function NavSearch({ dark }) {
               ? 'bg-white/[0.06] border-white/[0.1] hover:border-white/20 w-40'
               : 'bg-slate-100/90 border-slate-200 hover:border-indigo-200 w-40'
           }`}>
-        <svg className={`w-3.5 h-3.5 flex-shrink-0 transition-colors ${focused ? 'text-indigo-400' : dark ? 'text-slate-500' : 'text-slate-400'}`}
+        <svg className={`w-3.5 h-3.5 flex-shrink-0 transition-colors ${focused ? 'text-indigo-400' : dark ? 'text-slate-700' : 'text-slate-200'}`}
           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
@@ -94,7 +94,7 @@ function NavSearch({ dark }) {
           placeholder={focused ? 'Search anything…' : 'Search…'}
           aria-label="Search"
           className={`bg-transparent text-[0.8rem] flex-1 min-w-0 focus:outline-none transition-colors
-            ${dark ? 'text-white placeholder:text-slate-500' : 'text-gray-900 placeholder:text-slate-400'}`}
+            ${dark ? 'text-white placeholder:text-slate-700' : 'text-gray-900 placeholder:text-slate-400'}`}
         />
         {query
           ? <button onClick={() => { setQuery(''); setOpen(false) }}
@@ -102,7 +102,7 @@ function NavSearch({ dark }) {
                 ${dark ? 'bg-white/15 text-white' : 'bg-slate-300 text-slate-600'}`}>✕</button>
           : !focused && (
             <kbd className={`flex-shrink-0 text-[0.6rem] font-bold px-1.5 py-0.5 rounded border
-              ${dark ? 'border-white/15 text-slate-500 bg-white/5' : 'border-slate-300 text-slate-400 bg-white'}`}>
+              ${dark ? 'border-white/15 text-slate-700 bg-white/5' : 'border-slate-300 text-slate-400 bg-white'}`}>
               ⌘K
             </kbd>
           )
@@ -351,13 +351,13 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant, user, onOp
                 <span className="text-[0.8rem] ml-0.5">⭐</span>
               </div>
               <div className="flex items-center gap-1">
-                <span className={`text-[0.5rem] font-extrabold tracking-[0.15em] uppercase ${dark ? 'text-slate-600' : 'text-slate-400'}`}>India</span>
+                <span className={`text-[0.5rem] font-extrabold tracking-[0.15em] uppercase ${dark ? 'text-slate-600' : 'text-slate-200'}`}>India</span>
                 <span className="flex gap-[2px]">
                   <span className="w-[4px] h-[3px] rounded-[1px] bg-[#FF9933]"/>
                   <span className={`w-[4px] h-[3px] rounded-[1px] ${dark ? 'bg-slate-500' : 'bg-slate-300'}`}/>
                   <span className="w-[4px] h-[3px] rounded-[1px] bg-[#138808]"/>
                 </span>
-                <span className={`text-[0.5rem] font-extrabold tracking-[0.12em] ${dark ? 'text-slate-600' : 'text-slate-400'}`}>2026</span>
+                <span className={`text-[0.5rem] font-extrabold tracking-[0.12em] ${dark ? 'text-slate-600' : 'text-slate-200'}`}>2026</span>
               </div>
             </div>
           </div>
@@ -420,7 +420,7 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant, user, onOp
             className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-[0.85rem] border transition-all
               ${dark
                 ? 'border-white/10 text-slate-400 hover:bg-white/[0.06]'
-                : 'border-slate-200 text-slate-500 hover:bg-slate-50'
+                : 'border-slate-200 text-slate-700 hover:bg-slate-50'
               }`}>
             {dark ? `☀️ ${t('nav.switchToLight')}` : `🌙 ${t('nav.switchToDark')}`}
           </button>

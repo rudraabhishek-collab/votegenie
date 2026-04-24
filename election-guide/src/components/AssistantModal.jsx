@@ -166,16 +166,16 @@ function ResultInBubble({ result, dark }) {
   return (
     <div className={`mt-3 rounded-xl border p-3 ${c.bg}`}>
       <p className={`font-extrabold text-[0.9rem] mb-1 ${c.text}`}>{result.headline}</p>
-      <p className={`text-[0.82rem] leading-relaxed mb-3 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+      <p className={`text-[0.82rem] leading-relaxed mb-3 ${dark ? 'text-white' : 'text-slate-700'}`}>
         {result.reason}
       </p>
       {/* State info */}
       {result.stateData && result.type === 'eligible' && (
         <div className={`rounded-lg p-2.5 mb-3 text-[0.78rem] border ${dark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-slate-200'}`}>
-          <p className={`font-bold mb-1.5 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>📍 {result.stateData.label}</p>
-          <p className={dark ? 'text-slate-300' : 'text-slate-600'}>🗓️ Deadline: {result.stateData.regDeadline}</p>
-          <p className={dark ? 'text-slate-300' : 'text-slate-600'}>📮 Postal ballot: {result.stateData.postalVoting ? '✅' : '❌'}</p>
-          <p className={dark ? 'text-slate-300' : 'text-slate-600'}>📞 Helpline: 1950</p>
+          <p className={`font-bold mb-1.5 ${dark ? 'text-white' : 'text-slate-700'}`}>📍 {result.stateData.label}</p>
+          <p className={dark ? 'text-white' : 'text-slate-700'}>🗓️ Deadline: {result.stateData.regDeadline}</p>
+          <p className={dark ? 'text-white' : 'text-slate-700'}>📮 Postal ballot: {result.stateData.postalVoting ? '✅' : '❌'}</p>
+          <p className={dark ? 'text-white' : 'text-slate-700'}>📞 Helpline: 1950</p>
         </div>
       )}
       {/* Action buttons */}
@@ -393,13 +393,13 @@ export default function AssistantModal({ open, onClose, dark, onEligible }) {
           {/* Step counter */}
           {!done && flowStep >= 0 && (
             <div className={`text-[0.7rem] font-bold px-2.5 py-1 rounded-full border
-              ${dark ? 'border-white/10 text-slate-400 bg-white/5' : 'border-slate-200 text-slate-500 bg-slate-50'}`}>
+              ${dark ? 'border-white/10 text-slate-600 bg-white/5' : 'border-slate-200 text-slate-600 bg-slate-50'}`}>
               {flowStep + 1} / {FLOW.length}
             </div>
           )}
           <button onClick={onClose} aria-label="Close"
             className={`w-8 h-8 rounded-full flex items-center justify-center text-sm border transition-all hover:rotate-90
-              ${dark ? 'border-white/10 text-slate-400 hover:bg-white/10' : 'border-slate-200 text-slate-400 hover:bg-slate-100'}`}>
+              ${dark ? 'border-white/10 text-slate-600 hover:bg-white/10' : 'border-slate-200 text-slate-600 hover:bg-slate-100'}`}>
             ✕
           </button>
         </div>
@@ -462,7 +462,7 @@ export default function AssistantModal({ open, onClose, dark, onEligible }) {
                   <option value="">{currentStep.placeholder}</option>
                   {states.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
                 </select>
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▾</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 pointer-events-none text-xs">▾</span>
               </div>
               <button
                 onClick={() => inputVal && handleAnswer(inputVal, states.find(s => s.value === inputVal)?.label)}
@@ -493,8 +493,8 @@ export default function AssistantModal({ open, onClose, dark, onEligible }) {
                   placeholder={currentStep.placeholder}
                   className={`flex-1 rounded-xl px-4 py-2.5 text-[0.9rem] border focus:outline-none focus:ring-2 focus:ring-indigo-400/30
                     ${dark
-                      ? 'bg-white/[0.07] border-white/10 text-white placeholder:text-slate-500 focus:border-indigo-400'
-                      : 'bg-slate-50 border-slate-200 text-gray-900 placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white'
+                      ? 'bg-white/[0.07] border-white/10 text-white placeholder:text-slate-600 focus:border-indigo-400'
+                      : 'bg-slate-50 border-slate-200 text-gray-900 placeholder:text-slate-600 focus:border-indigo-400 focus:bg-white'
                     }`}
                 />
                 <button onClick={handleTextSubmit} disabled={!inputVal.trim()}
@@ -521,7 +521,7 @@ export default function AssistantModal({ open, onClose, dark, onEligible }) {
             <div className="px-4 pt-3 pb-4 flex gap-2">
               <button onClick={startConversation}
                 className={`flex-1 py-2.5 rounded-xl font-bold text-[0.85rem] border transition-all hover:-translate-y-0.5
-                  ${dark ? 'border-white/10 text-slate-400 hover:border-indigo-600/50 hover:text-indigo-400' : 'border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'}`}>
+                  ${dark ? 'border-white/10 text-slate-600 hover:border-indigo-600/50 hover:text-indigo-400' : 'border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600'}`}>
                 ↺ Start Over
               </button>
               <button onClick={() => { onClose(); scrollToSection('eligibility') }}

@@ -78,7 +78,7 @@ function AnimatedStat({ num, suffix = '', label, active, color }) {
       <div className="text-[2.2rem] font-black tracking-[-0.04em]" style={{ color: color || '#1a237e' }}>
         {isNum ? `${count}${suffix}` : num}
       </div>
-      <div className="text-[0.72rem] text-slate-400 font-semibold mt-0.5 uppercase tracking-[0.1em] cursor-default">{label}</div>
+      <div className="text-[0.75rem] text-[#1a237e]/80 font-bold mt-0.5 uppercase tracking-[0.1em] cursor-default">{label}</div>
       
       {/* Tooltip for non-partisan */}
       {label === t('hero.statNonPartisan') && (
@@ -140,7 +140,7 @@ function HeroSearch() {
             ? 'border-green-500 shadow-[0_0_0_3px_rgba(74,222,128,0.15)]'
             : ''
         }`}>
-        <svg className="w-4 h-4 text-slate-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="w-4 h-4 text-slate-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
         </svg>
         <input
@@ -155,10 +155,10 @@ function HeroSearch() {
           onFocus={() => suggestions.length && setShowDrop(true)}
           placeholder={t('hero.searchPlaceholder')}
           aria-label={t('hero.searchAriaLabel')}
-          className="flex-1 bg-transparent text-[#1a237e] text-[0.88rem] placeholder:text-slate-400 focus:outline-none min-w-0"
+          className="flex-1 bg-transparent text-[#1a237e] text-[0.88rem] placeholder:text-slate-600 focus:outline-none min-w-0"
         />
         {query && (
-          <kbd className="flex-shrink-0 text-[0.65rem] font-bold text-slate-400 border border-slate-200 rounded px-1.5 py-0.5">↵</kbd>
+          <kbd className="flex-shrink-0 text-[0.65rem] font-bold text-slate-600 border border-slate-200 rounded px-1.5 py-0.5">↵</kbd>
         )}
       </div>
 
@@ -220,7 +220,7 @@ function FloatingStateCard() {
             <span className="font-semibold text-[#1a237e]">{c.party}</span>
           </p>
         </div>
-        <p className="text-[0.58rem] text-slate-400 mt-2 text-right">Live · ECI Data</p>
+        <p className="text-[0.58rem] text-slate-600 mt-2 text-right">Live · ECI Data</p>
       </div>
     </div>
   )
@@ -290,7 +290,7 @@ function TrustBadges() {
           <span className="text-sm">{t.icon}</span>
           <div className="text-left">
             <p className="text-[0.72rem] font-bold text-white/70 leading-none">{t.text}</p>
-            <p className="text-[0.62rem] text-white/35 leading-none mt-0.5">{t.sub}</p>
+            <p className="text-[0.62rem] text-[#1a237e]/60 leading-none mt-0.5">{t.sub}</p>
           </div>
         </div>
       ))}
@@ -420,7 +420,7 @@ export default function Hero({ onOpenAssistant }) {
               </>
             )}
           </button>
-          <p className="text-[0.75rem] text-slate-400 font-semibold tracking-wide">
+          <p className="text-[0.75rem] text-slate-600 font-semibold tracking-wide">
             {t('hero.ctaSubtext')} · Powered by ECI &amp; NVSP
           </p>
         </div>
@@ -445,7 +445,7 @@ export default function Hero({ onOpenAssistant }) {
 
         {/* Quick actions */}
         <div style={{ animation: 'fadeUp 0.6s 0.52s ease both' }}>
-          <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-slate-400 mb-3">Quick Links</p>
+          <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.12em] text-[#1a237e] mb-3">Quick Links</p>
           <QuickActions />
         </div>
 
@@ -468,8 +468,8 @@ export default function Hero({ onOpenAssistant }) {
               style={{ cursor: b.href ? 'pointer' : 'default' }}>
               <span className="text-lg">{b.icon}</span>
               <div className="text-left">
-                <p className="text-[0.75rem] font-bold text-[#1a237e] leading-none">{b.text}</p>
-                <p className="text-[0.65rem] text-slate-400 leading-none mt-0.5">{b.sub}</p>
+                <p className="text-[0.78rem] font-extrabold text-[#1a237e] leading-none">{b.text}</p>
+                <p className="text-[0.68rem] text-[#1a237e]/70 leading-none mt-0.5">{b.sub}</p>
               </div>
               {b.href && <span className="text-[0.65rem] text-[#FF9933] ml-1 font-bold">↗</span>}
             </a>
@@ -492,7 +492,7 @@ export default function Hero({ onOpenAssistant }) {
         </div>
 
         {/* Disclaimer */}
-        <p className="mt-8 text-[0.68rem] text-slate-400 text-center">
+        <p className="mt-8 text-[0.72rem] text-[#1a237e]/70 font-medium text-center">
           🕐 Last updated: April 2026 · Data is indicative. Verify with{' '}
           <a href="https://eci.gov.in" target="_blank" rel="noopener noreferrer" className="underline text-[#1a237e] hover:text-[#FF9933] font-semibold">eci.gov.in</a>
         </p>

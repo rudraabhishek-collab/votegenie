@@ -14,7 +14,7 @@ export default function Documents({ dark }) {
             <tr className={dark ? 'bg-white/5' : 'bg-slate-50'}>
               {[t('documents.colDocument'), t('documents.colPurpose'), t('documents.colStatus')].map(h => (
                 <th key={h} className={`text-left px-5 py-3.5 text-[0.7rem] font-extrabold uppercase tracking-[0.1em] border-b
-                  ${dark ? 'text-slate-500 border-white/5' : 'text-slate-400 border-indigo-50'}`}>{h}</th>
+                  ${dark ? 'text-slate-600 border-white/5' : 'text-slate-600 border-indigo-50'}`}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -23,7 +23,7 @@ export default function Documents({ dark }) {
               <tr key={i} className={`border-b last:border-0 transition-colors
                 ${dark ? 'border-white/5 hover:bg-white/5' : 'border-indigo-50 hover:bg-slate-50'}`}>
                 <td className={`px-5 py-4 font-bold ${dark ? 'text-white' : 'text-gray-900'}`}>{doc.name}</td>
-                <td className={`px-5 py-4 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{doc.purpose}</td>
+                <td className={`px-5 py-4 ${dark ? 'text-white' : 'text-slate-700'}`}>{doc.purpose}</td>
                 <td className="px-5 py-4">
                   <span className={`inline-block px-2.5 py-1 rounded-full text-[0.7rem] font-extrabold tracking-wide border
                     ${doc.status === 'required'

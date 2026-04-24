@@ -86,13 +86,13 @@ export default function Timeline({ dark }) {
                 ${isActive
                   ? 'bg-gradient-to-r from-[#FF9933] to-[#f97316] border-transparent text-white shadow-[0_4px_12px_rgba(255,153,51,0.4)]'
                   : dark
-                    ? 'bg-white/5 border-white/10 text-slate-400 hover:border-indigo-600/50 hover:text-indigo-400'
-                    : 'bg-white border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'
+                    ? 'bg-white/5 border-white/10 text-slate-600 hover:border-indigo-600/50 hover:text-indigo-400'
+                    : 'bg-white border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600'
                 }`}>
               <span>{f.icon}</span>
               <span>{isHindi ? f.labelHi : f.label}</span>
               <span className={`text-[0.68rem] px-1.5 py-0.5 rounded-full font-extrabold
-                ${isActive ? 'bg-white/20 text-white' : dark ? 'bg-white/10 text-slate-500' : 'bg-slate-100 text-slate-400'}`}>
+                ${isActive ? 'bg-white/20 text-white' : dark ? 'bg-white/10 text-slate-600' : 'bg-slate-100 text-slate-700'}`}>
                 {count}
               </span>
             </button>
@@ -150,11 +150,11 @@ export default function Timeline({ dark }) {
 
                 <div className="flex flex-col md:items-center mt-1 md:mt-0 min-w-0">
                   <span className={`text-[0.67rem] font-extrabold uppercase tracking-[0.08em] md:text-center
-                    ${isActive ? 'text-indigo-500' : isCurrent ? 'text-pink-500' : item.highlight ? 'text-indigo-500' : dark ? 'text-slate-500' : 'text-slate-400'}`}>
+                    ${isActive ? 'text-indigo-500' : isCurrent ? 'text-pink-500' : item.highlight ? 'text-indigo-500' : dark ? 'text-white' : 'text-slate-700'}`}>
                     {item.date}
                   </span>
                   <span className={`text-[0.8rem] font-bold md:text-center leading-snug md:max-w-[140px]
-                    ${dark ? 'text-slate-300' : 'text-gray-700'}`}>
+                    ${dark ? 'text-white' : 'text-gray-700'}`}>
                     {item.title}
                   </span>
                   {/* Type badge */}
@@ -203,7 +203,7 @@ export default function Timeline({ dark }) {
                 <h3 className={`text-xl font-black tracking-[-0.03em] mb-2 ${dark ? 'text-white' : 'text-gray-900'}`}>
                   {filtered[activeIdx].title}
                 </h3>
-                <p className={`text-[0.92rem] leading-relaxed mb-4 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+                <p className={`text-[0.92rem] leading-relaxed mb-4 ${dark ? 'text-white' : 'text-slate-700'}`}>
                   {filtered[activeIdx].desc}
                 </p>
               </div>
@@ -213,8 +213,8 @@ export default function Timeline({ dark }) {
                   ${isReminded(activeIdx)
                     ? 'bg-pink-500 border-pink-500 text-white shadow-[0_4px_12px_rgba(236,72,153,0.3)]'
                     : dark
-                      ? 'border-white/10 text-slate-400 hover:border-pink-500 hover:text-pink-400'
-                      : 'border-slate-200 text-slate-500 hover:border-pink-400 hover:text-pink-600'
+                      ? 'border-white/10 text-slate-600 hover:border-pink-500 hover:text-pink-400'
+                      : 'border-slate-200 text-slate-600 hover:border-pink-400 hover:text-pink-600'
                   }`}>
                 {isReminded(activeIdx) ? t('timeline.reminded') : t('timeline.remindMe')}
               </button>
@@ -229,12 +229,12 @@ export default function Timeline({ dark }) {
             {/* Actions */}
             {filtered[activeIdx].actions?.length > 0 && (
               <div>
-                <p className={`text-[0.72rem] font-extrabold uppercase tracking-widest mb-3 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+                <p className={`text-[0.72rem] font-extrabold uppercase tracking-widest mb-3 ${dark ? 'text-white' : 'text-slate-700'}`}>
                   {t('timeline.whatToDo')}
                 </p>
                 <ul className="space-y-2">
                   {filtered[activeIdx].actions.map((action, j) => (
-                    <li key={j} className={`flex items-start gap-2.5 text-[0.88rem] ${dark ? 'text-slate-300' : 'text-slate-600'}`}>
+                    <li key={j} className={`flex items-start gap-2.5 text-[0.88rem] ${dark ? 'text-white' : 'text-slate-700'}`}>
                       <span className="w-5 h-5 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-white flex items-center justify-center text-[0.65rem] font-black flex-shrink-0 mt-0.5">
                         {j + 1}
                       </span>

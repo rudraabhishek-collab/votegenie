@@ -72,7 +72,7 @@ export default function AuthModal({ open, onClose, onLogin, dark }) {
   const inputCls = (err) => `w-full rounded-xl px-4 py-2.5 text-[0.9rem] border transition-all focus:outline-none focus:ring-2 focus:ring-[#1a237e]/30
     ${err ? 'border-red-400 bg-red-50 dark:bg-red-950/30' : dark ? 'bg-white/[0.07] border-white/10 text-white focus:border-[#FF9933]' : 'bg-slate-50 border-[#1a237e]/20 text-gray-900 focus:border-[#1a237e] focus:bg-white'}`
 
-  const labelCls = `block text-[0.72rem] font-extrabold uppercase tracking-[0.08em] mb-1.5 ${dark ? 'text-slate-400' : 'text-[#1a237e]/70'}`
+  const labelCls = `block text-[0.72rem] font-extrabold uppercase tracking-[0.08em] mb-1.5 ${dark ? 'text-white' : 'text-[#1a237e]/70'}`
 
   if (!open) return null
 
@@ -103,13 +103,13 @@ export default function AuthModal({ open, onClose, onLogin, dark }) {
                   <h2 className={`font-black text-[1.05rem] tracking-tight ${dark ? 'text-white' : 'text-[#1a237e]'}`}>
                     {mode === 'login' ? (isHindi ? 'लॉगिन करें' : 'Login') : (isHindi ? 'साइन अप करें' : 'Sign Up')}
                   </h2>
-                  <p className={`text-[0.72rem] ${dark ? 'text-slate-500' : 'text-slate-500'}`}>
+                  <p className={`text-[0.72rem] ${dark ? 'text-white' : 'text-slate-700'}`}>
                     {mode === 'login' ? (isHindi ? 'अपने खाते में प्रवेश करें' : 'Access your account') : (isHindi ? 'नया खाता बनाएं' : 'Create a new account')}
                   </p>
                 </div>
               </div>
               <button onClick={onClose} className={`w-8 h-8 rounded-full flex items-center justify-center text-sm border transition-all hover:rotate-90
-                ${dark ? 'border-white/10 text-slate-400 hover:bg-white/10' : 'border-slate-200 text-slate-400 hover:bg-slate-100'}`}>✕</button>
+                ${dark ? 'border-white/10 text-slate-600 hover:bg-white/10' : 'border-slate-200 text-slate-600 hover:bg-slate-100'}`}>✕</button>
             </div>
           </div>
 
@@ -140,7 +140,7 @@ export default function AuthModal({ open, onClose, onLogin, dark }) {
                         <option value="female">{isHindi ? 'महिला' : 'Female'}</option>
                         <option value="other">{isHindi ? 'अन्य' : 'Other'}</option>
                       </select>
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs">▾</span>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 pointer-events-none text-xs">▾</span>
                     </div>
                     {errors.gender && <p className="text-red-500 text-[0.75rem] font-semibold mt-1">{errors.gender}</p>}
                   </div>
@@ -167,12 +167,12 @@ export default function AuthModal({ open, onClose, onLogin, dark }) {
               className="w-full py-3.5 rounded-xl font-bold text-white text-[0.95rem] bg-gradient-to-r from-[#1a237e] to-[#283593]
                 shadow-[0_4px_16px_rgba(26,35,126,0.4),0_0_0_3px_rgba(255,153,51,0.3)]
                 hover:shadow-[0_6px_24px_rgba(26,35,126,0.5),0_0_0_3px_rgba(255,153,51,0.5)]
-                hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200">
+                hover:-translate-y-0.5 disabled:opacity-100 disabled:cursor-not-allowed transition-all duration-200">
               {loading ? (isHindi ? 'लोड हो रहा है...' : 'Loading...') : success ? '✓ ' + (isHindi ? 'सफल!' : 'Success!') : mode === 'login' ? (isHindi ? 'लॉगिन करें' : 'Login') : (isHindi ? 'साइन अप करें' : 'Sign Up')}
             </button>
 
             {/* Toggle mode */}
-            <p className={`text-center text-[0.85rem] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+            <p className={`text-center text-[0.85rem] ${dark ? 'text-white' : 'text-slate-700'}`}>
               {mode === 'login'
                 ? (isHindi ? 'खाता नहीं है? ' : "Don't have an account? ")
                 : (isHindi ? 'पहले से खाता है? ' : 'Already have an account? ')}
@@ -184,7 +184,7 @@ export default function AuthModal({ open, onClose, onLogin, dark }) {
 
             {/* Disclaimer */}
             {mode === 'signup' && (
-              <p className={`text-[0.75rem] leading-relaxed ${dark ? 'text-slate-600' : 'text-slate-400'}`}>
+              <p className={`text-[0.75rem] leading-relaxed ${dark ? 'text-white' : 'text-slate-700'}`}>
                 {isHindi
                   ? 'साइन अप करके, आप हमारी गोपनीयता नीति और सेवा की शर्तों से सहमत हैं।'
                   : 'By signing up, you agree to our Privacy Policy and Terms of Service.'}

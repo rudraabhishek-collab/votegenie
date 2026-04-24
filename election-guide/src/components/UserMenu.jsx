@@ -47,9 +47,9 @@ export default function UserMenu({ user, onLogout, dark }) {
                 <p className={`font-extrabold text-[0.88rem] truncate ${dark ? 'text-white' : 'text-[#1a237e]'}`}>
                   {user.name || (isHindi ? 'मतदाता' : 'Voter')}
                 </p>
-                <p className={`text-[0.72rem] truncate ${dark ? 'text-slate-500' : 'text-slate-400'}`}>{user.email}</p>
+                <p className={`text-[0.72rem] truncate ${dark ? 'text-slate-700' : 'text-slate-200'}`}>{user.email}</p>
                 {user.mobile && (
-                  <p className={`text-[0.72rem] ${dark ? 'text-slate-500' : 'text-slate-400'}`}>📱 {user.mobile}</p>
+                  <p className={`text-[0.72rem] ${dark ? 'text-slate-700' : 'text-slate-200'}`}>📱 {user.mobile}</p>
                 )}
               </div>
             </div>

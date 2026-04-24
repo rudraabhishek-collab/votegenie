@@ -34,7 +34,7 @@ export default function VotingGuide({ dark, completed, onComplete }) {
           <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 transition-all duration-700 ease-out"
             style={{ width: `${pct}%` }} />
         </div>
-        <span className={`text-[0.8rem] font-bold whitespace-nowrap tabular-nums ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+        <span className={`text-[0.8rem] font-bold whitespace-nowrap tabular-nums ${dark ? 'text-white' : 'text-slate-700'}`}>
           {completed.length}/{steps.length} {t('guide.done')}
         </span>
         {pct === 100 && (
@@ -64,7 +64,7 @@ export default function VotingGuide({ dark, completed, onComplete }) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className={`font-extrabold text-[1.02rem] tracking-[-0.025em] ${dark ? 'text-white' : 'text-gray-900'}`}>{step.title}</div>
-                  <div className={`text-[0.82rem] mt-0.5 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+                  <div className={`text-[0.82rem] mt-0.5 ${dark ? 'text-white' : 'text-slate-700'}`}>
                     {isDone ? t('guide.completed') : step.subtitle}
                   </div>
                 </div>
@@ -77,12 +77,12 @@ export default function VotingGuide({ dark, completed, onComplete }) {
                 </button>
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[0.85rem] border flex-shrink-0 transition-all duration-300
                   ${isOpen ? dark ? 'bg-indigo-900/60 border-indigo-700 text-indigo-400 rotate-180' : 'bg-indigo-50 border-indigo-200 text-indigo-600 rotate-180'
-                           : dark ? 'bg-white/5 border-white/10 text-slate-500' : 'bg-slate-100 border-slate-200 text-slate-400'}`}>▾</div>
+                           : dark ? 'bg-white/5 border-white/10 text-slate-600' : 'bg-slate-100 border-slate-200 text-slate-700'}`}>▾</div>
               </button>
 
               <Collapsible open={isOpen}>
                 <div className={`border-t px-6 pb-6 ${dark ? 'border-white/5' : 'border-indigo-50'}`}>
-                  <p className={`text-[0.92rem] leading-relaxed mt-5 mb-4 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{step.body}</p>
+                  <p className={`text-[0.92rem] leading-relaxed mt-5 mb-4 ${dark ? 'text-white' : 'text-slate-700'}`}>{step.body}</p>
                   <div className="flex flex-col gap-2.5">
                     {step.items.map((item, j) => (
                       <div key={j} className={`flex gap-3 items-start rounded-xl p-3.5 border transition-all duration-200
@@ -94,7 +94,7 @@ export default function VotingGuide({ dark, completed, onComplete }) {
                         </div>
                         <div>
                           <strong className={`block font-extrabold text-[0.88rem] mb-0.5 ${dark ? 'text-white' : 'text-gray-800'}`}>{item.title}</strong>
-                          <span className={`text-[0.84rem] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{item.desc}</span>
+                          <span className={`text-[0.84rem] ${dark ? 'text-white' : 'text-slate-700'}`}>{item.desc}</span>
                         </div>
                       </div>
                     ))}
@@ -114,7 +114,7 @@ export default function VotingGuide({ dark, completed, onComplete }) {
                     )}
                     <a href={step.ctaHref}
                       className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-[0.85rem] border transition-all hover:border-indigo-400 hover:text-indigo-500 no-underline
-                        ${dark ? 'border-white/10 text-slate-400' : 'border-slate-200 text-slate-500'}`}>
+                        ${dark ? 'border-white/10 text-slate-600' : 'border-slate-200 text-slate-700'}`}>
                       {step.cta} →
                     </a>
                   </div>

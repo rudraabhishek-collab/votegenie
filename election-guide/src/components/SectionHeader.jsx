@@ -15,7 +15,7 @@ export default function SectionHeader({ tag, title, subtitle, dark }) {
       </h2>
       {subtitle && (
         <p className={`mt-2.5 text-[0.97rem] leading-relaxed max-w-2xl
-          ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+          ${dark ? 'text-white' : 'text-slate-700'}`}>
           {subtitle}
         </p>
       )}

@@ -52,7 +52,7 @@ function FAQItem({ item, meta, isOpen, onToggle, dark, lang }) {
         </span>
         <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[0.75rem] font-bold border transition-all duration-300
           ${isOpen ? 'bg-gradient-to-br from-indigo-500 to-violet-600 border-transparent text-white rotate-180'
-                   : dark ? 'bg-white/[0.07] border-white/10 text-slate-400' : 'bg-slate-100 border-slate-200 text-slate-400'}`}>▾</span>
+                   : dark ? 'bg-white/[0.07] border-white/10 text-slate-600' : 'bg-slate-100 border-slate-200 text-slate-700'}`}>▾</span>
       </button>
 
       <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
@@ -61,7 +61,7 @@ function FAQItem({ item, meta, isOpen, onToggle, dark, lang }) {
             <div className="flex gap-3">
               <div className="w-0.5 flex-shrink-0 rounded-full bg-gradient-to-b from-indigo-500 to-violet-500 self-stretch" />
               <div>
-                <p className={`text-[0.9rem] leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{item.a}</p>
+                <p className={`text-[0.9rem] leading-relaxed ${dark ? 'text-white' : 'text-slate-700'}`}>{item.a}</p>
                 {meta.action && meta.actionKey && (
                   <button onClick={() => document.getElementById(SECTION_MAP[meta.action])?.scrollIntoView({ behavior: 'smooth' })}
                     className={`inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-xl text-[0.82rem] font-bold border transition-all duration-200 hover:-translate-y-0.5
@@ -122,7 +122,7 @@ export default function FAQ({ dark, onOpenAssistant }) {
 
       {/* Search */}
       <div className="sr relative mb-5">
-        <svg className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none ${dark ? 'text-slate-500' : 'text-slate-400'}`}
+        <svg className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none ${dark ? 'text-white' : 'text-slate-700'}`}
           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
@@ -130,12 +130,12 @@ export default function FAQ({ dark, onOpenAssistant }) {
           onChange={e => { setQuery(e.target.value); setOpenIdx(null); setShowAll(false) }}
           placeholder={t('faq.searchPlaceholder')} aria-label={t('faq.searchPlaceholder')}
           className={`w-full rounded-2xl pl-11 pr-12 py-3.5 text-[0.92rem] border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400/30
-            ${dark ? 'bg-white/[0.06] border-white/10 text-white placeholder:text-slate-500 focus:border-indigo-500/60 focus:bg-white/[0.08]'
-                   : 'bg-slate-50 border-indigo-100 text-gray-900 placeholder:text-slate-400 focus:border-indigo-300 focus:bg-white'}`} />
+            ${dark ? 'bg-white/[0.06] border-white/10 text-white placeholder:text-slate-600 focus:border-indigo-500/60 focus:bg-white/[0.08]'
+                   : 'bg-slate-50 border-indigo-100 text-gray-900 placeholder:text-slate-600 focus:border-indigo-300 focus:bg-white'}`} />
         {query && (
           <button onClick={() => { setQuery(''); searchRef.current?.focus() }}
             className={`absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full flex items-center justify-center text-xs transition-all hover:scale-110
-              ${dark ? 'bg-white/10 text-slate-400 hover:text-white' : 'bg-slate-200 text-slate-500 hover:text-gray-700'}`}>✕</button>
+              ${dark ? 'bg-white/10 text-slate-600 hover:text-white' : 'bg-slate-200 text-slate-600 hover:text-gray-700'}`}>✕</button>
         )}
       </div>
 
@@ -148,18 +148,18 @@ export default function FAQ({ dark, onOpenAssistant }) {
             <button key={cat.id} onClick={() => { setCategory(cat.id); setOpenIdx(null); setShowAll(false) }}
               className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[0.78rem] font-bold border transition-all duration-200 hover:-translate-y-0.5
                 ${isActive ? 'bg-gradient-to-r from-[#FF9933] to-[#f97316] border-transparent text-white shadow-[0_4px_12px_rgba(255,153,51,0.4)]'
-                           : dark ? 'bg-white/5 border-white/10 text-slate-400 hover:border-indigo-600/50 hover:text-indigo-400'
-                                  : 'bg-white border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600'}`}>
+                           : dark ? 'bg-white/5 border-white/10 text-slate-600 hover:border-indigo-600/50 hover:text-indigo-400'
+                                  : 'bg-white border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600'}`}>
               <span>{cat.icon}</span>{cat.label}
               <span className={`text-[0.68rem] px-1.5 py-0.5 rounded-full font-extrabold
-                ${isActive ? 'bg-white/20 text-white' : dark ? 'bg-white/10 text-slate-500' : 'bg-slate-100 text-slate-400'}`}>{count}</span>
+                ${isActive ? 'bg-white/20 text-white' : dark ? 'bg-white/10 text-slate-600' : 'bg-slate-100 text-slate-700'}`}>{count}</span>
             </button>
           )
         })}
       </div>
 
       {query && filtered.length > 0 && (
-        <p className={`text-[0.8rem] font-semibold mb-4 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+        <p className={`text-[0.8rem] font-semibold mb-4 ${dark ? 'text-white' : 'text-slate-700'}`}>
           {filtered.length} {filtered.length !== 1 ? (lang === 'hi' ? 'परिणाम' : 'results') : (lang === 'hi' ? 'परिणाम' : 'result')} &ldquo;{query}&rdquo;
         </p>
       )}
@@ -168,7 +168,7 @@ export default function FAQ({ dark, onOpenAssistant }) {
         <div className={`rounded-2xl border p-10 text-center ${dark ? 'bg-gray-900 border-violet-900/20' : 'bg-white border-indigo-100'}`}>
           <div className="text-4xl mb-4">🤔</div>
           <p className={`font-bold text-[1rem] mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>{t('faq.noResults', { query })}</p>
-          <p className={`text-[0.88rem] mb-5 ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{t('faq.noResultsSub')}</p>
+          <p className={`text-[0.88rem] mb-5 ${dark ? 'text-white' : 'text-slate-700'}`}>{t('faq.noResultsSub')}</p>
           <button onClick={onOpenAssistant}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.88rem] text-white bg-gradient-to-r from-[#FF9933] to-[#1a237e] shadow-[0_4px_16px_rgba(255,153,51,0.4)] hover:-translate-y-0.5 transition-all">
             {t('faq.askAssistant')}
@@ -185,8 +185,8 @@ export default function FAQ({ dark, onOpenAssistant }) {
           {hasMore && (
             <button onClick={() => setShowAll(true)}
               className={`mt-4 w-full py-3 rounded-2xl text-[0.88rem] font-bold border transition-all hover:-translate-y-0.5
-                ${dark ? 'border-white/10 text-slate-400 hover:border-indigo-600/50 hover:text-indigo-400 bg-white/[0.03]'
-                       : 'border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600 bg-white'}`}>
+                ${dark ? 'border-white/10 text-slate-600 hover:border-indigo-600/50 hover:text-indigo-400 bg-white/[0.03]'
+                       : 'border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 bg-white'}`}>
               {t('faq.showMore', { count: filtered.length - INITIAL })}
             </button>
           )}
@@ -197,7 +197,7 @@ export default function FAQ({ dark, onOpenAssistant }) {
         ${dark ? 'bg-gradient-to-br from-indigo-950/60 to-violet-950/40 border-indigo-800/30' : 'bg-gradient-to-br from-indigo-50 to-violet-50/60 border-indigo-100'}`}>
         <div className="flex-1 text-center sm:text-left">
           <p className={`font-extrabold text-[1rem] tracking-[-0.02em] mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>{t('faq.stillHaveQuestions')}</p>
-          <p className={`text-[0.88rem] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{t('faq.stillHaveQuestionsSub')}</p>
+          <p className={`text-[0.88rem] ${dark ? 'text-white' : 'text-slate-700'}`}>{t('faq.stillHaveQuestionsSub')}</p>
         </div>
         <button onClick={onOpenAssistant}
           className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.88rem] text-white bg-gradient-to-r from-[#FF9933] to-[#1a237e] shadow-[0_4px_16px_rgba(255,153,51,0.4)] hover:-translate-y-0.5 active:scale-95 transition-all">
