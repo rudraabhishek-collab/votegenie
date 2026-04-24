@@ -361,15 +361,15 @@ export default function Hero({ onOpenAssistant }) {
             { src: '/logos/emblem.svg', name: 'Govt. of India', url: 'https://india.gov.in' },
           ].map(logo => (
             <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2.5 bg-white/90 hover:bg-white border border-[#1a237e]/15 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-1 shadow-md hover:shadow-lg">
+              className="flex items-center gap-2.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-1 shadow-md hover:shadow-lg">
               <img src={logo.src} alt={logo.name} className="w-8 h-8" />
-              <span className="text-[0.7rem] font-bold text-[#1a237e] hidden sm:block">{logo.name}</span>
+              <span className="text-[0.7rem] font-bold text-[#1a237e] block">{logo.name}</span>
             </a>
           ))}
         </div>
 
         {/* Live badge */}
-        <div className="inline-flex items-center gap-2.5 bg-white border border-[#FF9933]/30 rounded-full text-[0.75rem] font-extrabold tracking-[0.08em] uppercase px-5 py-2 mb-6 text-[#1a237e] shadow-sm"
+        <div className="inline-flex items-center gap-2.5 bg-white border border-[#FF9933]/40 rounded-full text-[0.75rem] font-extrabold tracking-[0.08em] uppercase px-5 py-2 mb-6 text-[#1a237e] shadow-md"
           style={{ animation: 'fadeUp 0.6s 0.1s ease both' }}>
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
