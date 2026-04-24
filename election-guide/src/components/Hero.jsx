@@ -119,16 +119,33 @@ export default function Hero({ onOpenAssistant }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visit ${badge.name} official website`}
-              className="inline-flex items-center gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-[18px] px-5 py-3 shadow-lg
+              className="relative inline-flex items-center gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-[18px] px-5 py-3 shadow-lg
                 hover:scale-[1.03] hover:shadow-[0_8px_32px_rgba(255,106,0,0.3)] 
-                transition-all duration-300 cursor-pointer no-underline"
+                transition-all duration-300 cursor-pointer no-underline overflow-hidden"
             >
+              {/* Ashoka Chakra background watermark */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
+                <svg viewBox="0 0 200 200" className="w-24 h-24">
+                  <circle cx="100" cy="100" r="85" fill="none" stroke="#60a5fa" strokeWidth="3"/>
+                  <circle cx="100" cy="100" r="10" fill="#60a5fa"/>
+                  {Array.from({ length: 24 }, (_, idx) => {
+                    const angle = (idx * 15 - 90) * Math.PI / 180
+                    const x1 = 100 + 18 * Math.cos(angle)
+                    const y1 = 100 + 18 * Math.sin(angle)
+                    const x2 = 100 + 83 * Math.cos(angle)
+                    const y2 = 100 + 83 * Math.sin(angle)
+                    return <line key={idx} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#60a5fa" strokeWidth="2"/>
+                  })}
+                </svg>
+              </div>
+              
+              {/* Content */}
               <img 
                 src={badge.logo} 
                 alt={`${badge.name} logo`}
-                className="w-6 h-6 object-contain brightness-0 invert"
+                className="w-6 h-6 object-contain brightness-0 invert relative z-10"
               />
-              <span className="text-[0.8rem] font-bold text-white hidden sm:inline">{badge.name}</span>
+              <span className="text-[0.8rem] font-bold text-white hidden sm:inline relative z-10">{badge.name}</span>
             </a>
           ))}
         </div>
