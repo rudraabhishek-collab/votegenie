@@ -1,4 +1,5 @@
 import { overview } from '../data'
+import { useTranslation } from 'react-i18next'
 import SectionHeader from './SectionHeader'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
@@ -35,13 +36,15 @@ function OverviewCard({ item, dark, index }) {
 }
 
 export default function Overview({ dark }) {
+  const { t } = useTranslation()
+  const items = t('overview.items', { returnObjects: true })
   const ref = useScrollReveal(70)
   return (
     <section id="overview" className="scroll-mt-20" aria-labelledby="overview-h" ref={ref}>
-      <SectionHeader tag="How It Works" title="The election process, step by step"
-        subtitle="Elections follow a clear process. Here's the big picture so nothing surprises you." dark={dark} />
+      <SectionHeader tag={t('overview.tag')} title={t('overview.title')}
+        subtitle={t('overview.subtitle')} dark={dark} />
       <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {overview.map((item, i) => (
+        {items.map((item, i) => (
           <OverviewCard key={i} item={item} dark={dark} index={i} />
         ))}
       </div>

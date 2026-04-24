@@ -8,6 +8,7 @@ import EligibilityChecker from './components/EligibilityChecker'
 import VotingGuide from './components/VotingGuide'
 import Documents from './components/Documents'
 import FAQ from './components/FAQ'
+import StateInfo from './components/StateInfo'
 import AssistantModal from './components/AssistantModal'
 import ChatAssistant from './components/ChatAssistant'
 import Footer from './components/Footer'
@@ -102,6 +103,7 @@ export default function App() {
         />
         <VotingGuide dark={dark} completed={guideCompleted} onComplete={handleGuideComplete} />
         <Documents dark={dark} />
+        <StateInfo dark={dark} />
         <FAQ dark={dark} onOpenAssistant={() => setChatOpen(true)} />
       </main>
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { timeline } from '../data'
 import SectionHeader from './SectionHeader'
 
@@ -27,6 +28,7 @@ const actions = [
 ]
 
 export default function Timeline({ dark, onStateSelect }) {
+  const { t } = useTranslation()
   const [activeIdx, setActiveIdx] = useState(null)
   const [reminders, setReminders] = useState(() => {
     try { return JSON.parse(localStorage.getItem(LS_REMINDERS)) || [] } catch { return [] }
@@ -48,10 +50,10 @@ export default function Timeline({ dark, onStateSelect }) {
     const item = timelineData[i]
     if (reminders.includes(i)) {
       setReminders(r => r.filter(x => x !== i))
-      setReminderFlash({ idx: i, msg: 'Reminder removed.' })
+      setReminderFlash({ idx: i, msg: t('timeline.reminderRemoved') })
     } else {
       setReminders(r => [...r, i])
-      setReminderFlash({ idx: i, msg: `Reminder set for "${item.title}"!` })
+      setReminderFlash({ idx: i, msg: t('timeline.reminderSet', { title: item.title }) })
     }
     setTimeout(() => setReminderFlash(null), 2500)
   }
@@ -60,8 +62,8 @@ export default function Timeline({ dark, onStateSelect }) {
 
   return (
     <section id="timeline" className="scroll-mt-20" aria-labelledby="timeline-h">
-      <SectionHeader tag="Key Dates" title="Important deadlines to know"
-        subtitle="Click any stage to expand details. The highlighted step is where you are today." dark={dark} />
+      <SectionHeader tag={t('timeline.tag')} title={t('timeline.title')}
+        subtitle={t('timeline.subtitle')} dark={dark} />
 
       {/* Timeline Layout */}
       <div className="mt-6 md:mt-0 md:overflow-x-auto md:pb-3 md:scrollbar-thin md:-mx-2 md:px-2">
@@ -107,7 +109,7 @@ export default function Timeline({ dark, onStateSelect }) {
                 {/* "TODAY" badge */}
                 {isCurrent && (
                   <span className="absolute top-0 md:left-1/2 left-8 md:-translate-x-1/2 -translate-y-3 md:-translate-y-3 text-[0.6rem] font-extrabold uppercase tracking-widest bg-pink-500 text-white px-2 py-0.5 rounded-full whitespace-nowrap">
-                    Today
+                    {t('timeline.today')}
                   </span>
                 )}
 
@@ -164,7 +166,7 @@ export default function Timeline({ dark, onStateSelect }) {
                       ? 'border-white/10 text-slate-400 hover:border-pink-500 hover:text-pink-400'
                       : 'border-slate-200 text-slate-500 hover:border-pink-400 hover:text-pink-600'
                   }`}>
-                {isReminded(activeIdx) ? '🔔 Reminded' : '🔔 Remind Me'}
+                {isReminded(activeIdx) ? t('timeline.reminded') : t('timeline.remindMe')}
               </button>
             </div>
 
@@ -178,7 +180,7 @@ export default function Timeline({ dark, onStateSelect }) {
             {timelineData[activeIdx].actions?.length > 0 && (
               <div>
                 <p className={`text-[0.72rem] font-extrabold uppercase tracking-widest mb-3 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
-                  What to do
+                  {t('timeline.whatToDo')}
                 </p>
                 <ul className="space-y-2">
                   {timelineData[activeIdx].actions.map((action, j) => (
@@ -200,7 +202,7 @@ export default function Timeline({ dark, onStateSelect }) {
       <div className={`flex gap-3 items-start mt-5 rounded-xl border-l-[3px] border-indigo-500 px-5 py-4 text-[0.9rem] leading-relaxed
         ${dark ? 'bg-indigo-950/40 border border-indigo-800/30 text-indigo-300' : 'bg-gradient-to-r from-indigo-50 to-violet-50/50 border border-indigo-100 text-indigo-700'}`}>
         <span className="text-lg mt-0.5">💡</span>
-        <span>Dates shown are sample data. Always verify with your official local election authority.</span>
+        <span>{t('timeline.callout')}</span>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useCountUp } from '../hooks/useCountUp'
 import { searchIndex } from '../data'
 
@@ -69,6 +70,7 @@ function ParticleCanvas() {
 
 // ─── Animated stat ─────────────────────────────────────────────────────────
 function AnimatedStat({ num, suffix = '', label, active }) {
+  const { t } = useTranslation()
   const isNum = !isNaN(parseInt(num))
   const count = useCountUp(isNum ? parseInt(num) : 0, 1400, active)
   return (
@@ -79,9 +81,9 @@ function AnimatedStat({ num, suffix = '', label, active }) {
       <div className="text-[0.72rem] opacity-50 font-semibold mt-0.5 uppercase tracking-[0.1em] cursor-default">{label}</div>
       
       {/* Tooltip for non-partisan */}
-      {label === 'non-partisan' && (
+      {label === t('hero.statNonPartisan') && (
         <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-max px-3 py-1.5 bg-gray-900/95 border border-indigo-500/30 rounded-lg text-[0.75rem] font-medium text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-xl z-20">
-          Data sourced from official NVSP/ECI guidelines
+          {t('hero.tooltipData')}
           <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900/95 border-b border-r border-indigo-500/30 rotate-45"></div>
         </div>
       )}
@@ -91,6 +93,7 @@ function AnimatedStat({ num, suffix = '', label, active }) {
 
 // ─── Hero search bar ───────────────────────────────────────────────────────
 function HeroSearch() {
+  const { t } = useTranslation()
   const [query,       setQuery]       = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [showDrop,    setShowDrop]    = useState(false)
@@ -150,8 +153,8 @@ function HeroSearch() {
             if (e.key === 'Escape') { setShowDrop(false); inputRef.current?.blur() }
           }}
           onFocus={() => suggestions.length && setShowDrop(true)}
-          placeholder="Ask anything — eligibility, dates, how to vote…"
-          aria-label="Search the guide"
+          placeholder={t('hero.searchPlaceholder')}
+          aria-label={t('hero.searchAriaLabel')}
           className="flex-1 bg-transparent text-white text-[0.88rem] placeholder:text-white/35 focus:outline-none min-w-0"
         />
         {query && (
@@ -161,7 +164,7 @@ function HeroSearch() {
 
       {flash === 'notfound' && (
         <p className="absolute -bottom-7 left-0 text-[0.75rem] text-red-400 font-semibold">
-          No section found. Try "eligibility", "dates", or "vote".
+          {t('hero.searchNotFound')}
         </p>
       )}
 
@@ -181,14 +184,14 @@ function HeroSearch() {
 }
 
 // ─── Quick action chips ────────────────────────────────────────────────────
-const QUICK_ACTIONS = [
-  { label: 'Check Eligibility', icon: '✅', section: 'eligibility' },
-  { label: 'Key Dates',         icon: '📅', section: 'timeline'    },
-  { label: 'How to Vote',       icon: '🗳️', section: 'guide'       },
-  { label: 'Documents',         icon: '📄', section: 'documents'   },
-]
-
 function QuickActions() {
+  const { t } = useTranslation()
+  const QUICK_ACTIONS = [
+    { label: t('hero.quickCheckEligibility'), icon: '✅', section: 'eligibility' },
+    { label: t('hero.quickKeyDates'),         icon: '📅', section: 'timeline'    },
+    { label: t('hero.quickHowToVote'),        icon: '🗳️', section: 'guide'       },
+    { label: t('hero.quickDocuments'),        icon: '📄', section: 'documents'   },
+  ]
   const [active, setActive] = useState(null)
   const handleClick = (section, i) => {
     setActive(i)
@@ -212,14 +215,33 @@ function QuickActions() {
 }
 
 // ─── Trust badges ──────────────────────────────────────────────────────────
-const TRUST = [
-  { icon: '🔒', text: '100% Private',  sub: 'No data stored'   },
-  { icon: '⚡', text: 'Under 2 min',   sub: 'Quick & easy'     },
-  { icon: '📋', text: 'Official info', sub: 'Verified sources' },
-]
+function TrustBadges() {
+  const { t } = useTranslation()
+  const TRUST = [
+    { icon: '🔒', text: t('hero.trust100Private'),  sub: t('hero.trustNoData')        },
+    { icon: '⚡', text: t('hero.trustUnder2Min'),   sub: t('hero.trustQuickEasy')     },
+    { icon: '📋', text: t('hero.trustOfficialInfo'), sub: t('hero.trustVerifiedSources') },
+  ]
+  return (
+    <div className="flex items-center justify-center gap-4 mt-10 flex-wrap"
+      style={{ animation: 'fadeUp 0.6s 0.62s ease both' }}>
+      {TRUST.map(t => (
+        <div key={t.text}
+          className="flex items-center gap-2 bg-white/[0.06] border border-white/[0.1] rounded-full px-3.5 py-1.5 backdrop-blur-sm">
+          <span className="text-sm">{t.icon}</span>
+          <div className="text-left">
+            <p className="text-[0.72rem] font-bold text-white/70 leading-none">{t.text}</p>
+            <p className="text-[0.62rem] text-white/35 leading-none mt-0.5">{t.sub}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 // ─── Hero ──────────────────────────────────────────────────────────────────
 export default function Hero({ onOpenAssistant }) {
+  const { t } = useTranslation()
   const [loading,     setLoading]     = useState(false)
   const [statsActive, setStatsActive] = useState(false)
   const statsRef = useRef(null)
@@ -268,20 +290,20 @@ export default function Hero({ onOpenAssistant }) {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
           </span>
-          First-Time Voter Assistant · India 2026        </div>
+          {t('hero.badge')}        </div>
 
         {/* Headline */}
         <h1 id="hero-heading"
           className="text-[clamp(2.4rem,6vw,4.2rem)] font-black leading-[1.1] tracking-[-0.04em] mb-5"
           style={{ animation: 'fadeUp 0.6s 0.18s ease both' }}>
-          Your vote matters.<br />
-          <em className="not-italic text-gradient-hero">Let's make it count.</em>
+          {t('hero.headline1')}<br />
+          <em className="not-italic text-gradient-hero">{t('hero.headline2')}</em>
         </h1>
 
         {/* Subheading */}
         <p className="text-[1.05rem] opacity-60 max-w-xl mx-auto mb-10 leading-[1.8]"
           style={{ animation: 'fadeUp 0.6s 0.28s ease both' }}>
-          A step-by-step interactive guide for Indian voters — check eligibility, register on NVSP, and prepare for polling day.
+          {t('hero.subheading')}
         </p>
 
         {/* Primary CTA */}
@@ -298,17 +320,17 @@ export default function Hero({ onOpenAssistant }) {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                 </svg>
-                <span>Loading…</span>
+                <span>{t('hero.ctaLoading')}</span>
               </>
             ) : (
               <>
                 <span className="text-xl">🗳️</span>
-                <span>Check if You Can Vote →</span>
+                <span>{t('hero.cta')}</span>
               </>
             )}
           </button>
           <p className="text-[0.75rem] text-white/35 font-medium tracking-wide">
-            Takes less than 2 minutes · No account needed
+            {t('hero.ctaSubtext')}
           </p>
         </div>
 
@@ -318,7 +340,7 @@ export default function Hero({ onOpenAssistant }) {
           <a href="#overview"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-[0.88rem] text-white
               bg-white/[0.08] border border-white/[0.16] backdrop-blur-xl hover:bg-white/[0.15] hover:-translate-y-0.5 no-underline transition-all duration-200">
-            📋 How It Works
+            {t('hero.howItWorks')}
           </a>
           <a href="#faq"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-[0.88rem] text-white
@@ -329,7 +351,7 @@ export default function Hero({ onOpenAssistant }) {
 
         {/* Quick actions */}
         <div style={{ animation: 'fadeUp 0.6s 0.52s ease both' }}>
-          <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-white/30 mb-3">Jump to</p>
+          <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-white/30 mb-3">{t('hero.jumpTo')}</p>
           <QuickActions />
         </div>
 
@@ -339,28 +361,16 @@ export default function Hero({ onOpenAssistant }) {
         </div>
 
         {/* Trust badges */}
-        <div className="flex items-center justify-center gap-4 mt-10 flex-wrap"
-          style={{ animation: 'fadeUp 0.6s 0.62s ease both' }}>
-          {TRUST.map(t => (
-            <div key={t.text}
-              className="flex items-center gap-2 bg-white/[0.06] border border-white/[0.1] rounded-full px-3.5 py-1.5 backdrop-blur-sm">
-              <span className="text-sm">{t.icon}</span>
-              <div className="text-left">
-                <p className="text-[0.72rem] font-bold text-white/70 leading-none">{t.text}</p>
-                <p className="text-[0.62rem] text-white/35 leading-none mt-0.5">{t.sub}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <TrustBadges />
 
         {/* Stats */}
         <div ref={statsRef}
           className="flex justify-center mt-14 pt-10 border-t border-white/[0.08]"
           style={{ animation: 'fadeUp 0.6s 0.66s ease both' }}>
           {[
-            { num: '5', suffix: ' min', label: 'to complete' },
-            { num: '3', suffix: ' steps', label: 'to register' },
-            { num: '100', suffix: '%', label: 'non-partisan' },
+            { num: '5', suffix: ' min', label: t('hero.statToComplete') },
+            { num: '3', suffix: ' steps', label: t('hero.statToRegister') },
+            { num: '100', suffix: '%', label: t('hero.statNonPartisan') },
           ].map((s, i) => (
             <div key={i} className={i > 0 ? 'border-l border-white/[0.08]' : ''}>
               <AnimatedStat {...s} active={statsActive} />

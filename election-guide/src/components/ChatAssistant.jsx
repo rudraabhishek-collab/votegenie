@@ -1,5 +1,30 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { scrollToSection } from './Hero'
+import { stateData } from '../data/stateData'
+
+// ─── State info lookup for chat ────────────────────────────────────────────
+function getStateInfoReply(input) {
+  const text = input.toLowerCase()
+  // Match "cm of X", "chief minister of X", "who rules X", "next election in X", "ruling party in X"
+  const stateNames = Object.keys(stateData)
+  for (const name of stateNames) {
+    if (text.includes(name.toLowerCase())) {
+      const d = stateData[name]
+      if (/cm|chief minister|minister|who.*rule|leader/.test(text)) {
+        return `The Chief Minister of **${name}** is **${d.cm}** (${d.cmParty}).\n\nRuling Alliance: ${d.rulingAlliance}\nOpposition: ${d.oppositionParty}\n\n👉 See the **State Info** section for full details.`
+      }
+      if (/next election|when.*election|election.*date/.test(text)) {
+        return `The next assembly election in **${name}** is expected in **${d.nextElection}**.\n\nLast election: ${d.lastElection}\nRecent result: ${d.recentResult}\n\n👉 See the **State Info** section for full details.`
+      }
+      if (/ruling party|government|party in power/.test(text)) {
+        return `The ruling party in **${name}** is **${d.rulingParty}** (${d.rulingAlliance}).\n\nCM: ${d.cm}\nOpposition: ${d.oppositionParty}\n\n👉 See the **State Info** section for full details.`
+      }
+      // Generic state query
+      return `Here's a quick summary for **${name}**:\n\n👤 CM: ${d.cm} (${d.cmParty})\n🏛️ Ruling: ${d.rulingAlliance}\n📅 Next Election: ${d.nextElection}\n📊 Last Result: ${d.recentResult}\n\n👉 See the **State Info** section for full details.`
+    }
+  }
+  return null
+}
 
 // ─── India-specific knowledge base ────────────────────────────────────────
 const KB = [
@@ -67,10 +92,13 @@ const KB = [
 function chatbotLogic(input) {
   const text = input.trim()
   if (!text) return null
+  // Check state-specific queries first
+  const stateReply = getStateInfoReply(text)
+  if (stateReply) return stateReply
   for (const entry of KB) {
     if (entry.p.some(p => p.test(text))) return entry.r
   }
-  return "I'm not sure about that. Try asking about:\n• Eligibility to vote\n• How to register (NVSP)\n• EPIC / Voter ID card\n• EVM and VVPAT\n• NOTA\n• Voter Helpline 1950\n• Polling booth location"
+  return "I'm not sure about that. Try asking about:\n• Eligibility to vote\n• How to register (NVSP)\n• EPIC / Voter ID card\n• EVM and VVPAT\n• NOTA\n• Voter Helpline 1950\n• Polling booth location\n• CM of Maharashtra / Delhi / Karnataka…"
 }
 
 // ─── Format bold **text** and newlines ────────────────────────────────────
@@ -94,8 +122,8 @@ const SUGGESTIONS = [
   'How do I register on NVSP?',
   'What is an EPIC card?',
   'What is EVM and VVPAT?',
-  'What is NOTA?',
-  'Voter Helpline number?',
+  'Who is CM of Maharashtra?',
+  'Next election in Delhi?',
 ]
 
 const LS_CHAT = 'eg-chat-history'

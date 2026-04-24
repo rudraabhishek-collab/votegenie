@@ -1,13 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { searchIndex } from '../data'
-
-const NAV_LINKS = [
-  { href: '#overview',    label: 'Overview',     emoji: '📋' },
-  { href: '#timeline',    label: 'Key Dates',    emoji: '📅' },
-  { href: '#eligibility', label: 'Eligibility',  emoji: '✅' },
-  { href: '#guide',       label: 'Voting Guide', emoji: '🗳️' },
-  { href: '#faq',         label: 'FAQ',          emoji: '❓' },
-]
+import LanguageSwitcher from './LanguageSwitcher'
 
 // ─── Logo SVG ──────────────────────────────────────────────────────────────
 function Logo({ size = 38 }) {
@@ -162,6 +156,15 @@ function NavSearch({ dark }) {
 
 // ─── Main Navbar ───────────────────────────────────────────────────────────
 export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
+  const { t } = useTranslation()
+  const NAV_LINKS = [
+    { href: '#overview',    label: t('nav.overview'),    emoji: '📋' },
+    { href: '#timeline',    label: t('nav.keyDates'),    emoji: '📅' },
+    { href: '#eligibility', label: t('nav.eligibility'), emoji: '✅' },
+    { href: '#guide',       label: t('nav.votingGuide'), emoji: '🗳️' },
+    { href: '#stateinfo',   label: 'State Info',         emoji: '🗺️' },
+    { href: '#faq',         label: t('nav.faq'),         emoji: '❓' },
+  ]
   const [active,   setActive]   = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -285,6 +288,7 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
           {/* ── Right controls ──────────────────────────────────── */}
           <div className="flex items-center gap-2 flex-shrink-0">
             <NavSearch dark={dark} />
+            <LanguageSwitcher dark={dark} />
 
             {/* Theme toggle */}
             <button onClick={onToggleDark} aria-label="Toggle dark mode"
@@ -308,7 +312,7 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent
                 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
               <span className="relative">🗳️</span>
-              <span className="relative">Check Eligibility</span>
+              <span className="relative">{t('nav.checkEligibility')}</span>
             </button>
 
             {/* Hamburger */}
@@ -418,7 +422,7 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
               bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600
               shadow-[0_4px_16px_rgba(99,102,241,0.4)] hover:shadow-[0_6px_24px_rgba(99,102,241,0.5)]
               hover:-translate-y-0.5 transition-all duration-200">
-            🗳️ Check if You Can Vote
+            🗳️ {t('nav.checkIfYouCanVote')}
           </button>
           <button onClick={onToggleDark}
             className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-[0.85rem] border transition-all
@@ -426,7 +430,7 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
                 ? 'border-white/10 text-slate-400 hover:bg-white/[0.06]'
                 : 'border-slate-200 text-slate-500 hover:bg-slate-50'
               }`}>
-            {dark ? '☀️ Switch to Light' : '🌙 Switch to Dark'}
+            {dark ? `☀️ ${t('nav.switchToLight')}` : `🌙 ${t('nav.switchToDark')}`}
           </button>
         </div>
       </nav>
