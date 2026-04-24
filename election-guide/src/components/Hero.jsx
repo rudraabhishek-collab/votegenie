@@ -88,15 +88,15 @@ export default function Hero({ onOpenAssistant }) {
       aria-labelledby="hero-heading"
     >
       {/* Ashoka Chakra watermark */}
-      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
+      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.02]">
         <svg viewBox="0 0 200 200" className="w-[680px] h-[680px]">
-          <circle cx="100" cy="100" r="92" fill="none" stroke="#1a237e" strokeWidth="3"/>
+          <circle cx="100" cy="100" r="92" fill="none" stroke="#1a237e" strokeWidth="2"/>
           <circle cx="100" cy="100" r="12" fill="#1a237e"/>
           {Array.from({ length: 24 }, (_, i) => {
             const a = (i * 15 - 90) * Math.PI / 180
             const x1 = 100 + 20 * Math.cos(a), y1 = 100 + 20 * Math.sin(a)
             const x2 = 100 + 90 * Math.cos(a), y2 = 100 + 90 * Math.sin(a)
-            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#1a237e" strokeWidth="2"/>
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#1a237e" strokeWidth="1.5"/>
           })}
         </svg>
       </div>
@@ -139,16 +139,21 @@ export default function Hero({ onOpenAssistant }) {
         {/* Headline */}
         <h1
           id="hero-heading"
-          className="text-[clamp(3rem,8vw,5.5rem)] font-black leading-[1.05] tracking-[-0.04em] mb-6"
-          style={{ animation: 'fadeUp 0.55s 0.2s ease both', opacity: 0 }}
+          className="text-[clamp(3rem,8vw,5.5rem)] font-black leading-[1.05] tracking-[-0.04em] mb-6 relative z-10"
+          style={{ 
+            animation: 'fadeUp 0.55s 0.2s ease both', 
+            opacity: 0,
+            textShadow: '0 2px 20px rgba(255,255,255,0.3)'
+          }}
         >
-          <span className="text-[#0d1757]">Your vote matters.</span>
+          <span className="text-[#0d1757] drop-shadow-[0_2px_8px_rgba(255,255,255,0.4)]">Your vote matters.</span>
           <br />
           <span style={{
             background: 'linear-gradient(135deg, #FF9933 0%, #f97316 60%, #ea580c 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
+            filter: 'drop-shadow(0 2px 8px rgba(255,153,51,0.3))',
           }}>
             Let's make it count.
           </span>
@@ -156,8 +161,12 @@ export default function Hero({ onOpenAssistant }) {
 
         {/* Subheading */}
         <p
-          className="text-[1.05rem] text-[#1a237e]/75 max-w-2xl mx-auto mb-12 leading-[1.7] font-medium"
-          style={{ animation: 'fadeUp 0.55s 0.3s ease both', opacity: 0 }}
+          className="text-[1.05rem] text-[#1a237e]/75 max-w-2xl mx-auto mb-12 leading-[1.7] font-medium relative z-10"
+          style={{ 
+            animation: 'fadeUp 0.55s 0.3s ease both', 
+            opacity: 0,
+            textShadow: '0 1px 10px rgba(255,255,255,0.5)'
+          }}
         >
           A step-by-step interactive guide for Indian voters — check eligibility, register
           on NVSP, and prepare for polling day.
