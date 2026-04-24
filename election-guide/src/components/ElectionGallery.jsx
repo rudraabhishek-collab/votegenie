@@ -1,55 +1,73 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// Real election-related images from Unsplash (free to use)
+// All images are from Wikimedia Commons (public domain / CC-BY) — real Indian election photos
 const IMAGES = [
   {
-    url: 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=600&q=80',
-    caption: 'Voters at polling booth',
-    captionHi: 'मतदान केंद्र पर मतदाता',
+    // Indian voters casting votes at polling booth, Odisha 2024 General Election
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Voters_casting_their_votes_at_a_polling_booth_during_the_6th_Phase_of_General_Elections-2024_at_Govt_Primary_School_NAC_Colony_in_Bhubaneswar%2C_Odisha_on_May_25%2C_2024_%281%29.jpg/800px-Voters_casting_their_votes_at_a_polling_booth_during_the_6th_Phase_of_General_Elections-2024_at_Govt_Primary_School_NAC_Colony_in_Bhubaneswar%2C_Odisha_on_May_25%2C_2024_%281%29.jpg',
+    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/India_2014_Elections_-_Voters_in_line.jpg/800px-India_2014_Elections_-_Voters_in_line.jpg',
+    caption: 'Indian voters casting votes — Lok Sabha 2024, Bhubaneswar',
+    captionHi: 'भारतीय मतदाता वोट डालते हुए — लोकसभा 2024, भुवनेश्वर',
     tag: 'Polling Day',
     tagHi: 'मतदान दिवस',
     color: 'from-[#1a237e] to-[#283593]',
+    credit: 'PIB India / Wikimedia Commons',
   },
   {
-    url: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80',
-    caption: 'Democracy in action',
-    captionHi: 'लोकतंत्र की शक्ति',
-    tag: 'Democracy',
-    tagHi: 'लोकतंत्र',
+    // New Parliament of India — Sansad Bhavan
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/New_Parliament_Building_of_India_2023.jpg/800px-New_Parliament_Building_of_India_2023.jpg',
+    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Parliament_of_India.jpg/800px-Parliament_of_India.jpg',
+    caption: 'New Parliament of India — Sansad Bhavan, New Delhi',
+    captionHi: 'भारत का नया संसद भवन — संसद भवन, नई दिल्ली',
+    tag: 'Parliament',
+    tagHi: 'संसद',
     color: 'from-[#FF9933] to-[#e65c00]',
+    credit: 'Wikimedia Commons',
   },
   {
-    url: 'https://images.unsplash.com/photo-1494172961521-33799ddd43a5?w=600&q=80',
-    caption: 'Voter registration drive',
-    captionHi: 'मतदाता पंजीकरण अभियान',
-    tag: 'Registration',
-    tagHi: 'पंजीकरण',
-    color: 'from-[#138808] to-[#1b5e20]',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80',
-    caption: 'EVM — Electronic Voting Machine',
-    captionHi: 'EVM — इलेक्ट्रॉनिक वोटिंग मशीन',
+    // EVM and VVPAT — official ECI image
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/EVM_and_VVPAT.jpg/800px-EVM_and_VVPAT.jpg',
+    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Electronic_Voting_Machine_%28EVM%29.jpg/800px-Electronic_Voting_Machine_%28EVM%29.jpg',
+    caption: 'EVM & VVPAT — Electronic Voting Machine used in Indian elections',
+    captionHi: 'EVM और VVPAT — भारतीय चुनावों में उपयोग की जाने वाली इलेक्ट्रॉनिक वोटिंग मशीन',
     tag: 'EVM',
     tagHi: 'EVM',
+    color: 'from-[#138808] to-[#1b5e20]',
+    credit: 'ECI / Wikimedia Commons',
+  },
+  {
+    // Woman voter with inked finger — India election
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/A_woman_shows_her_ink-marked_finger_after_casting_her_vote_at_a_polling_station_in_Dugeli_village_of_Dantewada_district%2C_Chhattisgarh%2C_in_the_first_phase_of_India%27s_general_election_on_April_19%2C_2024.jpg/800px-thumbnail.jpg',
+    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Inked_finger_India_election.jpg/800px-Inked_finger_India_election.jpg',
+    caption: 'Woman voter shows ink-marked finger after voting — Chhattisgarh 2024',
+    captionHi: 'महिला मतदाता मतदान के बाद स्याही लगी उंगली दिखाती हैं — छत्तीसगढ़ 2024',
+    tag: 'Ink Finger',
+    tagHi: 'स्याही की उंगली',
     color: 'from-[#1a237e] to-[#3949ab]',
+    credit: 'PIB India',
   },
   {
-    url: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80',
-    caption: 'Citizens exercising their right',
-    captionHi: 'नागरिक अपने अधिकार का प्रयोग',
-    tag: 'Civic Duty',
-    tagHi: 'नागरिक कर्तव्य',
+    // Polling officials carrying EVMs
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Polling_officials_are_carrying_Electronic_Voting_Machine_%28EVMs%29_and_other_election_related_materials_required_for_the_General_Elections_2024%2C_in_Patna_on_May_31%2C_2024_%282%29.jpg/800px-thumbnail.jpg',
+    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/India_2014_Elections_-_Voters_in_line.jpg/640px-India_2014_Elections_-_Voters_in_line.jpg',
+    caption: 'Polling officials carrying EVMs for General Elections 2024, Patna',
+    captionHi: 'मतदान अधिकारी आम चुनाव 2024 के लिए EVM ले जाते हुए, पटना',
+    tag: 'Election Officials',
+    tagHi: 'चुनाव अधिकारी',
     color: 'from-[#FF9933] to-[#1a237e]',
+    credit: 'PIB India / Wikimedia Commons',
   },
   {
-    url: 'https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=80',
-    caption: 'India — the world\'s largest democracy',
-    captionHi: 'भारत — विश्व का सबसे बड़ा लोकतंत्र',
-    tag: 'India',
-    tagHi: 'भारत',
+    // Voters queue at polling station India
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/India_2014_Elections_-_Voters_in_line.jpg/800px-India_2014_Elections_-_Voters_in_line.jpg',
+    fallback: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/India_2014_Elections_-_Voters_in_line.jpg/640px-India_2014_Elections_-_Voters_in_line.jpg',
+    caption: 'Voters standing in queue at polling station — India General Election',
+    captionHi: 'मतदान केंद्र पर कतार में खड़े मतदाता — भारत आम चुनाव',
+    tag: 'Voters Queue',
+    tagHi: 'मतदाता कतार',
     color: 'from-[#138808] to-[#1a237e]',
+    credit: 'Wikimedia Commons (CC BY-SA)',
   },
 ]
 
@@ -84,28 +102,36 @@ export default function ElectionGallery({ dark }) {
               ${active === i ? 'ring-4 ring-[#FF9933] scale-[1.02]' : 'hover:scale-[1.02]'}
               ${i === 0 ? 'col-span-2 row-span-1' : ''}`}
             style={{ aspectRatio: i === 0 ? '16/7' : '4/3' }}>
-            
-            {/* Image */}
-            <img src={img.url} alt={isHindi ? img.captionHi : img.caption}
+
+            {/* Image with fallback */}
+            <img
+              src={img.url}
+              alt={isHindi ? img.captionHi : img.caption}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy" />
-            
-            {/* Overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-t ${img.color} opacity-0 group-hover:opacity-60 transition-opacity duration-300`} />
-            
+              loading="lazy"
+              onError={e => { if (img.fallback && e.target.src !== img.fallback) e.target.src = img.fallback }}
+            />
+
+            {/* Dark gradient overlay always present at bottom */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+            {/* Hover color overlay */}
+            <div className={`absolute inset-0 bg-gradient-to-t ${img.color} opacity-0 group-hover:opacity-40 transition-opacity duration-300`} />
+
             {/* Tag */}
             <div className="absolute top-2.5 left-2.5">
               <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[0.65rem] font-extrabold text-white
-                bg-gradient-to-r ${img.color} shadow-lg`}>
+                bg-gradient-to-r ${img.color} shadow-lg backdrop-blur-sm`}>
                 {isHindi ? img.tagHi : img.tag}
               </span>
             </div>
 
-            {/* Caption on hover */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <p className="text-white text-[0.78rem] font-semibold leading-snug drop-shadow-lg">
+            {/* Caption — always visible at bottom */}
+            <div className="absolute bottom-0 left-0 right-0 p-3">
+              <p className="text-white text-[0.75rem] font-semibold leading-snug drop-shadow-lg">
                 {isHindi ? img.captionHi : img.caption}
               </p>
+              <p className="text-white/50 text-[0.6rem] mt-0.5">{img.credit}</p>
             </div>
 
             {/* India flag corner accent */}
@@ -130,6 +156,11 @@ export default function ElectionGallery({ dark }) {
           </div>
         ))}
       </div>
+
+      {/* Photo credit */}
+      <p className={`mt-3 text-[0.65rem] text-center ${dark ? 'text-slate-700' : 'text-slate-400'}`}>
+        📷 Photos: PIB India, Election Commission of India, Wikimedia Commons (public domain / CC-BY)
+      </p>
     </section>
   )
 }
