@@ -157,7 +157,7 @@ export default function Hero({ onOpenAssistant }) {
               <img 
                 src={badge.logo} 
                 alt={`${badge.name} logo`}
-                className="w-6 h-6 object-contain brightness-0 invert relative z-10"
+                className="w-7 h-7 object-contain relative z-10"
               />
               <span className="text-[0.8rem] font-bold text-white hidden sm:inline relative z-10">{badge.name}</span>
             </a>
