@@ -4,7 +4,7 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      fontFamily: { sans: ['Inter', 'Noto Sans Devanagari', 'system-ui', 'sans-serif'] },
+      fontFamily: { sans: ['Poppins', 'Inter', 'Noto Sans Devanagari', 'system-ui', 'sans-serif'] },
       colors: {
         // ECI Official Colors
         eci: {

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { searchIndex } from '../data'
 import LanguageSwitcher from './LanguageSwitcher'
+import UserMenu from './UserMenu'
 
 // ─── Logo SVG ──────────────────────────────────────────────────────────────
 function Logo({ size = 38 }) {
@@ -155,7 +156,7 @@ function NavSearch({ dark }) {
 }
 
 // ─── Main Navbar ───────────────────────────────────────────────────────────
-export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
+export default function Navbar({ dark, onToggleDark, onOpenAssistant, user, onOpenAuth, onLogout }) {
   const { t } = useTranslation()
   const NAV_LINKS = [
     { href: '#overview',    label: t('nav.overview'),    emoji: '📋' },
@@ -295,6 +296,18 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
               {dark ? '☀️' : '🌙'}
             </button>
 
+            {/* Auth — Login or UserMenu */}
+            {user ? (
+              <UserMenu user={user} onLogout={onLogout} dark={dark} />
+            ) : (
+              <button onClick={onOpenAuth}
+                className="hidden md:flex items-center gap-2 px-3.5 py-2 rounded-xl font-bold text-[0.8rem]
+                  text-white border border-white/25 bg-white/10 hover:bg-white/20
+                  transition-all duration-200 hover:-translate-y-0.5">
+                🔐 {t('nav.login', 'Login')}
+              </button>
+            )}
+
             {/* CTA */}
             <button onClick={onOpenAssistant}
               className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-[0.8rem]
@@ -412,11 +425,18 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
         <div className={`px-3 py-4 border-t flex flex-col gap-2 ${dark ? 'border-white/[0.07]' : 'border-slate-100'}`}>
           <button onClick={() => { onOpenAssistant(); setMenuOpen(false) }}
             className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-[0.9rem] text-white
-              bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600
-              shadow-[0_4px_16px_rgba(99,102,241,0.4)] hover:shadow-[0_6px_24px_rgba(99,102,241,0.5)]
+              bg-gradient-to-r from-[#1a237e] to-[#283593]
+              shadow-[0_4px_16px_rgba(26,35,126,0.4)] hover:shadow-[0_6px_24px_rgba(26,35,126,0.5)]
               hover:-translate-y-0.5 transition-all duration-200">
             🗳️ {t('nav.checkIfYouCanVote')}
           </button>
+          {!user && (
+            <button onClick={() => { onOpenAuth(); setMenuOpen(false) }}
+              className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-[0.85rem] border transition-all
+                border-white/20 text-white bg-white/10 hover:bg-white/20`}>
+              🔐 {t('nav.login', 'Login / Sign Up')}
+            </button>
+          )}
           <button onClick={onToggleDark}
             className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-[0.85rem] border transition-all
               ${dark

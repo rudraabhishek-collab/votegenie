@@ -12,10 +12,14 @@ import StateInfo from './components/StateInfo'
 import AssistantModal from './components/AssistantModal'
 import ChatAssistant from './components/ChatAssistant'
 import Footer from './components/Footer'
+import AuthModal from './components/AuthModal'
+import UserMenu from './components/UserMenu'
+import ElectionGallery from './components/ElectionGallery'
 
 const LS_STEP  = 'eg-journey-step'
 const LS_GUIDE = 'eg-guide-completed'
 const LS_THEME = 'eg-theme'
+const LS_USER  = 'eg-user'
 
 export default function App() {
   const [dark, setDark] = useState(() => {
@@ -30,6 +34,10 @@ export default function App() {
   const [assistantOpen, setAssistantOpen] = useState(false)
   const [chatOpen,      setChatOpen]      = useState(false)
   const [selectedState, setSelectedState] = useState('')
+  const [authOpen,      setAuthOpen]      = useState(false)
+  const [user,          setUser]          = useState(() => {
+    try { return JSON.parse(localStorage.getItem(LS_USER)) || null } catch { return null }
+  })
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
@@ -75,6 +83,9 @@ export default function App() {
         dark={dark}
         onToggleDark={() => setDark(d => !d)}
         onOpenAssistant={() => setAssistantOpen(true)}
+        user={user}
+        onOpenAuth={() => setAuthOpen(true)}
+        onLogout={() => { setUser(null); localStorage.removeItem(LS_USER) }}
       />
 
       <Hero onOpenAssistant={() => setAssistantOpen(true)} />
@@ -122,6 +133,7 @@ export default function App() {
         />
         <VotingGuide dark={dark} completed={guideCompleted} onComplete={handleGuideComplete} />
         <Documents dark={dark} />
+        <ElectionGallery dark={dark} />
         <StateInfo dark={dark} />
         <FAQ dark={dark} onOpenAssistant={() => setChatOpen(true)} />
       </main>
@@ -157,6 +169,13 @@ export default function App() {
         onClose={() => setAssistantOpen(false)}
         dark={dark}
         onEligible={handleEligible}
+      />
+
+      <AuthModal
+        open={authOpen}
+        onClose={() => setAuthOpen(false)}
+        onLogin={u => setUser(u)}
+        dark={dark}
       />
     </div>
   )
