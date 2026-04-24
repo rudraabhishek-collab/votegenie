@@ -263,15 +263,25 @@ export default function Hero({ onOpenAssistant }) {
 
   return (
     <section
-      className="relative overflow-hidden text-white text-center py-24 px-6"
-      style={{ background: 'linear-gradient(135deg,#0a0818 0%,#1a1040 40%,#0f0c29 70%,#1a0a2e 100%)' }}
+      className="relative overflow-hidden text-white text-center py-20 px-6"
+      style={{ background: 'linear-gradient(135deg,#0d1757 0%,#1a237e 35%,#283593 65%,#1565c0 100%)' }}
       aria-labelledby="hero-heading">
 
       <ParticleCanvas />
 
-      {/* Single static orb — no animation */}
-      <div aria-hidden className="absolute w-[600px] h-[600px] rounded-full pointer-events-none opacity-20"
-        style={{ background: 'radial-gradient(circle,rgba(99,102,241,.5),transparent 70%)', top: '-250px', left: '50%', transform: 'translateX(-50%)' }} />
+      {/* Ashoka Chakra watermark */}
+      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
+        <svg viewBox="0 0 200 200" className="w-[500px] h-[500px]">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="white" strokeWidth="3"/>
+          <circle cx="100" cy="100" r="10" fill="white"/>
+          {Array.from({length:24},(_,i)=>{
+            const a=(i*15-90)*Math.PI/180;
+            const x1=100+18*Math.cos(a),y1=100+18*Math.sin(a);
+            const x2=100+88*Math.cos(a),y2=100+88*Math.sin(a);
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="1.5"/>;
+          })}
+        </svg>
+      </div>
 
       {/* Grid overlay */}
       <div aria-hidden className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -279,44 +289,75 @@ export default function Hero({ onOpenAssistant }) {
 
       {/* Spotlight */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 90% 70% at 50% 0%,rgba(99,102,241,.4),transparent 65%)' }} />
+        style={{ background: 'radial-gradient(ellipse 90% 70% at 50% 0%,rgba(255,153,51,0.15),transparent 65%)' }} />
 
-      <div className="relative z-10 max-w-3xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto">
+
+        {/* Authority logos strip */}
+        <div className="flex items-center justify-center gap-6 mb-8 flex-wrap"
+          style={{ animation: 'fadeUp 0.5s 0.05s ease both' }}>
+          {/* ECI Logo */}
+          <div className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5">
+            <img src="/logos/eci.svg" alt="ECI" className="w-9 h-9 rounded-full" />
+            <div className="text-left">
+              <p className="text-[0.65rem] font-black tracking-[0.1em] uppercase text-white/90 leading-none">Election Commission</p>
+              <p className="text-[0.58rem] text-white/50 leading-none mt-0.5">of India</p>
+            </div>
+          </div>
+          {/* NVSP */}
+          <div className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5">
+            <img src="/logos/nvsp.svg" alt="NVSP" className="w-9 h-9 rounded-lg" />
+            <div className="text-left">
+              <p className="text-[0.65rem] font-black tracking-[0.1em] uppercase text-white/90 leading-none">NVSP</p>
+              <p className="text-[0.58rem] text-white/50 leading-none mt-0.5">Voter Service Portal</p>
+            </div>
+          </div>
+          {/* India Emblem */}
+          <div className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2.5">
+            <img src="/logos/emblem.svg" alt="Govt of India" className="w-9 h-9 rounded-full" />
+            <div className="text-left">
+              <p className="text-[0.65rem] font-black tracking-[0.1em] uppercase text-white/90 leading-none">Govt. of India</p>
+              <p className="text-[0.58rem] text-white/50 leading-none mt-0.5">Official Resource</p>
+            </div>
+          </div>
+        </div>
 
         {/* Live badge */}
-        <div className="inline-flex items-center gap-2.5 bg-white/[0.08] border border-white/[0.12] rounded-full text-[0.73rem] font-bold tracking-[0.12em] uppercase px-5 py-2 mb-8 backdrop-blur-xl"
+        <div className="inline-flex items-center gap-2.5 bg-white/[0.1] border border-white/[0.2] rounded-full text-[0.73rem] font-bold tracking-[0.1em] uppercase px-5 py-2 mb-6 backdrop-blur-xl"
           style={{ animation: 'fadeUp 0.6s 0.1s ease both' }}>
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
           </span>
-          {t('hero.badge')}        </div>
+          {t('hero.badge')}
+        </div>
 
         {/* Headline */}
         <h1 id="hero-heading"
-          className="text-[clamp(2.4rem,6vw,4.2rem)] font-black leading-[1.1] tracking-[-0.04em] mb-5"
+          className="text-[clamp(2.2rem,5.5vw,3.8rem)] font-black leading-[1.1] tracking-[-0.03em] mb-4"
           style={{ animation: 'fadeUp 0.6s 0.18s ease both' }}>
           {t('hero.headline1')}<br />
           <em className="not-italic text-gradient-hero">{t('hero.headline2')}</em>
         </h1>
 
         {/* Subheading */}
-        <p className="text-[1.05rem] opacity-60 max-w-xl mx-auto mb-10 leading-[1.8]"
+        <p className="text-[1rem] opacity-70 max-w-xl mx-auto mb-8 leading-[1.8]"
           style={{ animation: 'fadeUp 0.6s 0.28s ease both' }}>
           {t('hero.subheading')}
         </p>
 
         {/* Primary CTA */}
-        <div className="flex flex-col items-center gap-3 mb-8"
+        <div className="flex flex-col items-center gap-3 mb-7"
           style={{ animation: 'fadeUp 0.6s 0.38s ease both' }}>
           <button onClick={handleStart} disabled={loading}
-            className="inline-flex items-center gap-3 px-9 py-4 rounded-2xl font-black text-[1rem] text-indigo-700
-              bg-white shadow-[0_4px_24px_rgba(0,0,0,0.25)]
-              hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)] hover:-translate-y-0.5
-              disabled:opacity-70 disabled:cursor-wait transition-all duration-200">
+            className="inline-flex items-center gap-3 px-9 py-4 rounded-2xl font-black text-[1rem]
+              text-[#1a237e] bg-white
+              shadow-[0_4px_24px_rgba(0,0,0,0.25),0_0_0_3px_rgba(255,153,51,0.4)]
+              hover:shadow-[0_8px_40px_rgba(0,0,0,0.3),0_0_0_3px_rgba(255,153,51,0.6)]
+              hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-wait transition-all duration-200">
             {loading ? (
               <>
-                <svg className="w-5 h-5 animate-spin text-indigo-500" fill="none" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 animate-spin text-[#1a237e]" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                 </svg>
@@ -329,22 +370,22 @@ export default function Hero({ onOpenAssistant }) {
               </>
             )}
           </button>
-          <p className="text-[0.75rem] text-white/35 font-medium tracking-wide">
+          <p className="text-[0.75rem] text-white/40 font-medium tracking-wide">
             {t('hero.ctaSubtext')}
           </p>
         </div>
 
         {/* Secondary CTAs */}
-        <div className="flex gap-3 justify-center flex-wrap mb-10"
+        <div className="flex gap-3 justify-center flex-wrap mb-8"
           style={{ animation: 'fadeUp 0.6s 0.46s ease both' }}>
           <a href="#overview"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-[0.88rem] text-white
-              bg-white/[0.08] border border-white/[0.16] backdrop-blur-xl hover:bg-white/[0.15] hover:-translate-y-0.5 no-underline transition-all duration-200">
+              bg-white/[0.1] border border-white/[0.2] backdrop-blur-xl hover:bg-white/[0.18] hover:-translate-y-0.5 no-underline transition-all duration-200">
             {t('hero.howItWorks')}
           </a>
           <a href="#faq"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-[0.88rem] text-white
-              bg-white/[0.08] border border-white/[0.16] backdrop-blur-xl hover:bg-white/[0.15] hover:-translate-y-0.5 no-underline transition-all duration-200">
+              bg-white/[0.1] border border-white/[0.2] backdrop-blur-xl hover:bg-white/[0.18] hover:-translate-y-0.5 no-underline transition-all duration-200">
             ❓ FAQ
           </a>
         </div>
@@ -356,7 +397,7 @@ export default function Hero({ onOpenAssistant }) {
         </div>
 
         {/* Search */}
-        <div className="mt-8" style={{ animation: 'fadeUp 0.6s 0.58s ease both' }}>
+        <div className="mt-7" style={{ animation: 'fadeUp 0.6s 0.58s ease both' }}>
           <HeroSearch />
         </div>
 
@@ -365,14 +406,14 @@ export default function Hero({ onOpenAssistant }) {
 
         {/* Stats */}
         <div ref={statsRef}
-          className="flex justify-center mt-14 pt-10 border-t border-white/[0.08]"
+          className="flex justify-center mt-12 pt-8 border-t border-white/[0.1]"
           style={{ animation: 'fadeUp 0.6s 0.66s ease both' }}>
           {[
             { num: '5', suffix: ' min', label: t('hero.statToComplete') },
             { num: '3', suffix: ' steps', label: t('hero.statToRegister') },
             { num: '100', suffix: '%', label: t('hero.statNonPartisan') },
           ].map((s, i) => (
-            <div key={i} className={i > 0 ? 'border-l border-white/[0.08]' : ''}>
+            <div key={i} className={i > 0 ? 'border-l border-white/[0.1]' : ''}>
               <AnimatedStat {...s} active={statsActive} />
             </div>
           ))}
@@ -381,7 +422,8 @@ export default function Hero({ onOpenAssistant }) {
 
       {/* Bottom fade */}
       <div aria-hidden className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom,transparent,rgba(10,8,24,0.4))' }} />
+        style={{ background: 'linear-gradient(to bottom,transparent,rgba(13,23,87,0.5))' }} />
     </section>
   )
+
 }

@@ -201,21 +201,21 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
       <header className="sticky top-0 z-50">
 
         {/* ── India tricolor top strip ─────────────────────────────── */}
-        <div className="flex h-[3px]">
+        <div className="flex h-[4px]">
           <div className="flex-1 bg-[#FF9933]" />
-          <div className="flex-1 bg-white/60" />
+          <div className="flex-1 bg-white" />
           <div className="flex-1 bg-[#138808]" />
         </div>
 
         {/* ── Main nav bar ─────────────────────────────────────────── */}
         <nav
           className={`flex items-center justify-between px-5 border-b backdrop-blur-2xl transition-all duration-300
-            ${scrolled ? 'h-[54px]' : 'h-[62px]'}
+            ${scrolled ? 'h-[54px]' : 'h-[64px]'}
             ${dark
-              ? 'bg-[#080c18]/94 border-white/[0.07]'
-              : 'bg-white/92 border-slate-200/70'
+              ? 'bg-[#0d1757]/96 border-white/[0.08]'
+              : 'bg-[#1a237e] border-[#283593]'
             }
-            ${scrolled ? 'shadow-[0_4px_24px_rgba(0,0,0,0.18)]' : ''}`}
+            ${scrolled ? 'shadow-[0_4px_24px_rgba(26,35,126,0.35)]' : ''}`}
           role="navigation" aria-label="Main navigation">
 
           {/* ── Logo + wordmark ─────────────────────────────────── */}
@@ -228,27 +228,25 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
               <div className="flex items-baseline">
                 <span className={`font-black tracking-[-0.05em] leading-none transition-all duration-300
                   ${scrolled ? 'text-[0.92rem]' : 'text-[1rem]'}
-                  ${dark ? 'text-white' : 'text-gray-900'}`}>
+                  text-white`}>
                   Vote
                 </span>
                 <span className={`font-black tracking-[-0.05em] leading-none transition-all duration-300
                   ${scrolled ? 'text-[0.92rem]' : 'text-[1rem]'}
-                  bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 bg-clip-text text-transparent`}>
+                  text-[#FF9933]`}>
                   Genie
                 </span>
                 <span className="text-[0.85rem] ml-0.5 leading-none">⭐</span>
               </div>
               {/* Sub-tag */}
               <div className="flex items-center gap-1.5">
-                <span className={`text-[0.52rem] font-extrabold tracking-[0.15em] uppercase
-                  ${dark ? 'text-slate-600' : 'text-slate-400'}`}>India</span>
+                <span className="text-[0.52rem] font-extrabold tracking-[0.15em] uppercase text-white/60">India</span>
                 <span className="flex gap-[2px]">
                   <span className="w-[4px] h-[3px] rounded-[1px] bg-[#FF9933]"/>
                   <span className={`w-[4px] h-[3px] rounded-[1px] ${dark ? 'bg-slate-500' : 'bg-slate-300'}`}/>
                   <span className="w-[4px] h-[3px] rounded-[1px] bg-[#138808]"/>
                 </span>
-                <span className={`text-[0.52rem] font-extrabold tracking-[0.12em]
-                  ${dark ? 'text-slate-600' : 'text-slate-400'}`}>2026</span>
+                <span className="text-[0.52rem] font-extrabold tracking-[0.12em] text-white/60">2026</span>
               </div>
             </div>
           </a>
@@ -264,11 +262,11 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
                       transition-all duration-200 group
                       ${isActive
                         ? dark
-                          ? 'text-white bg-gradient-to-r from-indigo-600/40 to-violet-600/30 border border-indigo-500/30'
-                          : 'text-indigo-700 bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-200/60'
+                          ? 'text-white bg-white/20 border border-white/30'
+                          : 'text-white bg-white/20 border border-white/30'
                         : dark
-                          ? 'text-slate-400 hover:text-white hover:bg-white/[0.07] border border-transparent'
-                          : 'text-slate-500 hover:text-gray-900 hover:bg-slate-100 border border-transparent'
+                          ? 'text-slate-300 hover:text-white hover:bg-white/[0.1] border border-transparent'
+                          : 'text-white/75 hover:text-white hover:bg-white/[0.15] border border-transparent'
                       }`}>
                     {/* Emoji — always show */}
                     <span className="text-[0.85rem] transition-all duration-200 group-hover:scale-110">
@@ -292,24 +290,19 @@ export default function Navbar({ dark, onToggleDark, onOpenAssistant }) {
 
             {/* Theme toggle */}
             <button onClick={onToggleDark} aria-label="Toggle dark mode"
-              className={`w-8 h-8 rounded-xl border flex items-center justify-center text-sm
-                transition-all duration-200 hover:scale-110 hover:rotate-12
-                ${dark
-                  ? 'bg-white/[0.07] border-white/[0.1] hover:bg-indigo-900/50 hover:border-indigo-600/50'
-                  : 'bg-slate-100 border-slate-200 hover:bg-amber-50 hover:border-amber-200'
-                }`}>
+              className="w-8 h-8 rounded-xl border border-white/20 flex items-center justify-center text-sm
+                transition-all duration-200 hover:scale-110 hover:rotate-12 bg-white/10 hover:bg-white/20">
               {dark ? '☀️' : '🌙'}
             </button>
 
-            {/* CTA — gradient pill with shimmer */}
+            {/* CTA */}
             <button onClick={onOpenAssistant}
-              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-[0.8rem] text-white
-                bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600
-                shadow-[0_4px_16px_rgba(99,102,241,0.4),0_1px_0_rgba(255,255,255,0.15)_inset]
-                hover:shadow-[0_6px_24px_rgba(99,102,241,0.55)] hover:-translate-y-0.5
+              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-[0.8rem]
+                text-[#1a237e] bg-[#FF9933]
+                shadow-[0_4px_16px_rgba(255,153,51,0.4),0_1px_0_rgba(255,255,255,0.3)_inset]
+                hover:shadow-[0_6px_24px_rgba(255,153,51,0.55)] hover:-translate-y-0.5
                 active:scale-95 transition-all duration-200 relative overflow-hidden group">
-              {/* Shimmer sweep */}
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
                 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
               <span className="relative">🗳️</span>
               <span className="relative">{t('nav.checkEligibility')}</span>

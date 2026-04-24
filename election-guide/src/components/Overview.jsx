@@ -10,22 +10,22 @@ function OverviewCard({ item, dark, index }) {
       className={`sr relative overflow-hidden rounded-2xl p-6 border cursor-default group
         transition-all duration-300 hover:-translate-y-1
         ${dark
-          ? 'bg-gray-900 border-violet-900/20 hover:border-violet-700/40 hover:shadow-[0_8px_40px_rgba(99,102,241,0.15)]'
-          : 'bg-white border-indigo-100/60 hover:border-indigo-200 hover:shadow-card-hover'
+          ? 'bg-gray-900 border-[#283593]/40 hover:border-[#FF9933]/40 hover:shadow-[0_8px_40px_rgba(26,35,126,0.2)]'
+          : 'bg-white border-[#1a237e]/10 hover:border-[#1a237e]/30 hover:shadow-[0_8px_32px_rgba(26,35,126,0.12)]'
         } shadow-card`}
       style={{ transitionDelay: `${index * 60}ms` }}>
 
       {/* Top accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#1a237e] via-[#FF9933] to-[#138808]
         scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
 
       <div className={`w-12 h-12 rounded-[14px] flex items-center justify-center text-xl mb-4 border
-        ${dark ? 'bg-indigo-950/60 border-indigo-800/40' : 'bg-gradient-to-br from-indigo-50 to-violet-50 border-indigo-100'}`}>
+        ${dark ? 'bg-[#1a237e]/60 border-[#283593]/40' : 'bg-[#e8eaf6] border-[#1a237e]/20'}`}>
         {item.icon}
       </div>
 
       <h3 className={`font-extrabold text-[1rem] mb-1.5 tracking-[-0.025em]
-        ${dark ? 'text-white' : 'text-gray-900'}`}>
+        ${dark ? 'text-white' : 'text-[#1a237e]'}`}>
         {item.title}
       </h3>
       <p className={`text-[0.875rem] leading-relaxed ${dark ? 'text-slate-400' : 'text-slate-500'}`}>

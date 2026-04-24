@@ -67,7 +67,7 @@ export default function App() {
 
   const bg = dark
     ? 'bg-[#0a0d1f] bg-mesh-dark'
-    : 'bg-[#fafbff] bg-mesh-light'
+    : 'bg-[#f0f4ff] bg-mesh-light'
 
   return (
     <div className={`min-h-screen ${bg} transition-colors duration-300 dark:text-slate-100`}>
@@ -82,12 +82,31 @@ export default function App() {
       {/* Decorative Wave Transition */}
       <div className="w-full relative z-10 leading-none -mt-1 overflow-hidden pointer-events-none">
         <svg className="block w-full h-[35px] sm:h-[50px] md:h-[70px]" preserveAspectRatio="none" viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0C240 70 480 70 720 35C960 0 1200 0 1440 35V70H0V0Z" fill={dark ? "#0a0d1f" : "#fafbff"} />
+          <path d="M0 0C240 70 480 70 720 35C960 0 1200 0 1440 35V70H0V0Z" fill={dark ? "#0a0d1f" : "#f0f4ff"} />
         </svg>
       </div>
 
+      {/* Authority logos bar */}
+      <div className={`border-b py-3 px-6 ${dark ? 'bg-[#0d1757]/80 border-white/[0.07]' : 'bg-white border-[#1a237e]/10'}`}>
+        <div className="max-w-5xl mx-auto flex items-center justify-center gap-6 flex-wrap">
+          {[
+            { src: '/logos/eci.svg', name: 'Election Commission of India', url: 'https://eci.gov.in' },
+            { src: '/logos/nvsp.svg', name: 'NVSP — Voter Service Portal', url: 'https://nvsp.in' },
+            { src: '/logos/emblem.svg', name: 'Government of India', url: 'https://india.gov.in' },
+          ].map(logo => (
+            <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity duration-200 no-underline">
+              <img src={logo.src} alt={logo.name} className="w-7 h-7" />
+              <span className={`text-[0.72rem] font-semibold hidden sm:block ${dark ? 'text-slate-400' : 'text-[#1a237e]/70'}`}>{logo.name}</span>
+            </a>
+          ))}
+          <span className={`text-[0.65rem] font-bold ml-auto hidden md:block ${dark ? 'text-slate-600' : 'text-[#1a237e]/40'}`}>
+            Official civic education resource
+          </span>
+        </div>
+      </div>
+
       <JourneyTracker
-        currentStep={currentStep}
         onStepClick={i => setCurrentStep(i)}
         dark={dark}
       />
@@ -114,11 +133,11 @@ export default function App() {
         onClick={() => setChatOpen(o => !o)}
         aria-label={chatOpen ? 'Close assistant' : 'Open voter assistant'}
         className={`fixed bottom-8 right-8 z-50 flex items-center gap-2.5 px-5 py-3.5 rounded-full font-bold text-[0.88rem] text-white
-          bg-gradient-to-r from-indigo-500 to-violet-600
-          shadow-[0_8px_32px_rgba(99,102,241,0.45),0_2px_0_rgba(255,255,255,0.15)_inset]
-          hover:-translate-y-1.5 hover:scale-105 hover:shadow-glow-xl
+          bg-gradient-to-r from-[#1a237e] to-[#283593]
+          shadow-[0_8px_32px_rgba(26,35,126,0.45),0_0_0_3px_rgba(255,153,51,0.4),0_2px_0_rgba(255,255,255,0.15)_inset]
+          hover:-translate-y-1.5 hover:scale-105 hover:shadow-[0_12px_40px_rgba(26,35,126,0.55),0_0_0_3px_rgba(255,153,51,0.6)]
           active:scale-95 transition-all duration-300
-          ${chatOpen ? 'animate-glow-pulse' : 'hover:shadow-glow-xl'}`}>
+          ${chatOpen ? 'animate-glow-pulse' : ''}`}>
         <span className={`text-lg transition-transform duration-300 ${chatOpen ? 'rotate-90' : ''}`}>
           {chatOpen ? '✕' : '🗳️'}
         </span>
