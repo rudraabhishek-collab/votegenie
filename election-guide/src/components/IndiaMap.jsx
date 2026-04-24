@@ -1,87 +1,125 @@
-import { useState, useRef } from 'react'
+import { useState, memo } from 'react'
+import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps'
 import { stateData } from '../data/stateData'
-import { INDIA_STATE_PATHS, MAP_VIEWBOX } from '../data/indiaPaths'
 import { useTranslation } from 'react-i18next'
 
-// ─── Party config ──────────────────────────────────────────────────────────
+const GEO_URL = '/india-states.json'
+
+// ─── Name mapping (GeoJSON names → stateData keys) ────────────────────────
+const NAME_MAP = {
+  'Andaman and Nicobar':    'Andaman & Nicobar Islands',
+  'Andhra Pradesh':         'Andhra Pradesh',
+  'Arunachal Pradesh':      'Arunachal Pradesh',
+  'Assam':                  'Assam',
+  'Bihar':                  'Bihar',
+  'Chandigarh':             'Chandigarh',
+  'Chhattisgarh':           'Chhattisgarh',
+  'Dadra and Nagar Haveli': 'Dadra & Nagar Haveli and Daman & Diu',
+  'Daman and Diu':          'Dadra & Nagar Haveli and Daman & Diu',
+  'Delhi':                  'Delhi',
+  'Goa':                    'Goa',
+  'Gujarat':                'Gujarat',
+  'Haryana':                'Haryana',
+  'Himachal Pradesh':       'Himachal Pradesh',
+  'Jammu and Kashmir':      'Jammu & Kashmir',
+  'Jharkhand':              'Jharkhand',
+  'Karnataka':              'Karnataka',
+  'Kerala':                 'Kerala',
+  'Lakshadweep':            'Lakshadweep',
+  'Madhya Pradesh':         'Madhya Pradesh',
+  'Maharashtra':            'Maharashtra',
+  'Manipur':                'Manipur',
+  'Meghalaya':              'Meghalaya',
+  'Mizoram':                'Mizoram',
+  'Nagaland':               'Nagaland',
+  'Orissa':                 'Odisha',
+  'Puducherry':             'Puducherry',
+  'Punjab':                 'Punjab',
+  'Rajasthan':              'Rajasthan',
+  'Sikkim':                 'Sikkim',
+  'Tamil Nadu':             'Tamil Nadu',
+  'Tripura':                'Tripura',
+  'Uttar Pradesh':          'Uttar Pradesh',
+  'Uttaranchal':            'Uttarakhand',
+  'West Bengal':            'West Bengal',
+}
+
+// ─── Party colors ──────────────────────────────────────────────────────────
 const PARTY = {
-  BJP:     { color: '#fb923c', dark: '#c2410c', symbol: '🪷', name: 'BJP' },
-  INC:     { color: '#60a5fa', dark: '#1d4ed8', symbol: '✋', name: 'INC' },
-  TMC:     { color: '#4ade80', dark: '#15803d', symbol: '🌾', name: 'TMC' },
-  AAP:     { color: '#38bdf8', dark: '#0369a1', symbol: '🧹', name: 'AAP' },
-  DMK:     { color: '#f87171', dark: '#b91c1c', symbol: '☀️', name: 'DMK' },
-  JMM:     { color: '#a3e635', dark: '#4d7c0f', symbol: '🏹', name: 'JMM' },
-  NC:      { color: '#34d399', dark: '#065f46', symbol: '🏔️', name: 'NC'  },
-  NPP:     { color: '#fbbf24', dark: '#92400e', symbol: '🌄', name: 'NPP' },
-  ZPM:     { color: '#c084fc', dark: '#6b21a8', symbol: '⭐', name: 'ZPM' },
-  SKM:     { color: '#f9a8d4', dark: '#9d174d', symbol: '☂️', name: 'SKM' },
-  TDP:     { color: '#fde68a', dark: '#92400e', symbol: '🚲', name: 'TDP' },
-  NDPP:    { color: '#6ee7b7', dark: '#065f46', symbol: '🐓', name: 'NDPP'},
-  AINRC:   { color: '#fdba74', dark: '#9a3412', symbol: '🌺', name: 'AINRC'},
-  default: { color: '#a5b4fc', dark: '#3730a3', symbol: '📍', name: '—'   },
+  BJP:     { fill: '#fdba74', hover: '#fb923c', dark: '#c2410c', symbol: '🪷', name: 'BJP' },
+  INC:     { fill: '#93c5fd', hover: '#60a5fa', dark: '#1d4ed8', symbol: '✋', name: 'INC' },
+  TMC:     { fill: '#86efac', hover: '#4ade80', dark: '#15803d', symbol: '🌾', name: 'TMC' },
+  AAP:     { fill: '#7dd3fc', hover: '#38bdf8', dark: '#0369a1', symbol: '🧹', name: 'AAP' },
+  DMK:     { fill: '#fca5a5', hover: '#f87171', dark: '#b91c1c', symbol: '☀️', name: 'DMK' },
+  JMM:     { fill: '#bef264', hover: '#a3e635', dark: '#4d7c0f', symbol: '🏹', name: 'JMM' },
+  NC:      { fill: '#6ee7b7', hover: '#34d399', dark: '#065f46', symbol: '🏔️', name: 'NC'  },
+  NPP:     { fill: '#fde68a', hover: '#fbbf24', dark: '#92400e', symbol: '🌄', name: 'NPP' },
+  ZPM:     { fill: '#d8b4fe', hover: '#c084fc', dark: '#6b21a8', symbol: '⭐', name: 'ZPM' },
+  SKM:     { fill: '#fbcfe8', hover: '#f9a8d4', dark: '#9d174d', symbol: '☂️', name: 'SKM' },
+  TDP:     { fill: '#fef08a', hover: '#fde047', dark: '#92400e', symbol: '🚲', name: 'TDP' },
+  NDPP:    { fill: '#a7f3d0', hover: '#6ee7b7', dark: '#065f46', symbol: '🐓', name: 'NDPP'},
+  AINRC:   { fill: '#fed7aa', hover: '#fdba74', dark: '#9a3412', symbol: '🌺', name: 'AINRC'},
+  default: { fill: '#e0e7ff', hover: '#c7d2fe', dark: '#3730a3', symbol: '📍', name: '—'  },
 }
 
-// State label positions (cx, cy for text inside state)
-const LABEL_POS = {
-  'Rajasthan':         { x: 162, y: 158 },
-  'Madhya Pradesh':    { x: 240, y: 192 },
-  'Maharashtra':       { x: 195, y: 232 },
-  'Uttar Pradesh':     { x: 285, y: 152 },
-  'Gujarat':           { x: 95,  y: 185 },
-  'Karnataka':         { x: 188, y: 285 },
-  'Andhra Pradesh':    { x: 272, y: 278 },
-  'Tamil Nadu':        { x: 245, y: 332 },
-  'Odisha':            { x: 335, y: 232 },
-  'Chhattisgarh':      { x: 298, y: 195 },
-  'West Bengal':       { x: 408, y: 172 },
-  'Bihar':             { x: 365, y: 155 },
-  'Telangana':         { x: 278, y: 235 },
-  'Assam':             { x: 452, y: 162 },
-  'Jharkhand':         { x: 368, y: 195 },
-  'Kerala':            { x: 192, y: 338 },
-  'Punjab':            { x: 198, y: 85  },
-  'Haryana':           { x: 208, y: 112 },
-  'Uttarakhand':       { x: 268, y: 112 },
-  'Himachal Pradesh':  { x: 238, y: 85  },
-  'Jammu & Kashmir':   { x: 222, y: 55  },
-  'Ladakh':            { x: 282, y: 48  },
-  'Arunachal Pradesh': { x: 482, y: 130 },
+function getParty(geoName) {
+  const key = NAME_MAP[geoName]
+  if (!key) return null
+  const d = stateData[key]
+  if (!d) return null
+  return { ...d, stateKey: key, party: PARTY[d.rulingParty] || PARTY.default }
 }
 
+// ─── Tooltip ───────────────────────────────────────────────────────────────
+function Tooltip({ info, x, y, dark }) {
+  if (!info) return null
+  const p = PARTY[info.rulingParty] || PARTY.default
+  return (
+    <div
+      className="fixed z-[9999] pointer-events-none"
+      style={{ left: x + 12, top: y - 10, animation: 'fadeUp 0.15s ease both' }}>
+      <div className={`rounded-xl px-3.5 py-3 shadow-2xl border-2 min-w-[180px] max-w-[220px]
+        ${dark ? 'bg-[#1a237e] border-white/30 text-white' : 'bg-[#1a237e] border-white/30 text-white'}`}>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-lg">{p.symbol}</span>
+          <p className="font-black text-[0.9rem] text-[#FF9933] leading-tight">{info.stateKey}</p>
+        </div>
+        <div className="space-y-1">
+          <p className="text-[0.72rem] opacity-90 flex items-center gap-1.5">
+            <span className="text-[#FF9933]">🏛️</span>
+            <span className="font-semibold">{info.rulingParty}</span>
+          </p>
+          <p className="text-[0.72rem] opacity-90 flex items-center gap-1.5">
+            <span className="text-[#FF9933]">👤</span>
+            <span className="font-semibold">{info.cm}</span>
+          </p>
+          <p className="text-[0.72rem] opacity-90 flex items-center gap-1.5">
+            <span className="text-[#FF9933]">📅</span>
+            <span className="font-semibold">{info.nextElection}</span>
+          </p>
+        </div>
+        <p className="text-[0.6rem] opacity-40 mt-2">Click for full details</p>
+      </div>
+    </div>
+  )
+}
+
+// ─── Main component ────────────────────────────────────────────────────────
 export default function IndiaMap({ dark, onStateSelect }) {
   const { i18n } = useTranslation()
   const isHindi = i18n.language === 'hi'
-  const [hovered,  setHovered]  = useState(null)
+  const [tooltip,  setTooltip]  = useState(null)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [selected, setSelected] = useState(null)
-  const [tipPos,   setTipPos]   = useState({ x: 0, y: 0 })
-  const svgRef = useRef(null)
 
-  const handleMouseMove = (e, id) => {
-    const svg = svgRef.current
-    if (!svg) return
-    const pt = svg.createSVGPoint()
-    pt.x = e.clientX; pt.y = e.clientY
-    const svgP = pt.matrixTransform(svg.getScreenCTM().inverse())
-    setTipPos({ x: svgP.x, y: svgP.y })
-    setHovered(id)
-  }
-
-  const handleClick = (id) => {
-    setSelected(id)
-    if (onStateSelect) onStateSelect(id)
-  }
-
-  const getFill = (id, isDark) => {
-    const d = stateData[id]
-    if (!d) return isDark ? '#1e3a8a' : '#e8eaf6'
-    const p = PARTY[d.rulingParty] || PARTY.default
-    if (selected === id) return '#FF9933'
-    if (hovered === id) return isDark ? p.color : p.color
-    return isDark ? p.dark : p.color + 'cc' // slight transparency in light mode
+  const handleClick = (geoName) => {
+    const key = NAME_MAP[geoName]
+    if (!key) return
+    setSelected(key)
+    if (onStateSelect) onStateSelect(key)
   }
 
   const selectedData = selected ? stateData[selected] : null
-  const hoveredData  = hovered  ? stateData[hovered]  : null
 
   const uniqueParties = [...new Set(
     Object.values(stateData).map(d => d.rulingParty).filter(p => p && PARTY[p])
@@ -102,20 +140,21 @@ export default function IndiaMap({ dark, onStateSelect }) {
         </h2>
         <p className={`mt-1.5 text-[0.9rem] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
           {isHindi
-            ? 'प्रत्येक राज्य सत्तारूढ़ दल के रंग में रंगा है — क्लिक करें विवरण देखें'
-            : 'States colored by ruling party — click any state for full election details'}
+            ? 'प्रत्येक राज्य सत्तारूढ़ दल के रंग में — क्लिक करें विवरण देखें'
+            : 'States colored by ruling party — hover to preview, click for full details'}
         </p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 items-start">
 
-        {/* ── SVG Map ─────────────────────────────────────────────────────── */}
+        {/* ── Map ─────────────────────────────────────────────────────────── */}
         <div className={`relative flex-1 rounded-2xl border overflow-hidden shadow-card
-          ${dark ? 'bg-[#0a0e1f] border-[#283593]/50' : 'bg-white border-[#1a237e]/20'}`}>
+          ${dark ? 'bg-[#0a0e1f] border-[#283593]/50' : 'bg-[#dbeafe] border-[#1a237e]/20'}`}
+          onMouseMove={e => setMousePos({ x: e.clientX, y: e.clientY })}>
 
           {/* Legend */}
-          <div className={`absolute top-3 left-3 z-20 rounded-xl px-3 py-2.5 border shadow-lg
-            ${dark ? 'bg-[#0d1757]/95 border-white/10' : 'bg-white/95 border-[#1a237e]/15'}`}>
+          <div className={`absolute top-3 left-3 z-20 rounded-xl px-3 py-2.5 border shadow-xl backdrop-blur-sm
+            ${dark ? 'bg-[#0d1757]/98 border-white/15' : 'bg-white/98 border-[#1a237e]/20'}`}>
             <p className={`text-[0.58rem] font-extrabold uppercase tracking-widest mb-2 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
               Ruling Party
             </p>
@@ -124,111 +163,78 @@ export default function IndiaMap({ dark, onStateSelect }) {
                 const p = PARTY[party]
                 return (
                   <div key={party} className="flex items-center gap-2">
-                    <div className="w-3.5 h-3.5 rounded-sm flex-shrink-0 border border-white/30"
-                      style={{ background: dark ? p.dark : p.color }} />
+                    <div className="w-3.5 h-3.5 rounded-sm flex-shrink-0 border border-black/10"
+                      style={{ background: p.fill }} />
                     <span className="text-sm leading-none">{p.symbol}</span>
                     <span className={`text-[0.65rem] font-bold ${dark ? 'text-slate-300' : 'text-slate-700'}`}>{party}</span>
                   </div>
                 )
               })}
-              <div className="flex items-center gap-2 pt-1.5 mt-0.5 border-t border-slate-200 dark:border-white/10">
-                <div className="w-3.5 h-3.5 rounded-sm flex-shrink-0 bg-[#FF9933] border border-white/30" />
+              <div className="flex items-center gap-2 pt-1.5 mt-1 border-t border-slate-200 dark:border-white/15">
+                <div className="w-3.5 h-3.5 rounded-sm flex-shrink-0 bg-[#FF9933] border border-black/10" />
                 <span className={`text-[0.65rem] font-bold ${dark ? 'text-slate-300' : 'text-slate-700'}`}>Selected</span>
               </div>
             </div>
           </div>
 
-          {/* SVG Map */}
-          <svg
-            ref={svgRef}
-            viewBox={MAP_VIEWBOX}
-            className="w-full"
-            style={{ minHeight: 380 }}
-            onMouseLeave={() => setHovered(null)}>
+          {/* Sea labels */}
+          <div className="absolute bottom-12 left-6 pointer-events-none">
+            <p className={`text-[0.62rem] font-bold italic ${dark ? 'text-blue-400/50' : 'text-blue-600/50'}`}>ARABIAN SEA</p>
+          </div>
+          <div className="absolute bottom-20 right-8 pointer-events-none">
+            <p className={`text-[0.62rem] font-bold italic ${dark ? 'text-blue-400/50' : 'text-blue-600/50'}`}>BAY OF BENGAL</p>
+          </div>
 
-            {/* Ocean */}
-            <rect x="60" y="25" width="510" height="360" fill={dark ? '#0f172a' : '#bfdbfe'} />
+          {/* Actual map */}
+          <ComposableMap
+            projection="geoMercator"
+            projectionConfig={{ center: [82.5, 22], scale: 1050 }}
+            style={{ width: '100%', height: 'auto' }}
+            height={520}>
+            <ZoomableGroup zoom={1} minZoom={1} maxZoom={4}>
+              <Geographies geography={GEO_URL}>
+                {({ geographies }) =>
+                  geographies.map(geo => {
+                    const geoName = geo.properties.NAME_1
+                    const info = getParty(geoName)
+                    const party = info?.party || PARTY.default
+                    const isSel = selected === info?.stateKey
+                    const isHov = tooltip?.stateKey === info?.stateKey
 
-            {/* Sea labels */}
-            <text x="88" y="278" fontFamily="Georgia,serif" fontSize="7" fill={dark ? '#3b82f6' : '#1e40af'} fontStyle="italic" opacity="0.7">ARABIAN</text>
-            <text x="90" y="288" fontFamily="Georgia,serif" fontSize="7" fill={dark ? '#3b82f6' : '#1e40af'} fontStyle="italic" opacity="0.7">SEA</text>
-            <text x="438" y="258" fontFamily="Georgia,serif" fontSize="7" fill={dark ? '#3b82f6' : '#1e40af'} fontStyle="italic" opacity="0.7">BAY OF</text>
-            <text x="436" y="268" fontFamily="Georgia,serif" fontSize="7" fill={dark ? '#3b82f6' : '#1e40af'} fontStyle="italic" opacity="0.7">BENGAL</text>
-            <text x="195" y="378" fontFamily="Georgia,serif" fontSize="7" fill={dark ? '#3b82f6' : '#1e40af'} fontStyle="italic" opacity="0.7">INDIAN OCEAN</text>
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        fill={isSel ? '#FF9933' : isHov ? party.hover : party.fill}
+                        stroke={dark ? '#1e3a8a' : '#ffffff'}
+                        strokeWidth={isSel ? 2 : 0.8}
+                        style={{
+                          default: {
+                            outline: 'none',
+                            filter: isSel ? 'drop-shadow(0 0 6px rgba(255,153,51,0.8))' : 'none',
+                            transition: 'fill 0.15s ease',
+                          },
+                          hover: {
+                            fill: isSel ? '#FF9933' : party.hover,
+                            outline: 'none',
+                            cursor: 'pointer',
+                            filter: 'brightness(1.1)',
+                          },
+                          pressed: { outline: 'none' },
+                        }}
+                        onMouseEnter={() => info && setTooltip(info)}
+                        onMouseLeave={() => setTooltip(null)}
+                        onClick={() => handleClick(geoName)}
+                      />
+                    )
+                  })
+                }
+              </Geographies>
+            </ZoomableGroup>
+          </ComposableMap>
 
-            {/* State paths */}
-            {Object.entries(INDIA_STATE_PATHS).filter(([, d]) => d).map(([id, d]) => {
-              const isHov = hovered === id
-              const isSel = selected === id
-              const fill  = getFill(id, dark)
-              const strokeColor = dark ? '#1e3a8a' : '#ffffff'
-              const strokeW = isSel ? 2.5 : isHov ? 2 : 1.2
-
-              return (
-                <g key={id}>
-                  {/* Glow for selected */}
-                  {isSel && (
-                    <path d={d} fill="rgba(255,153,51,0.25)" transform="translate(1.5,1.5)" />
-                  )}
-                  <path
-                    d={d}
-                    fill={fill}
-                    stroke={strokeColor}
-                    strokeWidth={strokeW}
-                    strokeLinejoin="round"
-                    className="cursor-pointer transition-all duration-150"
-                    style={{
-                      filter: isSel
-                        ? 'drop-shadow(0 0 5px rgba(255,153,51,0.8))'
-                        : isHov
-                          ? 'brightness(1.2) drop-shadow(0 0 3px rgba(255,255,255,0.5))'
-                          : 'none',
-                    }}
-                    onMouseEnter={e => handleMouseMove(e, id)}
-                    onMouseMove={e => handleMouseMove(e, id)}
-                    onMouseLeave={() => setHovered(null)}
-                    onClick={() => handleClick(id)}
-                  />
-                  {/* Party symbol on larger states */}
-                  {LABEL_POS[id] && stateData[id] && (
-                    <text
-                      x={LABEL_POS[id].x}
-                      y={LABEL_POS[id].y}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      fontSize="9"
-                      className="pointer-events-none select-none"
-                      style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.4))' }}>
-                      {PARTY[stateData[id].rulingParty]?.symbol || ''}
-                    </text>
-                  )}
-                </g>
-              )
-            })}
-
-            {/* Tooltip */}
-            {hovered && hoveredData && (
-              <foreignObject
-                x={Math.min(Math.max(tipPos.x - 80, 62), 430)}
-                y={Math.max(tipPos.y - 108, 27)}
-                width="160"
-                height="100">
-                <div
-                  style={{ fontFamily: 'Poppins,sans-serif', animation: 'fadeUp 0.15s ease both' }}
-                  className="bg-[#1a237e] text-white rounded-xl px-3 py-2.5 shadow-2xl border border-white/25 pointer-events-none">
-                  <p style={{ fontWeight: 800, fontSize: 11, color: '#FF9933', marginBottom: 4 }}>{hovered}</p>
-                  <p style={{ fontSize: 9.5, lineHeight: 1.7, opacity: 0.9 }}>
-                    {PARTY[hoveredData.rulingParty]?.symbol} {hoveredData.rulingParty}<br />
-                    👤 {hoveredData.cm}<br />
-                    📅 {hoveredData.nextElection}
-                  </p>
-                </div>
-              </foreignObject>
-            )}
-          </svg>
-
-          <p className={`text-center text-[0.62rem] pb-2 px-4 ${dark ? 'text-slate-700' : 'text-slate-400'}`}>
-            * Simplified political map. Boundaries are indicative and not to official scale.
+          <p className={`text-center text-[0.62rem] py-2 px-4 ${dark ? 'text-slate-700' : 'text-slate-400'}`}>
+            * Political map of India. Scroll/pinch to zoom. Click any state for details.
           </p>
         </div>
 
@@ -244,8 +250,8 @@ export default function IndiaMap({ dark, onStateSelect }) {
               <div className="p-5">
                 <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg border-2 border-white/30 flex-shrink-0"
-                    style={{ background: PARTY[selectedData.rulingParty]?.color || '#9333ea' }}>
+                    className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg border-2 border-white/40 flex-shrink-0"
+                    style={{ background: PARTY[selectedData.rulingParty]?.fill || '#e0e7ff' }}>
                     {PARTY[selectedData.rulingParty]?.symbol || '📍'}
                   </div>
                   <div className="min-w-0">
@@ -294,7 +300,9 @@ export default function IndiaMap({ dark, onStateSelect }) {
                 {isHindi ? 'राज्य चुनें' : 'Click any state'}
               </p>
               <p className={`text-[0.82rem] leading-relaxed ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
-                {isHindi ? 'मानचित्र पर किसी भी राज्य पर क्लिक करें' : 'Click a state on the map to see CM, ruling party & next election'}
+                {isHindi
+                  ? 'मानचित्र पर किसी भी राज्य पर क्लिक करें'
+                  : 'Hover to preview, click to see CM, ruling party & next election'}
               </p>
               <div className={`mt-4 rounded-xl p-3 text-left ${dark ? 'bg-white/5' : 'bg-[#f0f4ff]'}`}>
                 <p className={`text-[0.65rem] font-extrabold uppercase tracking-widest mb-2 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>Party Colors</p>
@@ -303,7 +311,7 @@ export default function IndiaMap({ dark, onStateSelect }) {
                     const p = PARTY[party]
                     return (
                       <div key={party} className="flex items-center gap-1.5">
-                        <div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ background: p.color }} />
+                        <div className="w-3 h-3 rounded-sm flex-shrink-0 border border-black/10" style={{ background: p.fill }} />
                         <span className="text-sm">{p.symbol}</span>
                         <span className={`text-[0.68rem] font-semibold ${dark ? 'text-slate-400' : 'text-slate-600'}`}>{party}</span>
                       </div>
@@ -338,15 +346,18 @@ export default function IndiaMap({ dark, onStateSelect }) {
         </div>
       </div>
 
+      {/* Tooltip */}
+      <Tooltip info={tooltip} x={mousePos.x} y={mousePos.y} dark={dark} />
+
       {/* Disclaimer */}
       <div className={`flex gap-3 items-start mt-5 rounded-xl border-l-[3px] border-[#1a237e] px-5 py-4 text-[0.88rem] leading-relaxed
         ${dark ? 'bg-[#1a237e]/20 border border-[#283593]/40 text-indigo-300' : 'bg-[#e8eaf6] border border-[#1a237e]/15 text-[#1a237e]'}`}>
         <span className="text-lg mt-0.5">💡</span>
         <div>
-          States are colored by ruling party. Click any state for full details. Always verify with{' '}
+          States colored by ruling party. Hover to preview, click for full details. Verify with{' '}
           <a href="https://eci.gov.in" target="_blank" rel="noopener noreferrer" className="font-bold underline hover:opacity-80">eci.gov.in</a>.
           <p className={`text-[0.72rem] mt-1 ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
-            🕐 Last updated: April 2026 · Boundaries are indicative, not to official scale.
+            🕐 Last updated: April 2026 · Map data: GeoJSON (public domain) · Scroll/pinch to zoom
           </p>
         </div>
       </div>
