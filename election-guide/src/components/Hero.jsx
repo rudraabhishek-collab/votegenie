@@ -200,7 +200,7 @@ function FloatingStateCard() {
   return (
     <div className="absolute right-4 top-16 md:right-8 md:top-20 z-20 pointer-events-none"
       style={{ transform: 'rotate(2.5deg)', animation: 'fadeUp 0.8s 0.9s ease both' }}>
-      <div className="bg-white/10 border border-white/20 rounded-2xl px-4 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.3)] min-w-[170px] backdrop-blur-md">
+      <div className="bg-[rgba(13,23,87,0.75)] border border-white/25 rounded-2xl px-4 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.4)] min-w-[170px] backdrop-blur-md">
         <div className="flex items-center gap-2 mb-2.5">
           <span className="text-base">{c.flag}</span>
           <span className="font-black text-[0.85rem] text-white">{c.state}</span>
@@ -263,8 +263,8 @@ function QuickActions() {
           className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[0.8rem] font-bold
             border transition-all duration-200 hover:-translate-y-0.5 active:scale-95
             ${active === i
-              ? 'bg-white/25 border-white/40 text-white shadow-md'
-              : 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30 shadow-sm hover:shadow-md'
+              ? 'bg-[rgba(13,23,87,0.85)] border-white/40 text-white shadow-md'
+              : 'bg-[rgba(13,23,87,0.6)] border-white/25 text-white hover:bg-[rgba(13,23,87,0.8)] hover:border-white/35 shadow-sm hover:shadow-md'
             }`}>
           <span>{a.icon}</span>{a.label}
         </button>
@@ -328,9 +328,9 @@ export default function Hero({ onOpenAssistant }) {
       aria-labelledby="hero-heading">
 
       {/* Animated gradient orbs */}
-      <div aria-hidden className="absolute top-[-200px] left-[-100px] w-[500px] h-[500px] rounded-full opacity-40 blur-3xl"
+      <div aria-hidden className="absolute top-[-200px] left-[-100px] w-[500px] h-[500px] rounded-full opacity-30 blur-3xl"
         style={{ background: 'radial-gradient(circle, #FF9933, transparent)' }} />
-      <div aria-hidden className="absolute bottom-[-150px] right-[-100px] w-[600px] h-[600px] rounded-full opacity-25 blur-3xl"
+      <div aria-hidden className="absolute bottom-[-150px] right-[-100px] w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
         style={{ background: 'radial-gradient(circle, #1a237e, transparent)' }} />
 
       {/* Large Ashoka Chakra watermark — blue */}
@@ -361,7 +361,7 @@ export default function Hero({ onOpenAssistant }) {
             { src: '/logos/emblem.svg', name: 'Govt. of India', url: 'https://india.gov.in' },
           ].map(logo => (
             <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-1 shadow-md hover:shadow-lg backdrop-blur-sm">
+              className="flex items-center gap-2.5 bg-[rgba(13,23,87,0.7)] hover:bg-[rgba(13,23,87,0.85)] border border-white/25 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-1 shadow-lg hover:shadow-xl backdrop-blur-md">
               <img src={logo.src} alt={logo.name} className="w-8 h-8 brightness-0 invert" />
               <span className="text-[0.7rem] font-bold text-white hidden sm:block">{logo.name}</span>
             </a>
@@ -369,7 +369,7 @@ export default function Hero({ onOpenAssistant }) {
         </div>
 
         {/* Live badge */}
-        <div className="inline-flex items-center gap-2.5 bg-white/10 border border-white/20 rounded-full text-[0.75rem] font-extrabold tracking-[0.08em] uppercase px-5 py-2 mb-6 text-white shadow-md backdrop-blur-sm"
+        <div className="inline-flex items-center gap-2.5 bg-[rgba(13,23,87,0.7)] border border-white/25 rounded-full text-[0.75rem] font-extrabold tracking-[0.08em] uppercase px-5 py-2 mb-6 text-white shadow-lg backdrop-blur-md"
           style={{ animation: 'fadeUp 0.6s 0.1s ease both' }}>
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
@@ -435,8 +435,8 @@ export default function Hero({ onOpenAssistant }) {
           ].map(btn => (
             <a key={btn.href} href={btn.href}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-[0.9rem]
-                text-white bg-white/10 border border-white/20 shadow-md backdrop-blur-sm
-                hover:bg-white/20 hover:-translate-y-1 hover:shadow-lg no-underline transition-all duration-200">
+                text-white bg-[rgba(13,23,87,0.6)] border border-white/25 shadow-md backdrop-blur-md
+                hover:bg-[rgba(13,23,87,0.8)] hover:-translate-y-1 hover:shadow-lg no-underline transition-all duration-200">
               <span>{btn.icon}</span>
               {btn.label}
             </a>
@@ -464,7 +464,7 @@ export default function Hero({ onOpenAssistant }) {
           ].map(b => (
             <a key={b.text} href={b.href || '#'} target={b.href ? '_blank' : '_self'} rel="noopener noreferrer"
               onClick={b.href ? undefined : e => e.preventDefault()}
-              className="flex items-center gap-2.5 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-md backdrop-blur-sm"
+              className="flex items-center gap-2.5 bg-[rgba(13,23,87,0.6)] border border-white/25 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-md backdrop-blur-md"
               style={{ cursor: b.href ? 'pointer' : 'default' }}>
               <span className="text-lg">{b.icon}</span>
               <div className="text-left">
