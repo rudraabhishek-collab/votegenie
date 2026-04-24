@@ -33,40 +33,37 @@ function FAQItem({ item, meta, isOpen, onToggle, dark, lang }) {
   return (
     <div className={`rounded-2xl border overflow-hidden transition-all duration-200
       ${isOpen
-        ? dark ? 'border-indigo-600/40 shadow-[0_4px_24px_rgba(99,102,241,0.15)]' : 'border-indigo-300/60 shadow-[0_4px_24px_rgba(99,102,241,0.1)]'
-        : dark ? 'border-white/[0.08] hover:border-violet-700/30' : 'border-slate-200 hover:border-indigo-200'
-      } ${dark ? 'bg-gray-900' : 'bg-white'}`}>
+        ? dark ? 'border-[#FF6A00]/40 shadow-[0_4px_24px_rgba(255,106,0,0.2)]' : 'border-[#FF6A00]/50 shadow-[0_4px_24px_rgba(255,106,0,0.15)]'
+        : dark ? 'border-white/[0.08] hover:border-[#FF6A00]/30' : 'border-white/10 hover:border-[#FF6A00]/30'
+      } ${dark ? 'bg-[#0B1E3C]/80' : 'bg-[#0B1E3C]'}`}>
       <button onClick={onToggle} aria-expanded={isOpen}
         className={`w-full flex items-center gap-4 px-5 py-4 text-left transition-colors duration-200
-          ${isOpen ? dark ? 'bg-indigo-950/50' : 'bg-gradient-to-r from-indigo-50 to-violet-50/60'
-                   : dark ? 'hover:bg-white/[0.04]' : 'hover:bg-slate-50'}`}>
+          ${isOpen ? 'bg-[#FF6A00]/10' : 'hover:bg-white/5'}`}>
         <span className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-base transition-all duration-200
-          ${isOpen ? 'bg-gradient-to-br from-indigo-500 to-violet-600 shadow-[0_4px_12px_rgba(99,102,241,0.35)]'
-                   : dark ? 'bg-white/[0.07] border border-white/10' : 'bg-slate-100 border border-slate-200'}`}>
+          ${isOpen ? 'bg-gradient-to-br from-[#FF6A00] to-[#FF4500] shadow-[0_4px_12px_rgba(255,106,0,0.35)]'
+                   : 'bg-white/10 border border-white/10'}`}>
           {meta.icon}
         </span>
         <span className={`flex-1 font-bold text-[0.95rem] tracking-[-0.02em] leading-snug text-left
-          ${isOpen ? dark ? 'text-indigo-300' : 'text-indigo-700'
-                   : dark ? 'text-white' : 'text-gray-900'}`}>
+          ${isOpen ? 'text-[#FF9933]' : 'text-white'}`}>
           {item.q}
         </span>
         <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[0.75rem] font-bold border transition-all duration-300
-          ${isOpen ? 'bg-gradient-to-br from-indigo-500 to-violet-600 border-transparent text-white rotate-180'
-                   : dark ? 'bg-white/[0.07] border-white/10 text-slate-600' : 'bg-slate-100 border-slate-200 text-slate-700'}`}>▾</span>
+          ${isOpen ? 'bg-gradient-to-br from-[#FF6A00] to-[#FF4500] border-transparent text-white rotate-180'
+                   : 'bg-white/10 border-white/10 text-white/50'}`}>▾</span>
       </button>
 
       <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
         <div className="overflow-hidden">
-          <div className={`px-5 pb-5 pt-3 border-t ${dark ? 'border-white/[0.06]' : 'border-indigo-50'}`}>
+          <div className={`px-5 pb-5 pt-3 border-t border-white/10`}>
             <div className="flex gap-3">
-              <div className="w-0.5 flex-shrink-0 rounded-full bg-gradient-to-b from-indigo-500 to-violet-500 self-stretch" />
+              <div className="w-0.5 flex-shrink-0 rounded-full bg-gradient-to-b from-[#FF6A00] to-[#FF4500] self-stretch" />
               <div>
-                <p className={`text-[0.9rem] leading-relaxed ${dark ? 'text-white' : 'text-slate-700'}`}>{item.a}</p>
+                <p className="text-[0.9rem] leading-relaxed text-white/80">{item.a}</p>
                 {meta.action && meta.actionKey && (
                   <button onClick={() => document.getElementById(SECTION_MAP[meta.action])?.scrollIntoView({ behavior: 'smooth' })}
                     className={`inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-xl text-[0.82rem] font-bold border transition-all duration-200 hover:-translate-y-0.5
-                      ${dark ? 'bg-indigo-950/60 border-indigo-700/50 text-indigo-400 hover:bg-indigo-900/60'
-                             : 'bg-indigo-50 border-indigo-200 text-indigo-600 hover:bg-indigo-100'}`}>
+                      bg-[#FF6A00]/20 border-[#FF6A00]/30 text-[#FF9933] hover:bg-[#FF6A00]/30`}>
                     {ACTION_LABELS[meta.actionKey]?.[lang] || ACTION_LABELS[meta.actionKey]?.en}
                   </button>
                 )}
@@ -165,10 +162,10 @@ export default function FAQ({ dark, onOpenAssistant }) {
       )}
 
       {filtered.length === 0 ? (
-        <div className={`rounded-2xl border p-10 text-center ${dark ? 'bg-gray-900 border-violet-900/20' : 'bg-white border-indigo-100'}`}>
+        <div className={`rounded-2xl border p-10 text-center ${dark ? 'bg-[#0B1E3C]/80 border-white/10' : 'bg-[#0B1E3C] border-white/10'}`}>
           <div className="text-4xl mb-4">🤔</div>
-          <p className={`font-bold text-[1rem] mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>{t('faq.noResults', { query })}</p>
-          <p className={`text-[0.88rem] mb-5 ${dark ? 'text-white' : 'text-slate-700'}`}>{t('faq.noResultsSub')}</p>
+          <p className="font-bold text-[1rem] mb-1 text-white">{t('faq.noResults', { query })}</p>
+          <p className="text-[0.88rem] mb-5 text-white/70">{t('faq.noResultsSub')}</p>
           <button onClick={onOpenAssistant}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.88rem] text-white bg-gradient-to-r from-[#FF9933] to-[#1a237e] shadow-[0_4px_16px_rgba(255,153,51,0.4)] hover:-translate-y-0.5 transition-all">
             {t('faq.askAssistant')}
@@ -185,8 +182,8 @@ export default function FAQ({ dark, onOpenAssistant }) {
           {hasMore && (
             <button onClick={() => setShowAll(true)}
               className={`mt-4 w-full py-3 rounded-2xl text-[0.88rem] font-bold border transition-all hover:-translate-y-0.5
-                ${dark ? 'border-white/10 text-slate-600 hover:border-indigo-600/50 hover:text-indigo-400 bg-white/[0.03]'
-                       : 'border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 bg-white'}`}>
+                ${dark ? 'border-white/10 text-white/60 hover:border-[#FF6A00]/50 hover:text-[#FF9933] bg-white/[0.03]'
+                       : 'border-white/10 text-white/60 hover:border-[#FF6A00]/50 hover:text-[#FF9933] bg-[#0B1E3C]'}`}>
               {t('faq.showMore', { count: filtered.length - INITIAL })}
             </button>
           )}
@@ -194,10 +191,10 @@ export default function FAQ({ dark, onOpenAssistant }) {
       )}
 
       <div className={`mt-8 rounded-2xl border p-6 flex flex-col sm:flex-row items-center gap-5
-        ${dark ? 'bg-gradient-to-br from-indigo-950/60 to-violet-950/40 border-indigo-800/30' : 'bg-gradient-to-br from-indigo-50 to-violet-50/60 border-indigo-100'}`}>
+        ${dark ? 'bg-[#0B1E3C]/80 border-[#FF6A00]/20' : 'bg-[#0B1E3C] border-[#FF6A00]/20'}`}>
         <div className="flex-1 text-center sm:text-left">
-          <p className={`font-extrabold text-[1rem] tracking-[-0.02em] mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>{t('faq.stillHaveQuestions')}</p>
-          <p className={`text-[0.88rem] ${dark ? 'text-white' : 'text-slate-700'}`}>{t('faq.stillHaveQuestionsSub')}</p>
+          <p className="font-extrabold text-[1rem] tracking-[-0.02em] mb-1 text-white">{t('faq.stillHaveQuestions')}</p>
+          <p className="text-[0.88rem] text-white/70">{t('faq.stillHaveQuestionsSub')}</p>
         </div>
         <button onClick={onOpenAssistant}
           className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-[0.88rem] text-white bg-gradient-to-r from-[#FF9933] to-[#1a237e] shadow-[0_4px_16px_rgba(255,153,51,0.4)] hover:-translate-y-0.5 active:scale-95 transition-all">

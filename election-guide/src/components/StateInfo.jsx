@@ -20,17 +20,17 @@ function InfoRow({ icon, label, value, highlight, dark, tooltip }) {
       <span className="text-base flex-shrink-0 mt-0.5">{icon}</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
-          <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.08em] text-slate-600 dark:text-slate-600">{label}</p>
+          <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.08em] text-white/50">{label}</p>
           {tooltip && (
             <button
               onMouseEnter={() => setShowTip(true)}
               onMouseLeave={() => setShowTip(false)}
-              className="w-3.5 h-3.5 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center text-[0.6rem] font-bold text-slate-600 dark:text-slate-600 hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors">
+              className="w-3.5 h-3.5 rounded-full bg-white/20 flex items-center justify-center text-[0.6rem] font-bold text-white/60 hover:bg-white/30 transition-colors">
               ?
             </button>
           )}
         </div>
-        <p className={`text-[0.9rem] font-semibold leading-snug break-words ${highlight ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-800 dark:text-slate-200'}`}>
+        <p className={`text-[0.9rem] font-semibold leading-snug break-words ${highlight ? 'text-[#FF9933]' : 'text-white/85'}`}>
           {value}
         </p>
         {showTip && tooltip && (
@@ -48,20 +48,19 @@ function InfoRow({ icon, label, value, highlight, dark, tooltip }) {
 // ─── UT notice card (no assembly) ─────────────────────────────────────────
 function UTCard({ data, dark }) {
   return (
-    <div className={`rounded-2xl border overflow-hidden shadow-card ${dark ? 'bg-gray-900 border-violet-900/20' : 'bg-white border-indigo-100'}`}>
-      <div className="h-[3px] bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500" />
+    <div className={`rounded-2xl border overflow-hidden shadow-[0_4px_24px_rgba(11,30,60,0.18)] ${dark ? 'bg-[#0B1E3C]/80 border-white/10' : 'bg-[#0B1E3C] border-white/10'}`}>
+      <div className="h-[3px]" style={{ background: 'linear-gradient(90deg,#FF6A00,#FF4500,#3b82f6)' }} />
       <div className="p-8 text-center">
         <div className="text-4xl mb-3">🏛️</div>
-        <h3 className={`text-[1.1rem] font-black mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>{data.fullName}</h3>
-        <p className={`text-[0.88rem] mb-4 ${dark ? 'text-white' : 'text-slate-700'}`}>Capital: {data.capital}</p>
-        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-[0.85rem] font-semibold border
-          ${dark ? 'bg-amber-950/50 border-amber-800/40 text-amber-400' : 'bg-amber-50 border-amber-200 text-amber-700'}`}>
+        <h3 className="text-[1.1rem] font-black mb-1 text-white">{data.fullName}</h3>
+        <p className="text-[0.88rem] mb-4 text-white/70">Capital: {data.capital}</p>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-[0.85rem] font-semibold border bg-[#FF6A00]/20 border-[#FF6A00]/30 text-[#FF9933]">
           ⚠️ This UT has no state legislative assembly
         </div>
-        <p className={`mt-3 text-[0.82rem] ${dark ? 'text-white' : 'text-slate-700'}`}>
+        <p className="mt-3 text-[0.82rem] text-white/65">
           Administered directly by the Central Government via a Lieutenant Governor / Administrator.
         </p>
-        <div className={`mt-4 rounded-xl px-4 py-3 border text-[0.85rem] ${dark ? 'bg-indigo-950/40 border-indigo-800/30 text-indigo-300' : 'bg-indigo-50 border-indigo-100 text-indigo-700'}`}>
+        <div className="mt-4 rounded-xl px-4 py-3 border text-[0.85rem] bg-white/5 border-white/10 text-white/80">
           📊 Lok Sabha Seats: <strong>{data.lokSabhaSeats}</strong> &nbsp;·&nbsp; 📞 Voter Helpline: <strong>{data.voterHelpline}</strong>
         </div>
       </div>
@@ -72,64 +71,45 @@ function UTCard({ data, dark }) {
 // ─── Full state card ───────────────────────────────────────────────────────
 function StateCard({ data, dark }) {
   return (
-    <div className={`rounded-2xl border overflow-hidden shadow-card transition-all duration-300
-      ${dark ? 'bg-gray-900 border-violet-900/20' : 'bg-white border-indigo-100'}`}>
-      <div className="h-[3px] bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500" />
-
-      {/* Header */}
-      <div className={`px-6 py-5 border-b ${dark ? 'border-white/[0.07]' : 'border-indigo-50'}`}>
+    <div className={`rounded-2xl border overflow-hidden shadow-[0_4px_24px_rgba(11,30,60,0.18)] transition-all duration-300
+      ${dark ? 'bg-[#0B1E3C]/80 border-white/10' : 'bg-[#0B1E3C] border-white/10'}`}>
+      <div className="h-[3px]" style={{ background: 'linear-gradient(90deg,#FF6A00,#FF4500,#3b82f6)' }} />
+      <div className={`px-6 py-5 border-b border-white/10`}>
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
-            <h3 className={`text-[1.15rem] font-black tracking-[-0.03em] ${dark ? 'text-white' : 'text-gray-900'}`}>
-              {data.fullName}
-            </h3>
-            <p className={`text-[0.78rem] mt-0.5 ${dark ? 'text-white' : 'text-slate-700'}`}>
-              Capital: {data.capital} · {data.seats} Assembly seats
-            </p>
+            <h3 className="text-[1.15rem] font-black tracking-[-0.03em] text-white">{data.fullName}</h3>
+            <p className="text-[0.78rem] mt-0.5 text-white/60">Capital: {data.capital} · {data.seats} Assembly seats</p>
           </div>
           <PartyBadge party={data.rulingParty} />
         </div>
       </div>
-
-      {/* Body — two columns */}
       <div className="px-6 py-2 grid grid-cols-1 sm:grid-cols-2 gap-x-8">
         <div>
-          <p className={`text-[0.68rem] font-extrabold uppercase tracking-[0.12em] mt-4 mb-1 ${dark ? 'text-indigo-400' : 'text-indigo-600'}`}>
-            🗓️ Election Info
-          </p>
-          <div className={`divide-y ${dark ? 'divide-white/[0.05]' : 'divide-slate-100'}`}>
-            <InfoRow icon="📅" label="Next Election"  value={data.nextElection}  highlight dark={dark}
-              tooltip="Expected year based on 5-year term from last election. ECI announces official dates." />
+          <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.12em] mt-4 mb-1 text-[#FF9933]">🗓️ Election Info</p>
+          <div className="divide-y divide-white/[0.05]">
+            <InfoRow icon="📅" label="Next Election"  value={data.nextElection}  highlight dark={dark} tooltip="Expected year based on 5-year term from last election." />
             <InfoRow icon="🗳️" label="Last Election"  value={data.lastElection}  dark={dark} />
             <InfoRow icon="📊" label="Recent Result"  value={data.recentResult}  dark={dark} />
           </div>
         </div>
         <div>
-          <p className={`text-[0.68rem] font-extrabold uppercase tracking-[0.12em] mt-4 mb-1 ${dark ? 'text-violet-400' : 'text-violet-600'}`}>
-            🏛️ Government
-          </p>
-          <div className={`divide-y ${dark ? 'divide-white/[0.05]' : 'divide-slate-100'}`}>
-            <InfoRow icon="👤" label="Chief Minister"  value={data.cm}               highlight dark={dark}
-              tooltip="CM (Chief Minister) is the head of the state government, elected by the majority party/alliance in the state assembly." />
-            <InfoRow icon="🏳️" label="Ruling Alliance" value={data.rulingAlliance}   dark={dark}
-              tooltip="The party or coalition of parties that holds majority seats in the state legislative assembly." />
-            <InfoRow icon="⚔️" label="Opposition"      value={data.oppositionParty}  dark={dark}
-              tooltip="The main party or alliance that did not win the majority and sits in opposition in the assembly." />
+          <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.12em] mt-4 mb-1 text-blue-400">🏛️ Government</p>
+          <div className="divide-y divide-white/[0.05]">
+            <InfoRow icon="👤" label="Chief Minister"  value={data.cm}               highlight dark={dark} tooltip="Head of the state government." />
+            <InfoRow icon="🏳️" label="Ruling Alliance" value={data.rulingAlliance}   dark={dark} tooltip="Party or coalition holding majority seats." />
+            <InfoRow icon="⚔️" label="Opposition"      value={data.oppositionParty}  dark={dark} tooltip="Main party sitting in opposition." />
           </div>
         </div>
       </div>
-
-      {/* Stats footer */}
-      <div className={`mx-6 my-4 rounded-xl px-4 py-3 flex flex-wrap gap-4 border
-        ${dark ? 'bg-indigo-950/40 border-indigo-800/30' : 'bg-gradient-to-r from-indigo-50 to-violet-50/60 border-indigo-100'}`}>
+      <div className="mx-6 my-4 rounded-xl px-4 py-3 flex flex-wrap gap-4 border bg-white/5 border-white/10">
         {[
           { label: 'Lok Sabha Seats', value: data.lokSabhaSeats },
           { label: 'Voter Helpline',  value: data.voterHelpline },
           { label: 'Postal Voting',   value: data.postalVoting ? '✅ Available' : '❌ Not available' },
         ].map(s => (
           <div key={s.label} className="flex-1 min-w-[100px]">
-            <p className={`text-[0.65rem] font-extrabold uppercase tracking-widest ${dark ? 'text-white' : 'text-slate-700'}`}>{s.label}</p>
-            <p className={`text-[0.88rem] font-bold mt-0.5 ${dark ? 'text-slate-200' : 'text-gray-800'}`}>{s.value}</p>
+            <p className="text-[0.65rem] font-extrabold uppercase tracking-widest text-white/50">{s.label}</p>
+            <p className="text-[0.88rem] font-bold mt-0.5 text-white">{s.value}</p>
           </div>
         ))}
       </div>
@@ -277,20 +257,14 @@ export default function StateInfo({ dark }) {
 
       {/* Empty state */}
       {!data && !showCompare && (
-        <div className={`rounded-2xl border p-10 text-center ${dark ? 'bg-gray-900 border-violet-900/20' : 'bg-white border-indigo-100'}`}>
+        <div className={`rounded-2xl border p-10 text-center ${dark ? 'bg-[#0B1E3C]/80 border-white/10' : 'bg-[#0B1E3C] border-white/10'}`}>
           <div className="text-4xl mb-3">🗺️</div>
-          <p className={`font-bold text-[1rem] mb-1 ${dark ? 'text-white' : 'text-gray-900'}`}>
-            Select a state or UT to get started
-          </p>
-          <p className={`text-[0.88rem] ${dark ? 'text-white' : 'text-slate-700'}`}>
-            All 28 states and 8 Union Territories covered — Chief Minister, ruling party, and upcoming election dates.
-          </p>
-          {/* Quick picks */}
+          <p className="font-bold text-[1rem] mb-1 text-white">Select a state or UT to get started</p>
+          <p className="text-[0.88rem] text-white/65">All 28 states and 8 Union Territories covered — Chief Minister, ruling party, and upcoming election dates.</p>
           <div className="flex flex-wrap justify-center gap-2 mt-5">
             {['Maharashtra', 'Delhi', 'Uttar Pradesh', 'Tamil Nadu', 'West Bengal', 'Karnataka'].map(s => (
               <button key={s} onClick={() => setSelected(s)}
-                className={`px-3 py-1.5 rounded-full text-[0.78rem] font-semibold border transition-all hover:-translate-y-0.5
-                  ${dark ? 'border-white/10 text-slate-600 hover:border-indigo-600/50 hover:text-indigo-400' : 'border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600'}`}>
+                className="px-3 py-1.5 rounded-full text-[0.78rem] font-semibold border transition-all hover:-translate-y-0.5 border-white/10 text-white/60 hover:border-[#FF6A00]/50 hover:text-[#FF9933]">
                 {s}
               </button>
             ))}
@@ -302,8 +276,8 @@ export default function StateInfo({ dark }) {
       {showCompare && <CompareView dark={dark} />}
 
       {/* Disclaimer */}
-      <div className={`flex gap-3 items-start mt-5 rounded-xl border-l-[3px] border-[#1a237e] px-5 py-4 text-[0.88rem] leading-relaxed
-        ${dark ? 'bg-[#1a237e]/20 border border-[#283593]/40 text-indigo-300' : 'bg-[#e8eaf6] border border-[#1a237e]/15 text-[#1a237e]'}`}>
+      <div className={`flex gap-3 items-start mt-5 rounded-xl border-l-[3px] border-[#FF6A00] px-5 py-4 text-[0.88rem] leading-relaxed
+        ${dark ? 'bg-[#FF6A00]/10 border border-[#FF6A00]/20 text-white/70' : 'bg-[#FF6A00]/10 border border-[#FF6A00]/20 text-white/80'}`}>
         <span className="text-lg mt-0.5">💡</span>
         <div>
           <span>Data reflects the most recent elections as of 2025. Always verify with </span>

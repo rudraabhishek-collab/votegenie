@@ -6,17 +6,17 @@ export default function Footer({ dark }) {
 
   return (
     <footer className={`relative overflow-hidden border-t
-      ${dark ? 'bg-gray-950 border-violet-900/20 text-slate-600' : 'bg-white border-indigo-100 text-slate-700'}`}>
+      ${dark ? 'bg-[#060d1f] border-white/[0.07] text-slate-400' : 'bg-[#0B1E3C] border-white/10 text-white/60'}`}>
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse 60% 80% at 50% 100%,rgba(99,102,241,0.06),transparent)' }} />
 
       {/* Marquee */}
-      <div className={`border-b overflow-hidden py-3 ${dark ? 'border-violet-900/20' : 'border-indigo-50'}`}>
+      <div className={`border-b overflow-hidden py-3 border-white/[0.07]`}>
         <div className="flex animate-marquee whitespace-nowrap">
           {trustItems.map((item, i) => (
-            <span key={i} className={`inline-flex items-center gap-2 mx-8 text-[0.75rem] font-semibold ${dark ? 'text-white' : 'text-slate-700'}`}>
+            <span key={i} className="inline-flex items-center gap-2 mx-8 text-[0.75rem] font-semibold text-white/50">
               {item}
-              <span className={`w-1 h-1 rounded-full ${dark ? 'bg-slate-700' : 'bg-slate-300'}`} />
+              <span className="w-1 h-1 rounded-full bg-white/20" />
             </span>
           ))}
         </div>
@@ -26,32 +26,31 @@ export default function Footer({ dark }) {
         <div className="text-[1.2rem] font-black tracking-[-0.03em] mb-3 inline-block" style={{ background: "linear-gradient(135deg,#FF9933,#f97316,#1a237e)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
           {t('footer.title')}
         </div>
-        <p className="text-[0.9rem] font-medium text-slate-700 dark:text-slate-300 max-w-md mx-auto leading-relaxed">{t('footer.description')}</p>
-        <p className={`mt-1.5 text-[0.82rem] max-w-lg mx-auto ${dark ? 'text-white' : 'text-slate-700'}`}>
+        <p className="text-[0.9rem] font-medium text-white/60 max-w-md mx-auto leading-relaxed">{t('footer.description')}</p>
+        <p className="mt-1.5 text-[0.82rem] max-w-lg mx-auto text-white/45">
           {t('footer.disclaimer')}
         </p>
 
         <div className="flex items-center justify-center flex-wrap gap-4 md:gap-6 mt-6">
           {['#overview', '#eligibility', '#guide', '#stateinfo', '#faq'].map(href => (
             <a key={href} href={href}
-              className={`text-[0.8rem] font-semibold transition-colors hover:text-indigo-500 no-underline capitalize
-                ${dark ? 'text-white' : 'text-slate-700'}`}>
+              className="text-[0.8rem] font-semibold transition-colors hover:text-[#FF9933] no-underline capitalize text-white/50">
               {href.replace('#', '')}
             </a>
           ))}
         </div>
 
         <div className="flex items-center justify-center flex-wrap gap-4 md:gap-6 mt-4">
-          <a href="#" className={`text-[0.8rem] transition-colors hover:text-indigo-500 no-underline ${dark ? 'text-white' : 'text-slate-700'}`}>{t('footer.about')}</a>
-          <a href="#" className={`text-[0.8rem] transition-colors hover:text-indigo-500 no-underline ${dark ? 'text-white' : 'text-slate-700'}`}>{t('footer.privacy')}</a>
+          <a href="#" className="text-[0.8rem] transition-colors hover:text-[#FF9933] no-underline text-white/50">{t('footer.about')}</a>
+          <a href="#" className="text-[0.8rem] transition-colors hover:text-[#FF9933] no-underline text-white/50">{t('footer.privacy')}</a>
           <a href="https://eci.gov.in/" target="_blank" rel="noopener noreferrer"
-            className={`text-[0.8rem] transition-colors hover:text-indigo-500 no-underline whitespace-nowrap flex items-center gap-1 ${dark ? 'text-white' : 'text-slate-700'}`}>
+            className="text-[0.8rem] transition-colors hover:text-[#FF9933] no-underline whitespace-nowrap flex items-center gap-1 text-white/50">
             {t('footer.eci')}
           </a>
         </div>
 
         <p className="mt-6">
-          <a href="#overview" className={`text-[0.8rem] font-semibold transition-all hover:text-indigo-500 hover:-translate-y-0.5 inline-block ${dark ? 'text-white' : 'text-slate-700'}`}>
+          <a href="#overview" className="text-[0.8rem] font-semibold transition-all hover:text-[#FF9933] hover:-translate-y-0.5 inline-block text-white/50">
             {t('footer.backToTop')}
           </a>
         </p>

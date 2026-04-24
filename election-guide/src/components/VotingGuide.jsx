@@ -50,21 +50,21 @@ export default function VotingGuide({ dark, completed, onComplete }) {
           const isOpen = openIdx === i
           return (
             <div key={i} className={`rounded-2xl border overflow-hidden transition-all duration-300
-              ${isDone ? dark ? 'border-emerald-800/40 bg-gray-900' : 'border-emerald-200/60 bg-white'
-                       : dark ? 'border-violet-900/20 bg-gray-900' : 'border-indigo-100/60 bg-white'}
-              ${isOpen ? 'shadow-card-hover scale-[1.005]' : 'shadow-card hover:shadow-card-hover hover:scale-[1.002]'}`}>
+              ${isDone ? dark ? 'border-emerald-800/40 bg-[#0B1E3C]/80' : 'border-emerald-400/30 bg-[#0B1E3C]'
+                       : dark ? 'border-white/10 bg-[#0B1E3C]/80' : 'border-white/10 bg-[#0B1E3C]'}
+              ${isOpen ? 'shadow-[0_8px_40px_rgba(255,106,0,0.2)] scale-[1.005]' : 'shadow-[0_4px_20px_rgba(11,30,60,0.18)] hover:shadow-[0_8px_32px_rgba(255,106,0,0.15)] hover:scale-[1.002]'}`}>
 
               <button onClick={() => toggle(i)} aria-expanded={isOpen}
                 className={`w-full flex items-center gap-4 px-6 py-5 text-left transition-colors duration-200
-                  ${dark ? 'hover:bg-white/5' : 'hover:bg-slate-50/80'}`}>
+                  ${dark ? 'hover:bg-white/5' : 'hover:bg-white/5'}`}>
                 <div className={`w-11 h-11 rounded-full flex items-center justify-center text-[0.95rem] font-black flex-shrink-0 transition-all duration-300
                   ${isDone ? 'bg-gradient-to-br from-emerald-500 to-teal-500 text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)]'
                            : 'bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-glow' + (isOpen ? ' scale-110' : '')}`}>
                   {isDone ? '✓' : step.icon}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className={`font-extrabold text-[1.02rem] tracking-[-0.025em] ${dark ? 'text-white' : 'text-gray-900'}`}>{step.title}</div>
-                  <div className={`text-[0.82rem] mt-0.5 ${dark ? 'text-white' : 'text-slate-700'}`}>
+                <div className={`flex-1 min-w-0`}>
+                  <div className={`font-extrabold text-[1.02rem] tracking-[-0.025em] text-white`}>{step.title}</div>
+                  <div className={`text-[0.82rem] mt-0.5 text-white/65`}>
                     {isDone ? t('guide.completed') : step.subtitle}
                   </div>
                 </div>
@@ -81,20 +81,18 @@ export default function VotingGuide({ dark, completed, onComplete }) {
               </button>
 
               <Collapsible open={isOpen}>
-                <div className={`border-t px-6 pb-6 ${dark ? 'border-white/5' : 'border-indigo-50'}`}>
-                  <p className={`text-[0.92rem] leading-relaxed mt-5 mb-4 ${dark ? 'text-white' : 'text-slate-700'}`}>{step.body}</p>
+                <div className={`border-t px-6 pb-6 border-white/10`}>
+                  <p className={`text-[0.92rem] leading-relaxed mt-5 mb-4 text-white/80`}>{step.body}</p>
                   <div className="flex flex-col gap-2.5">
                     {step.items.map((item, j) => (
                       <div key={j} className={`flex gap-3 items-start rounded-xl p-3.5 border transition-all duration-200
-                        ${dark ? 'bg-white/5 border-white/5 hover:border-indigo-700/40 hover:bg-indigo-950/30'
-                               : 'bg-slate-50 border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/50'}`}>
-                        <div className={`w-8 h-8 rounded-[9px] flex items-center justify-center text-[0.9rem] flex-shrink-0 border
-                          ${dark ? 'bg-indigo-950/60 border-indigo-800/40' : 'bg-gradient-to-br from-indigo-50 to-violet-50 border-indigo-100'}`}>
+                        bg-white/5 border-white/10 hover:border-[#FF6A00]/40 hover:bg-[#FF6A00]/5`}>
+                        <div className={`w-8 h-8 rounded-[9px] flex items-center justify-center text-[0.9rem] flex-shrink-0 border bg-[#FF6A00]/20 border-[#FF6A00]/30`}>
                           {item.icon}
                         </div>
                         <div>
-                          <strong className={`block font-extrabold text-[0.88rem] mb-0.5 ${dark ? 'text-white' : 'text-gray-800'}`}>{item.title}</strong>
-                          <span className={`text-[0.84rem] ${dark ? 'text-white' : 'text-slate-700'}`}>{item.desc}</span>
+                          <strong className={`block font-extrabold text-[0.88rem] mb-0.5 text-white`}>{item.title}</strong>
+                          <span className={`text-[0.84rem] text-white/70`}>{item.desc}</span>
                         </div>
                       </div>
                     ))}

@@ -74,7 +74,9 @@ export default function App() {
     if (stepMap[idx] !== undefined) setCurrentStep(s => Math.max(s, stepMap[idx]))
   }
 
-  const bg = dark ? 'bg-[#0a0d1f] bg-mesh-dark' : 'bg-[#fff8f0] bg-mesh-light'
+  const bg = dark
+    ? 'bg-[#0a0d1f] bg-mesh-dark'
+    : 'bg-[#fdf6ee]'
 
   return (
     <div className={`min-h-screen ${bg} transition-colors duration-300 dark:text-slate-100`}>
@@ -92,12 +94,12 @@ export default function App() {
       {/* Decorative Wave Transition */}
       <div className="w-full relative z-10 leading-none -mt-1 overflow-hidden pointer-events-none">
         <svg className="block w-full h-[35px] sm:h-[50px] md:h-[70px]" preserveAspectRatio="none" viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0C240 70 480 70 720 35C960 0 1200 0 1440 35V70H0V0Z" fill={dark ? "#0a0d1f" : "#fff8f0"} />
+          <path d="M0 0C240 70 480 70 720 35C960 0 1200 0 1440 35V70H0V0Z" fill={dark ? "#0a0d1f" : "#fdf6ee"} />
         </svg>
       </div>
 
       {/* Authority logos bar */}
-      <div className={`border-b py-3 px-6 ${dark ? 'bg-[#0d1757]/80 border-white/[0.07]' : 'bg-white border-[#1a237e]/10'}`}>
+      <div className={`border-b py-3 px-6 ${dark ? 'bg-[#0d1757]/80 border-white/[0.07]' : 'bg-[#fdf6ee] border-[#FF6A00]/10'}`}>
         <div className="max-w-5xl mx-auto flex items-center justify-center gap-6 flex-wrap">
           {[
             { src: '/logos/eci.svg', name: 'Election Commission of India', url: 'https://eci.gov.in' },
@@ -121,7 +123,9 @@ export default function App() {
         dark={dark}
       />
 
-      <main className="max-w-5xl mx-auto px-6 py-16 space-y-20" id="main-content">
+      <main className="max-w-5xl mx-auto px-6 py-16 space-y-20" id="main-content" style={dark ? {} : {
+        background: 'linear-gradient(180deg, #fdf6ee 0%, #ffeedd 18%, #fff0e6 40%, #f5eeff 65%, #ffeedd 85%, #fdf6ee 100%)',
+      }}>
         <Overview dark={dark} />
         <Timeline dark={dark} selectedState={selectedState} />
         <EligibilityChecker
