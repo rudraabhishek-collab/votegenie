@@ -200,27 +200,27 @@ function FloatingStateCard() {
   return (
     <div className="absolute right-4 top-16 md:right-8 md:top-20 z-20 pointer-events-none"
       style={{ transform: 'rotate(2.5deg)', animation: 'fadeUp 0.8s 0.9s ease both' }}>
-      <div className="bg-white border border-[#1a237e]/20 rounded-2xl px-4 py-3.5 shadow-[0_8px_32px_rgba(26,35,126,0.15)] min-w-[170px]">
+      <div className="bg-white/10 border border-white/20 rounded-2xl px-4 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.3)] min-w-[170px] backdrop-blur-md">
         <div className="flex items-center gap-2 mb-2.5">
           <span className="text-base">{c.flag}</span>
-          <span className="font-black text-[0.85rem] text-[#1a237e]">{c.state}</span>
+          <span className="font-black text-[0.85rem] text-white">{c.state}</span>
           <span className="ml-auto w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
         </div>
         <div className="space-y-1">
-          <p className="text-[0.68rem] text-slate-500 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
             <span className="text-[#FF9933]">🗳️</span>
-            <span className="font-semibold text-[#1a237e]">{c.next}</span>
+            <span className="font-semibold text-white/90">{c.next}</span>
           </p>
-          <p className="text-[0.68rem] text-slate-500 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
             <span className="text-[#FF9933]">👤</span>
-            <span className="font-semibold text-[#1a237e]">{c.cm}</span>
+            <span className="font-semibold text-white/90">{c.cm}</span>
           </p>
-          <p className="text-[0.68rem] text-slate-500 flex items-center gap-1.5">
+          <p className="text-[0.68rem] text-white/60 flex items-center gap-1.5">
             <span className="text-[#FF9933]">🏛️</span>
-            <span className="font-semibold text-[#1a237e]">{c.party}</span>
+            <span className="font-semibold text-white/90">{c.party}</span>
           </p>
         </div>
-        <p className="text-[0.58rem] text-slate-500 mt-2 text-right">Live · ECI Data</p>
+        <p className="text-[0.58rem] text-white/50 mt-2 text-right">Live · ECI Data</p>
       </div>
     </div>
   )
@@ -263,8 +263,8 @@ function QuickActions() {
           className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[0.8rem] font-bold
             border transition-all duration-200 hover:-translate-y-0.5 active:scale-95
             ${active === i
-              ? 'bg-[#1a237e] border-[#1a237e] text-white shadow-md'
-              : 'bg-white border-[#1a237e]/20 text-[#1a237e] hover:bg-[#f0f4ff] hover:border-[#1a237e]/40 shadow-sm hover:shadow-md'
+              ? 'bg-white/25 border-white/40 text-white shadow-md'
+              : 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30 shadow-sm hover:shadow-md'
             }`}>
           <span>{a.icon}</span>{a.label}
         </button>
@@ -361,15 +361,15 @@ export default function Hero({ onOpenAssistant }) {
             { src: '/logos/emblem.svg', name: 'Govt. of India', url: 'https://india.gov.in' },
           ].map(logo => (
             <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-1 shadow-md hover:shadow-lg">
-              <img src={logo.src} alt={logo.name} className="w-8 h-8" />
-              <span className="text-[0.7rem] font-bold text-[#1a237e] block">{logo.name}</span>
+              className="flex items-center gap-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-1 shadow-md hover:shadow-lg backdrop-blur-sm">
+              <img src={logo.src} alt={logo.name} className="w-8 h-8 brightness-0 invert" />
+              <span className="text-[0.7rem] font-bold text-white hidden sm:block">{logo.name}</span>
             </a>
           ))}
         </div>
 
         {/* Live badge */}
-        <div className="inline-flex items-center gap-2.5 bg-white border border-[#FF9933]/40 rounded-full text-[0.75rem] font-extrabold tracking-[0.08em] uppercase px-5 py-2 mb-6 text-[#1a237e] shadow-md"
+        <div className="inline-flex items-center gap-2.5 bg-white/10 border border-white/20 rounded-full text-[0.75rem] font-extrabold tracking-[0.08em] uppercase px-5 py-2 mb-6 text-white shadow-md backdrop-blur-sm"
           style={{ animation: 'fadeUp 0.6s 0.1s ease both' }}>
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
@@ -435,8 +435,8 @@ export default function Hero({ onOpenAssistant }) {
           ].map(btn => (
             <a key={btn.href} href={btn.href}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-[0.9rem]
-                text-[#1a237e] bg-white border border-white/30 shadow-md
-                hover:bg-[#f0f4ff] hover:-translate-y-1 hover:shadow-lg no-underline transition-all duration-200">
+                text-white bg-white/10 border border-white/20 shadow-md backdrop-blur-sm
+                hover:bg-white/20 hover:-translate-y-1 hover:shadow-lg no-underline transition-all duration-200">
               <span>{btn.icon}</span>
               {btn.label}
             </a>
@@ -464,12 +464,12 @@ export default function Hero({ onOpenAssistant }) {
           ].map(b => (
             <a key={b.text} href={b.href || '#'} target={b.href ? '_blank' : '_self'} rel="noopener noreferrer"
               onClick={b.href ? undefined : e => e.preventDefault()}
-              className="flex items-center gap-2.5 bg-white border border-[#1a237e]/15 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
+              className="flex items-center gap-2.5 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 no-underline transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-md backdrop-blur-sm"
               style={{ cursor: b.href ? 'pointer' : 'default' }}>
               <span className="text-lg">{b.icon}</span>
               <div className="text-left">
-                <p className="text-[0.78rem] font-extrabold text-[#1a237e] leading-none">{b.text}</p>
-                <p className="text-[0.68rem] text-[#1a237e]/70 leading-none mt-0.5">{b.sub}</p>
+                <p className="text-[0.78rem] font-extrabold text-white leading-none">{b.text}</p>
+                <p className="text-[0.68rem] text-white/60 leading-none mt-0.5">{b.sub}</p>
               </div>
               {b.href && <span className="text-[0.65rem] text-[#FF9933] ml-1 font-bold">↗</span>}
             </a>
