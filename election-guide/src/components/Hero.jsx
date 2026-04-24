@@ -39,30 +39,30 @@ function FloatingStateCard() {
   const c = cards[idx]
   return (
     <div
-      className="absolute right-4 top-16 md:right-8 md:top-20 z-20 pointer-events-none"
-      style={{ transform: 'rotate(2.5deg)', animation: 'fadeUp 0.8s 0.9s ease both', opacity: 0 }}
+      className="absolute right-6 top-24 md:right-12 md:top-32 z-20 pointer-events-none"
+      style={{ animation: 'fadeUp 0.8s 0.9s ease both', opacity: 0 }}
     >
-      <div className="bg-[rgba(13,23,87,0.90)] backdrop-blur-md border border-white/30 rounded-2xl px-4 py-3.5 shadow-lg min-w-[170px]">
-        <div className="flex items-center gap-2 mb-2.5">
-          <span className="text-base">{c.flag}</span>
-          <span className="font-black text-[0.85rem] text-white">{c.state}</span>
-          <span className="ml-auto w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+      <div className="bg-[#0B1E3C] backdrop-blur-md border border-white/20 rounded-[20px] px-5 py-4 shadow-[0_8px_32px_rgba(0,0,0,0.25)] min-w-[200px]">
+        <div className="flex items-center gap-2.5 mb-3">
+          <span className="text-lg">{c.flag}</span>
+          <span className="font-bold text-[0.95rem] text-white">{c.state}</span>
+          <span className="ml-auto w-2 h-2 rounded-full bg-green-400 animate-pulse" />
         </div>
-        <div className="space-y-1">
-          <p className="text-[0.68rem] text-white/90 flex items-center gap-1.5">
-            <span className="text-[#FF9933]">🗳️</span>
-            <span className="font-semibold text-white">{c.next}</span>
+        <div className="space-y-2">
+          <p className="text-[0.75rem] text-white/95 flex items-center gap-2">
+            <span className="text-[#FF6A00]">📅</span>
+            <span className="font-semibold">{c.next}</span>
           </p>
-          <p className="text-[0.68rem] text-white/90 flex items-center gap-1.5">
-            <span className="text-[#FF9933]">👤</span>
-            <span className="font-semibold text-white">{c.cm}</span>
+          <p className="text-[0.75rem] text-white/95 flex items-center gap-2">
+            <span className="text-[#FF6A00]">👤</span>
+            <span className="font-semibold">{c.cm}</span>
           </p>
-          <p className="text-[0.68rem] text-white/90 flex items-center gap-1.5">
-            <span className="text-[#FF9933]">🏛️</span>
-            <span className="font-semibold text-white">{c.party}</span>
+          <p className="text-[0.75rem] text-white/95 flex items-center gap-2">
+            <span className="text-[#FF6A00]">🏛️</span>
+            <span className="font-semibold">{c.party}</span>
           </p>
         </div>
-        <p className="text-[0.58rem] text-white/70 mt-2 text-right">Live · ECI Data</p>
+        <p className="text-[0.65rem] text-white/60 mt-3 text-right font-medium">Live · ECI Data</p>
       </div>
     </div>
   )
@@ -82,81 +82,78 @@ export default function Hero({ onOpenAssistant }) {
     <section
       className="relative overflow-hidden text-center"
       style={{
-        minHeight: '92vh',
-        background: 'linear-gradient(135deg, #FF9933 0%, #fb923c 20%, #fbbf24 40%, #c4b5fd 65%, #a78bfa 85%, #7c3aed 100%)',
+        minHeight: '95vh',
+        background: 'linear-gradient(135deg, #f3e7ff 0%, #ffd4b8 35%, #ffcba8 60%, #e8d5ff 100%)',
       }}
       aria-labelledby="hero-heading"
     >
-      {/* Ashoka Chakra watermark */}
-      <div aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.02]">
-        <svg viewBox="0 0 200 200" className="w-[680px] h-[680px]">
-          <circle cx="100" cy="100" r="92" fill="none" stroke="#1a237e" strokeWidth="2"/>
-          <circle cx="100" cy="100" r="12" fill="#1a237e"/>
-          {Array.from({ length: 24 }, (_, i) => {
-            const a = (i * 15 - 90) * Math.PI / 180
-            const x1 = 100 + 20 * Math.cos(a), y1 = 100 + 20 * Math.sin(a)
-            const x2 = 100 + 90 * Math.cos(a), y2 = 100 + 90 * Math.sin(a)
-            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#1a237e" strokeWidth="1.5"/>
-          })}
-        </svg>
-      </div>
-
       <FloatingStateCard />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-32 flex flex-col items-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-32 flex flex-col items-center">
 
-        {/* Floating info cards */}
+        {/* Top badges row - Authority logos */}
         <div
-          className="absolute left-8 top-24 md:left-16 md:top-32 z-20 pointer-events-none"
-          style={{ transform: 'rotate(-3deg)', animation: 'fadeUp 0.8s 0.7s ease both', opacity: 0 }}
+          className="flex items-center justify-center gap-4 mb-8 flex-wrap"
+          style={{ animation: 'fadeUp 0.5s 0.1s ease both', opacity: 0 }}
         >
-          <div className="bg-[rgba(13,23,87,0.90)] backdrop-blur-md border border-white/30 rounded-2xl px-5 py-4 shadow-lg min-w-[160px]">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">🗳️</span>
-              <span className="font-black text-[0.9rem] text-white">Voter ID</span>
+          {[
+            { icon: '🏛️', name: 'Election Commission of India' },
+            { icon: '🗳️', name: 'NVSP — Voter Service Portal' },
+            { icon: '🇮🇳', name: 'Govt. of India' },
+          ].map((badge, i) => (
+            <div
+              key={i}
+              className="inline-flex items-center gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-[18px] px-5 py-3 shadow-lg"
+            >
+              <span className="text-xl">{badge.icon}</span>
+              <span className="text-[0.8rem] font-bold text-white hidden sm:inline">{badge.name}</span>
             </div>
-            <p className="text-[0.7rem] text-white/90 leading-relaxed">
-              Register online via NVSP portal
-            </p>
-          </div>
+          ))}
         </div>
 
+        {/* Small tagline badge */}
         <div
-          className="absolute left-8 top-56 md:left-20 md:top-72 z-20 pointer-events-none"
-          style={{ transform: 'rotate(2deg)', animation: 'fadeUp 0.8s 0.9s ease both', opacity: 0 }}
+          className="inline-flex items-center gap-2.5 bg-[#0B1E3C] border border-white/10 rounded-full text-[0.7rem] font-extrabold tracking-[0.08em] uppercase px-6 py-2.5 mb-10 text-white shadow-md"
+          style={{ animation: 'fadeUp 0.5s 0.2s ease both', opacity: 0 }}
         >
-          <div className="bg-[rgba(13,23,87,0.90)] backdrop-blur-md border border-white/30 rounded-2xl px-5 py-4 shadow-lg min-w-[140px]">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">👤</span>
-              <span className="font-black text-[0.9rem] text-white">Profile</span>
-            </div>
-            <p className="text-[0.7rem] text-white/90 leading-relaxed">
-              Track your registration status
-            </p>
-          </div>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+          </span>
+          First-Time Voter Assistant · India 2026
         </div>
 
-        {/* Headline */}
+        {/* Main Heading - MAXIMUM VISIBILITY */}
         <h1
           id="hero-heading"
-          className="text-[clamp(3rem,8vw,5.5rem)] font-black leading-[1.05] tracking-tight mb-6 relative z-10"
+          className="font-black leading-[1.1] tracking-tight mb-8 relative z-10"
           style={{ 
-            animation: 'fadeUp 0.55s 0.2s ease both', 
-            opacity: 0
+            animation: 'fadeUp 0.6s 0.3s ease both', 
+            opacity: 0,
+            fontSize: 'clamp(3.5rem, 9vw, 4.5rem)'
           }}
         >
-          <span className="text-[#0d1757] drop-shadow-lg text-opacity-100">Your vote matters.</span>
-          <br />
-          <span className="text-[#FF6B1A] drop-shadow-lg text-opacity-100">
+          <span className="block text-[#0B1E3C] font-black drop-shadow-sm mb-2">
+            Your vote matters.
+          </span>
+          <span 
+            className="block font-black"
+            style={{
+              background: 'linear-gradient(135deg, #FF6A00 0%, #FF4500 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
             Let's make it count.
           </span>
         </h1>
 
-        {/* Subheading */}
+        {/* Subtext */}
         <p
-          className="text-[1.05rem] text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed font-medium relative z-10"
+          className="text-[1.125rem] text-[#0B1E3C]/70 max-w-[700px] mx-auto mb-12 leading-relaxed font-medium relative z-10"
           style={{ 
-            animation: 'fadeUp 0.55s 0.3s ease both', 
+            animation: 'fadeUp 0.6s 0.4s ease both', 
             opacity: 0
           }}
         >
@@ -167,17 +164,17 @@ export default function Hero({ onOpenAssistant }) {
         {/* Primary CTA */}
         <div
           className="flex flex-col items-center gap-3"
-          style={{ animation: 'fadeUp 0.55s 0.4s ease both', opacity: 0 }}
+          style={{ animation: 'fadeUp 0.6s 0.5s ease both', opacity: 0 }}
         >
           <button
             onClick={handleStart}
             disabled={loading}
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-semibold text-[1.1rem]
-              text-white shadow-md
-              hover:shadow-[0_12px_48px_rgba(255,153,51,0.65)]
-              hover:-translate-y-1 disabled:opacity-70 disabled:cursor-wait transition-all duration-300"
+            className="inline-flex items-center gap-3 px-10 py-5 rounded-[20px] font-bold text-[1.125rem]
+              text-white shadow-[0_8px_32px_rgba(255,106,0,0.4)]
+              hover:shadow-[0_12px_48px_rgba(255,106,0,0.5)]
+              hover:scale-105 disabled:opacity-70 disabled:cursor-wait transition-all duration-300"
             style={{
-              background: 'linear-gradient(135deg, #FF9933 0%, #f97316 50%, #ea580c 100%)',
+              background: 'linear-gradient(135deg, #FF6A00 0%, #FF4500 100%)',
             }}
           >
             {loading ? (
@@ -190,25 +187,18 @@ export default function Hero({ onOpenAssistant }) {
               </>
             ) : (
               <>
-                <span className="text-xl">🗳️</span>
+                <span className="text-xl">☑️</span>
                 <span>Check if you can vote in India</span>
                 <span className="text-lg">→</span>
               </>
             )}
           </button>
 
-          <p className="text-[0.75rem] text-gray-700 dark:text-gray-300 font-semibold tracking-wide">
+          <p className="text-[0.8rem] text-[#0B1E3C]/60 font-semibold tracking-wide">
             Takes less than 2 minutes · No account needed · Powered by ECI &amp; NVSP
           </p>
         </div>
       </div>
-
-      {/* Bottom fade */}
-      <div
-        aria-hidden
-        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, rgba(124,58,237,0.2))' }}
-      />
     </section>
   )
 }
