@@ -83,8 +83,7 @@ export function checkEligibility(age, citizenship, registered, stateData = null)
     }
   }
 
-  if (registered === 'no') {
-    return {
+  if (registered === 'no') {    return {
       type: 'maybe',
       icon: '📝',
       title: 'Eligible — But Not Registered',

@@ -1,14 +1,16 @@
 /**
  * firebase.js — Firebase / Firestore integration for VoteGenie.
  *
- * What we store (anonymously, no PII):
- *   - eligibility_checks: age-group, citizenship type, result type, state code, timestamp
- *   - chat_messages:      intent key matched, timestamp
+ * Collections:
+ *   eligibility_checks  — anonymised eligibility results (read + write)
+ *   chat_messages       — anonymised chat intents (write)
  *
- * Environment variables (set in .env.local):
+ * Environment variables (.env.local):
  *   VITE_FIREBASE_API_KEY
  *   VITE_FIREBASE_AUTH_DOMAIN
  *   VITE_FIREBASE_PROJECT_ID
+ *   VITE_FIREBASE_STORAGE_BUCKET
+ *   VITE_FIREBASE_MESSAGING_SENDER_ID
  *   VITE_FIREBASE_APP_ID
  */
 
@@ -17,10 +19,14 @@ import {
   getFirestore,
   collection,
   addDoc,
+  getDocs,
+  query,
+  orderBy,
+  limit,
   serverTimestamp,
 } from 'firebase/firestore'
 
-// ─── Config from env ───────────────────────────────────────────────────────
+// ─── Config ────────────────────────────────────────────────────────────────
 const firebaseConfig = {
   apiKey:            import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain:        import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -30,47 +36,76 @@ const firebaseConfig = {
   appId:             import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
-// ─── Init (singleton — safe to call multiple times) ────────────────────────
-let app
-let db
-
+/** Returns the Firestore instance, or null if Firebase is not configured. */
 function getDB() {
-  if (!firebaseConfig.apiKey) {
-    // Firebase not configured — silently skip (dev / test environments)
-    return null
-  }
-  if (!app) {
-    app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig)
-    db  = getFirestore(app)
-  }
-  return db
+  if (!firebaseConfig.apiKey) return null
+  if (!getApps().length) initializeApp(firebaseConfig)
+  return getFirestore(getApps()[0])
 }
 
-// ─── Public API ────────────────────────────────────────────────────────────
+// ─── Write: Eligibility Check ──────────────────────────────────────────────
 
 /**
- * Log an anonymised eligibility check result to Firestore.
- * Stores only non-PII aggregate data.
+ * Save an anonymised eligibility check to Firestore.
+ * Returns the new document ID, or null on failure.
  *
- * @param {{ age: number, citizenship: string, resultType: string, stateCode: string }} data
+ * @param {{ age: number, citizenship: string, resultType: string, stateCode: string, stateLabel: string }} data
+ * @returns {Promise<string|null>}
  */
-export async function logEligibilityCheck({ age, citizenship, resultType, stateCode }) {
-  const firestore = getDB()
-  if (!firestore) return
-
+export async function logEligibilityCheck({ age, citizenship, resultType, stateCode, stateLabel }) {
+  const db = getDB()
+  if (!db) return null
   try {
-    await addDoc(collection(firestore, 'eligibility_checks'), {
-      ageGroup:    getAgeGroup(age),   // e.g. "18-25" — never exact age
-      citizenship,                      // 'citizen' | 'nri' | 'foreign'
-      resultType,                       // 'eligible' | 'ineligible' | 'maybe'
-      stateCode:   stateCode || 'unknown',
-      timestamp:   serverTimestamp(),
+    const ref = await addDoc(collection(db, 'eligibility_checks'), {
+      ageGroup:   getAgeGroup(age),
+      citizenship,
+      resultType,
+      stateCode:  stateCode  || 'unknown',
+      stateLabel: stateLabel || 'Unknown',
+      timestamp:  serverTimestamp(),
     })
+    return ref.id
   } catch (err) {
-    // Non-critical — never block the UI for analytics
-    console.warn('[VoteGenie] Firebase log failed:', err.message)
+    console.warn('[VoteGenie] Firebase write failed:', err.message)
+    return null
   }
 }
+
+// ─── Read: Recent Activity ─────────────────────────────────────────────────
+
+/**
+ * Fetch the N most recent eligibility checks from Firestore.
+ * Returns an array of plain objects (safe to render).
+ *
+ * @param {number} n  - Number of records to fetch (default 5)
+ * @returns {Promise<Array>}
+ */
+export async function getRecentChecks(n = 5) {
+  const db = getDB()
+  if (!db) return []
+  try {
+    const q = query(
+      collection(db, 'eligibility_checks'),
+      orderBy('timestamp', 'desc'),
+      limit(n)
+    )
+    const snap = await getDocs(q)
+    return snap.docs.map(doc => ({
+      id:         doc.id,
+      ageGroup:   doc.data().ageGroup   || '—',
+      citizenship:doc.data().citizenship|| '—',
+      resultType: doc.data().resultType || '—',
+      stateLabel: doc.data().stateLabel || '—',
+      // Convert Firestore Timestamp → ISO string safely
+      timestamp:  doc.data().timestamp?.toDate?.()?.toISOString() || null,
+    }))
+  } catch (err) {
+    console.warn('[VoteGenie] Firebase read failed:', err.message)
+    return []
+  }
+}
+
+// ─── Write: Chat Message ───────────────────────────────────────────────────
 
 /**
  * Log an anonymised chat intent to Firestore.
@@ -78,23 +113,23 @@ export async function logEligibilityCheck({ age, citizenship, resultType, stateC
  * @param {{ intentKey: string, language: string }} data
  */
 export async function logChatMessage({ intentKey, language }) {
-  const firestore = getDB()
-  if (!firestore) return
-
+  const db = getDB()
+  if (!db) return
   try {
-    await addDoc(collection(firestore, 'chat_messages'), {
+    await addDoc(collection(db, 'chat_messages'), {
       intentKey: intentKey || 'fallback',
       language:  language  || 'en',
       timestamp: serverTimestamp(),
     })
   } catch (err) {
-    console.warn('[VoteGenie] Firebase log failed:', err.message)
+    console.warn('[VoteGenie] Firebase write failed:', err.message)
   }
 }
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
 
-function getAgeGroup(age) {
+/** Bucket an exact age into a non-PII age group string. */
+export function getAgeGroup(age) {
   const n = parseInt(age, 10)
   if (isNaN(n))  return 'unknown'
   if (n < 18)    return 'under-18'
@@ -103,4 +138,9 @@ function getAgeGroup(age) {
   if (n <= 50)   return '36-50'
   if (n <= 65)   return '51-65'
   return '65+'
+}
+
+/** Returns true if Firebase is configured via env vars. */
+export function isFirebaseConfigured() {
+  return Boolean(firebaseConfig.apiKey)
 }

@@ -11,7 +11,7 @@ import { searchIndex } from '../data'
  * @returns {string|null}
  */
 export function handleSearch(query) {
-  if (!query || !query.trim()) return null
+  if (!query || typeof query !== 'string' || !query.trim()) return null
   const q = query.toLowerCase().trim()
 
   // Fast keyword shortcuts
@@ -39,7 +39,7 @@ export function handleSearch(query) {
  * @returns {Array}
  */
 export function searchItems(query, limit = 6) {
-  if (!query || query.trim().length < 2) return []
+  if (!query || typeof query !== 'string' || query.trim().length < 2) return []
   const q = query.toLowerCase().trim()
   return searchIndex
     .filter(

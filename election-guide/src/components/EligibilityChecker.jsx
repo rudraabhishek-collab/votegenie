@@ -158,6 +158,7 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
       citizenship: form.citizenship,
       resultType:  res.type,
       stateCode:   form.state,
+      stateLabel:  stateData?.label || 'Unknown',
     })
   }
 

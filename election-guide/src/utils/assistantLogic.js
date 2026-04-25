@@ -11,7 +11,7 @@
  * @returns {string|null} - i18n key path (e.g. 'chat.kb.eligible') or null
  */
 export function matchChatIntent(input) {
-  if (!input || !input.trim()) return null
+  if (!input || typeof input !== 'string' || !input.trim()) return null
   const text = input.toLowerCase().trim()
 
   if (/\bhi\b|\bhello\b|\bhey\b|\bnamaste\b|\bstart\b/i.test(text))          return 'chat.kb.greeting'

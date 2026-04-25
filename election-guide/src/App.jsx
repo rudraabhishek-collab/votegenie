@@ -16,6 +16,9 @@ import AuthModal from './components/AuthModal'
 import UserMenu from './components/UserMenu'
 import ElectionGallery from './components/ElectionGallery'
 import IndiaMap from './components/IndiaMap'
+import WhyVoteGenie from './components/WhyVoteGenie'
+import PollingBoothFinder from './components/PollingBoothFinder'
+import RecentActivity from './components/RecentActivity'
 
 const LS_STEP  = 'eg-journey-step'
 const LS_GUIDE = 'eg-guide-completed'
@@ -127,6 +130,7 @@ export default function App() {
         background: 'linear-gradient(180deg, #fdf6ee 0%, #ffeedd 18%, #fff0e6 40%, #f5eeff 65%, #ffeedd 85%, #fdf6ee 100%)',
       }}>
         <Overview dark={dark} />
+        <WhyVoteGenie dark={dark} />
         <Timeline dark={dark} selectedState={selectedState} />
         <EligibilityChecker
           dark={dark}
@@ -134,8 +138,10 @@ export default function App() {
           selectedState={selectedState}
           onStateChange={setSelectedState}
         />
+        <RecentActivity dark={dark} />
         <VotingGuide dark={dark} completed={guideCompleted} onComplete={handleGuideComplete} />
         <Documents dark={dark} />
+        <PollingBoothFinder dark={dark} />
         <ElectionGallery dark={dark} />
         <IndiaMap dark={dark} onStateSelect={setSelectedState} />
         <StateInfo dark={dark} />
