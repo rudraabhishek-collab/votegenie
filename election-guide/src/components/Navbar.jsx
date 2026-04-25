@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { searchIndex } from '../data'
+import { searchItems } from '../utils/search'
 import LanguageSwitcher from './LanguageSwitcher'
 import UserMenu from './UserMenu'
 
@@ -28,10 +29,7 @@ function NavSearch({ dark }) {
 
   useEffect(() => {
     if (query.length < 2) { setResults([]); setOpen(false); return }
-    const q = query.toLowerCase()
-    const hits = searchIndex
-      .filter(i => i.title.toLowerCase().includes(q) || i.keywords.includes(q))
-      .slice(0, 6)
+    const hits = searchItems(query, 6)
     setResults(hits)
     setOpen(hits.length > 0)
   }, [query])

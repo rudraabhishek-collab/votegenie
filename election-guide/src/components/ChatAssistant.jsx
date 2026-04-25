@@ -2,123 +2,45 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { scrollToSection } from './Hero'
 import { stateData } from '../data/stateData'
+import { matchChatIntent, parseMarkdown } from '../utils/assistantLogic'
+import { logChatMessage } from '../services/firebase'
 
 // ─── State info lookup for chat ────────────────────────────────────────────
 function getStateInfoReply(input, t) {
   const text = input.toLowerCase()
-  // Match "cm of X", "chief minister of X", "who rules X", "next election in X", "ruling party in X"
   const stateNames = Object.keys(stateData)
   for (const name of stateNames) {
     if (text.includes(name.toLowerCase())) {
       const d = stateData[name]
       if (/cm|chief minister|minister|who.*rule|leader|मुख्यमंत्री|सीएम|नेता/.test(text)) {
-        return t('chat.kb.stateInfoCM', {
-          name, cm: d.cm, cmParty: d.cmParty,
-          rulingAlliance: d.rulingAlliance, oppositionParty: d.oppositionParty,
-          defaultValue: `The Chief Minister of **${name}** is **${d.cm}** (${d.cmParty}).\n\nRuling Alliance: ${d.rulingAlliance}\nOpposition: ${d.oppositionParty}\n\n👉 See the **State Info** section for full details.`
-        })
+        return t('chat.kb.stateInfoCM', { name, cm: d.cm, cmParty: d.cmParty, rulingAlliance: d.rulingAlliance, oppositionParty: d.oppositionParty, defaultValue: `The Chief Minister of **${name}** is **${d.cm}** (${d.cmParty}).\n\nRuling Alliance: ${d.rulingAlliance}\nOpposition: ${d.oppositionParty}\n\n👉 See the **State Info** section for full details.` })
       }
       if (/next election|when.*election|election.*date|अगला चुनाव|चुनाव कब/.test(text)) {
-        return t('chat.kb.stateInfoElection', {
-          name, nextElection: d.nextElection, lastElection: d.lastElection, recentResult: d.recentResult,
-          defaultValue: `The next assembly election in **${name}** is expected in **${d.nextElection}**.\n\nLast election: ${d.lastElection}\nRecent result: ${d.recentResult}\n\n👉 See the **State Info** section for full details.`
-        })
+        return t('chat.kb.stateInfoElection', { name, nextElection: d.nextElection, lastElection: d.lastElection, recentResult: d.recentResult, defaultValue: `The next assembly election in **${name}** is expected in **${d.nextElection}**.\n\nLast election: ${d.lastElection}\nRecent result: ${d.recentResult}\n\n👉 See the **State Info** section for full details.` })
       }
       if (/ruling party|government|party in power|सत्तारूढ़|सरकार/.test(text)) {
-        return t('chat.kb.stateInfoParty', {
-          name, rulingParty: d.rulingParty, rulingAlliance: d.rulingAlliance,
-          cm: d.cm, oppositionParty: d.oppositionParty,
-          defaultValue: `The ruling party in **${name}** is **${d.rulingParty}** (${d.rulingAlliance}).\n\nCM: ${d.cm}\nOpposition: ${d.oppositionParty}\n\n👉 See the **State Info** section for full details.`
-        })
+        return t('chat.kb.stateInfoParty', { name, rulingParty: d.rulingParty, rulingAlliance: d.rulingAlliance, cm: d.cm, oppositionParty: d.oppositionParty, defaultValue: `The ruling party in **${name}** is **${d.rulingParty}** (${d.rulingAlliance}).\n\nCM: ${d.cm}\nOpposition: ${d.oppositionParty}\n\n👉 See the **State Info** section for full details.` })
       }
-      // Generic state query
-      return t('chat.kb.stateInfoGeneric', {
-        name, cm: d.cm, cmParty: d.cmParty,
-        rulingAlliance: d.rulingAlliance, nextElection: d.nextElection, recentResult: d.recentResult,
-        defaultValue: `Here's a quick summary for **${name}**:\n\n👤 CM: ${d.cm} (${d.cmParty})\n🏛️ Ruling: ${d.rulingAlliance}\n📅 Next Election: ${d.nextElection}\n📊 Last Result: ${d.recentResult}\n\n👉 See the **State Info** section for full details.`
-      })
+      return t('chat.kb.stateInfoGeneric', { name, cm: d.cm, cmParty: d.cmParty, rulingAlliance: d.rulingAlliance, nextElection: d.nextElection, recentResult: d.recentResult, defaultValue: `Here's a quick summary for **${name}**:\n\n👤 CM: ${d.cm} (${d.cmParty})\n🏛️ Ruling: ${d.rulingAlliance}\n📅 Next Election: ${d.nextElection}\n📊 Last Result: ${d.recentResult}\n\n👉 See the **State Info** section for full details.` })
     }
   }
   return null
 }
 
-// ─── India-specific knowledge base ────────────────────────────────────────
+// ─── Chat logic using extracted util ──────────────────────────────────────
 function chatbotLogic(input, t) {
   const text = input.trim()
   if (!text) return null
-  // Check state-specific queries first
   const stateReply = getStateInfoReply(text, t)
   if (stateReply) return stateReply
-  
-  // Use translation keys for responses
-  const lowerText = text.toLowerCase()
-  
-  if (/\bhi\b|\bhello\b|\bhey\b|\bnamaste\b|\bstart\b/i.test(lowerText)) {
-    return t('chat.kb.greeting')
-  }
-  if (/eligible|can i vote|qualify|who can vote/i.test(lowerText)) {
-    return t('chat.kb.eligible')
-  }
-  if (/nvsp|register|form 6|enroll|sign up/i.test(lowerText)) {
-    return t('chat.kb.register')
-  }
-  if (/epic|voter id|voter card|id card/i.test(lowerText)) {
-    return t('chat.kb.epic')
-  }
-  if (/aadhaar|aadhar/i.test(lowerText)) {
-    return t('chat.kb.aadhaar')
-  }
-  if (/evm|electronic voting|machine|reliable/i.test(lowerText)) {
-    return t('chat.kb.evm')
-  }
-  if (/vvpat|paper slip|verify vote/i.test(lowerText)) {
-    return t('chat.kb.vvpat')
-  }
-  if (/nota|none of the above/i.test(lowerText)) {
-    return t('chat.kb.nota')
-  }
-  if (/deadline|last date|when.*register|registration.*date/i.test(lowerText)) {
-    return t('chat.kb.deadline')
-  }
-  if (/document|bring|carry|need|require|booth/i.test(lowerText)) {
-    return t('chat.kb.documents')
-  }
-  if (/postal|absentee|away|different city|outside/i.test(lowerText)) {
-    return t('chat.kb.postal')
-  }
-  if (/mcc|model code|conduct/i.test(lowerText)) {
-    return t('chat.kb.mcc')
-  }
-  if (/cvigil|report|violation|complaint/i.test(lowerText)) {
-    return t('chat.kb.cvigil')
-  }
-  if (/helpline|1950|contact|phone|call/i.test(lowerText)) {
-    return t('chat.kb.helpline')
-  }
-  if (/secret|private|anonymous|who.*see|employer/i.test(lowerText)) {
-    return t('chat.kb.secret')
-  }
-  if (/nri|overseas|abroad|foreign.*indian/i.test(lowerText)) {
-    return t('chat.kb.nri')
-  }
-  if (/electoralsearch|check.*name|name.*roll|voter.*list/i.test(lowerText)) {
-    return t('chat.kb.electoralSearch')
-  }
-  if (/booth|polling station|where.*vote|location/i.test(lowerText)) {
-    return t('chat.kb.booth')
-  }
-  if (/how.*vote|voting day|election day|process|steps/i.test(lowerText)) {
-    return t('chat.kb.howToVote')
-  }
-  if (/thank|thanks|great|helpful|awesome|good/i.test(lowerText)) {
-    return t('chat.kb.thanks')
-  }
-  
+  const intentKey = matchChatIntent(text)
+  if (intentKey) return t(intentKey)
   return t('chat.kb.fallback')
 }
 
-// ─── Format bold **text** and newlines ────────────────────────────────────
+// ─── Format bold **text** and newlines using util ─────────────────────────
 function FormatMsg({ text }) {
+  const segments = parseMarkdown(text)
   return (
     <span>
       {text.split('\n').map((line, i, arr) => (
@@ -177,6 +99,9 @@ export default function ChatAssistant({ open, onClose, dark }) {
       const reply = chatbotLogic(msg, t)
       setMessages(m => [...m, { role: 'bot', text: reply }])
       setTyping(false)
+      // Log intent to Firebase (non-blocking)
+      const intentKey = matchChatIntent(msg)
+      logChatMessage({ intentKey, language: t('lang.selectLanguage') === 'भाषा' ? 'hi' : 'en' })
     }, 500 + Math.random() * 400)
   }, [input, t])
 

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { states, determineEligibility } from '../data'
 import SectionHeader from './SectionHeader'
+import { validateEligibilityForm, getEligibilityPreview } from '../utils/eligibility'
+import { logEligibilityCheck } from '../services/firebase'
 
 const LS_KEY = 'eg-elig-data'
 
@@ -13,9 +15,7 @@ function ageHint(age) {
   if (n < 18) return { type: 'warn', msg: `Almost there — you need to be ${18 - n} more year${18 - n > 1 ? 's' : ''} older.` }
   if (n >= 18 && n <= 120) return { type: 'ok', msg: '✓ Age requirement met.' }
   return { type: 'error', msg: 'Please enter a valid age.' }
-}
-
-function Hint({ hint }) {
+}function Hint({ hint }) {
   if (!hint) return null
   const colors = {
     ok:    'bg-emerald-50 text-emerald-700 border-emerald-200',
@@ -140,12 +140,9 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
   }
 
   const validate = () => {
-    const e = {}
-    if (!form.age || isNaN(form.age) || +form.age < 1 || +form.age > 120) e.age = 'Please enter a valid age.'
-    if (!form.citizenship) e.citizenship = 'Please select your citizenship status.'
-    if (!form.state) e.state = 'Please select your state / UT.'
-    setErrors(e)
-    return Object.keys(e).length === 0
+    const errs = validateEligibilityForm(form)
+    setErrors(errs)
+    return Object.keys(errs).length === 0
   }
 
   const handleSubmit = () => {
@@ -155,6 +152,13 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
     const res = determineEligibility(+form.age, form.citizenship, form.registered, stateData)
     setResult({ ...res, stateData, age: form.age, citizenship: form.citizenship, registered: form.registered })
     if (res.type === 'eligible') onEligible?.()
+    // Log anonymised result to Firebase (non-blocking)
+    logEligibilityCheck({
+      age:        +form.age,
+      citizenship: form.citizenship,
+      resultType:  res.type,
+      stateCode:   form.state,
+    })
   }
 
   const reset = () => { setResult(null); setErrors({}); setTouched({}) }
@@ -171,17 +175,9 @@ export default function EligibilityChecker({ dark, onEligible, selectedState, on
 
   const labelCls = `block text-[0.72rem] font-extrabold uppercase tracking-[0.08em] mb-1.5 ${dark ? 'text-slate-400' : 'text-[#0B1E3C]/60'}`
 
-  const livePreview = (() => {
-    if (result) return null
-    if (!form.age || !form.citizenship) return null
-    const n = parseInt(form.age)
-    if (isNaN(n)) return null
-    if (form.citizenship === 'foreign') return { type: 'ineligible', msg: 'Foreign nationals cannot vote in Indian elections.' }
-    if (form.citizenship === 'nri')     return { type: 'maybe',      msg: 'NRIs can vote in person at their registered constituency.' }
-    if (n < 18) return { type: 'ineligible', msg: `You need to be ${18 - n} more year${18 - n > 1 ? 's' : ''} older to vote.` }
-    if (n >= 18 && form.citizenship === 'citizen') return { type: 'eligible', msg: 'Looking good! Complete the form to confirm.' }
-    return null
-  })()
+  const livePreview = getEligibilityPreview(form.age, form.citizenship) && !result
+    ? getEligibilityPreview(form.age, form.citizenship)
+    : null
 
   const previewColors = {
     eligible:   dark ? 'bg-emerald-950/60 border-emerald-700/40 text-emerald-400' : 'bg-emerald-50 border-emerald-200 text-emerald-700',
